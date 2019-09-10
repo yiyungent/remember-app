@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    <router-link to="/CourseBox/Details/1">课程1</router-link>
     <h2>Essential Links</h2>
     <ul>
       <li>
@@ -85,7 +86,7 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
+  name: 'Home',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
