@@ -18,13 +18,12 @@ export default new Router({
     {
       path: '/CourseBox',
       name: 'CourseBox',
-      component: CourseBox,
-      children: [
-        {
-          path: '/CourseBox/Details/:id',
-          component: CourseBoxDetails
-        }
-      ]
+      component: CourseBox
+    },
+    {
+      name: 'CourseBoxDetails',
+      path: '/CourseBox/Details/:id',
+      component: CourseBoxDetails
     },
     {
       path: '/VuxDemo',
