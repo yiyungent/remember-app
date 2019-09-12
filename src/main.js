@@ -6,6 +6,7 @@ import router from './router'
 import store from './vuex'
 import axios from 'axios'
 import FastClick from 'fastclick'
+import { ViewBox } from 'vux'
 
 FastClick.attach(document.body)
 
@@ -20,6 +21,7 @@ axios.interceptors.request.use(function(response){
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.component('view-box', ViewBox)
 
 
 /* eslint-disable no-new */

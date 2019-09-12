@@ -2,8 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
 import CourseBox from '@/components/CourseBox'
-import CourseBoxDetails from '@/components/CourseBoxDetails'
-import VuxDemo from '@/components/VuxDemo'
+import CourseBoxCatalog from '@/components/CourseBoxCatalog'
+import CourseInfo from '@/components/CourseInfo'
 
 Vue.use(Router)
 
@@ -16,19 +16,19 @@ export default new Router({
       component: Home
     },
     {
-      path: '/CourseBox',
+      path: '/CourseBox/:id',
       name: 'CourseBox',
-      component: CourseBox
+      component: CourseBox,
+      meta: { tabbarItem: 0 },
+      children: [
+        {
+          // 当 /CourseBox/:id/Catalog 匹配成功，
+          // CourseBoxDetails 会被渲染在 CourseBox 的 <router-view> 中
+          path: 'Catalog',
+          component: CourseBoxCatalog,
+          meta: { tabbarItem: 2 }
+        }
+      ]
     },
-    {
-      name: 'CourseBoxDetails',
-      path: '/CourseBox/Details/:id',
-      component: CourseBoxDetails
-    },
-    {
-      path: '/VuxDemo',
-      name: 'VuxDemo',
-      component: VuxDemo
-    }
   ]
 })
