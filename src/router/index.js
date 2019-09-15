@@ -4,6 +4,7 @@ import Home from '@/components/Home'
 import CourseBox from '@/components/CourseBox'
 import CourseBoxCatalog from '@/components/CourseBoxCatalog'
 import CourseInfo from '@/components/CourseInfo'
+import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
 
@@ -11,13 +12,13 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
       name: 'Home',
+      path: '/',
       component: Home
     },
     {
-      path: '/CourseBox/:id',
       name: 'CourseBox',
+      path: '/CourseBox/:id',
       component: CourseBox,
       meta: { tabbarItem: 0 },
       children: [
@@ -30,5 +31,12 @@ export default new Router({
         }
       ]
     },
+    
+    // 404 错误页面
+    {
+      name: 'NotFound',
+      path: '*',
+      component: NotFound
+    }
   ]
 })

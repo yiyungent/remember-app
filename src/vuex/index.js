@@ -6,13 +6,16 @@ Vue.use(Vuex)
 
 
 const store = new Vuex.Store({
-  state: {
+  state: {      // this.$store.state.***
     count: 0
   },
-  mutations: {
+  mutations: {  // this.$store.commit('方法的名称', '按需传递唯一的参数')
     increment (state) {
       state.count++
     }
+  },
+  getters: {    // thus.$store.getters.***
+
   }
 })
 

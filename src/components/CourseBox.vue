@@ -62,7 +62,6 @@
     },
     computed: {
       menus: function () {
-        var menusResult = {};
         if (this.isILearn) {
           menusResult.menu1 = '取消学习';
         } else {
