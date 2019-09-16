@@ -18,7 +18,7 @@
             </v-list-item>
             <v-list-item link two-line>
               <v-list-item-content>
-                <v-list-item-title class="title">admin</v-list-item-title>
+                <v-list-item-title>admin</v-list-item-title>
                 <v-list-item-subtitle>硬币：267</v-list-item-subtitle>
               </v-list-item-content>
               <!-- <v-list-item-action>
@@ -31,7 +31,26 @@
       <!-- start 顶部头像区 -->
       <v-divider></v-divider>
       <!-- start 我的动态，关注，粉丝 -->
-
+      <v-list class="d-flex justify-space-between text-center">
+        <v-list-item :to="{ name: 'Home'}">
+          <v-list-item-content>
+            <v-list-item-title>1</v-list-item-title>
+            <v-list-item-subtitle>动态</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item :to="{ name: 'Home'}">
+          <v-list-item-content>
+            <v-list-item-title>25</v-list-item-title>
+            <v-list-item-subtitle>关注</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item :to="{ name: 'Home'}">
+          <v-list-item-content>
+            <v-list-item-title>25</v-list-item-title>
+            <v-list-item-subtitle>粉丝</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
       <!-- end 我的动态，关注，粉丝 -->
       <v-divider></v-divider>
       <!-- start 一般导航区 -->
@@ -98,10 +117,209 @@
     </v-app-bar>
     <!-- end 应用栏 -->
     <!-- start 主体内容区 -->
-    <v-content>
-      <v-container class="fill-height" fluid>
-        <v-row align="center" justify="center">
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis, quibusdam dolore vero animi placeat veritatis voluptates ipsum, explicabo nisi dolor nulla velit, ipsam perferendis. Fugiat, nobis, possimus neque voluptates consectetur, saepe esse deserunt soluta laboriosam vero quisquam optio reprehenderit tenetur ipsum porro dolor voluptas expedita placeat quos nemo harum quibusdam corrupti. Iusto est reiciendis quisquam sunt quia. Corrupti placeat, nobis tempore odit id tempora, nihil quis aliquid et optio sit vel libero nulla unde quidem magnam, nesciunt doloribus! Doloribus aliquid, dolorem voluptates, aut, quaerat dolores ad reiciendis magni saepe iusto expedita similique! Error laboriosam obcaecati accusamus veritatis iure harum a, itaque alias corporis maiores aliquam quaerat reprehenderit beatae iusto incidunt amet inventore placeat dolores modi porro? Impedit doloremque consequuntur ipsam voluptatem! Nisi maiores nesciunt aliquid excepturi vitae, quidem cumque assumenda sapiente repellendus nulla asperiores dolores voluptas mollitia facere velit officia tempora nobis, esse error fugiat! Quas molestiae accusantium sunt, labore praesentium voluptatibus sapiente adipisci ullam laborum, laboriosam nobis omnis repellendus dignissimos totam blanditiis! Itaque expedita ipsam veniam id voluptatem excepturi quidem nihil amet reprehenderit aliquam. Blanditiis perspiciatis eum corrupti id, unde libero veritatis cum molestiae, placeat, consequatur qui! Placeat optio quas excepturi facere ratione architecto nisi, perferendis nemo natus pariatur atque reprehenderit modi accusantium. Atque dolorum perferendis adipisci ea tenetur? Laboriosam alias aut animi culpa! Nesciunt, eveniet id. Labore necessitatibus enim repellendus nostrum maxime nisi ipsa distinctio voluptates sed cum? Accusantium incidunt, doloribus natus ea vitae architecto deleniti. Quibusdam, quod. Facere numquam vel possimus quas accusantium distinctio pariatur ad consequuntur impedit expedita veniam atque ex labore veritatis, eaque, deleniti fuga quae sapiente aspernatur dolor alias vero! Itaque blanditiis tempore quo voluptate voluptas deserunt, doloremque autem odio iusto ex optio esse voluptatem facere exercitationem eaque, corrupti officia atque odit culpa adipisci nobis illo in possimus eligendi. Minus voluptatem sequi perspiciatis animi odit excepturi fugiat saepe repellendus natus, nulla veritatis illum exercitationem laboriosam consectetur a. Deleniti culpa ratione provident nam corporis sequi voluptate, ad, quod veniam debitis laborum dolorem odio veritatis. Iure laboriosam voluptates autem optio voluptatum illum quam dolorem impedit, debitis maiores laborum unde deserunt cupiditate eligendi molestiae. Sunt inventore fugit ab, dolorum quaerat ducimus consectetur consequuntur veritatis, sed deserunt cupiditate distinctio exercitationem aut saepe possimus vel sapiente voluptate tempore molestiae! Tempore, odio distinctio! Dignissimos atque exercitationem id accusamus fugit, ipsam adipisci similique rerum placeat, sint voluptatem cupiditate. Impedit necessitatibus minima repellat, odit voluptates amet molestias laboriosam tempore voluptate labore vitae? Mollitia dignissimos ex aliquam asperiores fugiat perspiciatis laboriosam exercitationem esse vitae, error rerum suscipit voluptatem explicabo, illum culpa nulla tenetur nisi consectetur vel sit ratione minus blanditiis. Repudiandae iste eligendi qui dolore saepe aliquid ad quam. Sed commodi necessitatibus nisi esse quae animi fuga? Nisi quos cumque tenetur temporibus sunt officia quisquam. Dolore voluptatem fuga voluptate neque ab aperiam tempore amet ipsum eligendi possimus assumenda officiis dolor minus debitis facilis ipsam porro voluptas repellendus nam at, unde eaque deleniti quasi a! Quam perspiciatis quaerat aspernatur, tempore dignissimos eos perferendis quod facere sequi aperiam magnam, voluptatibus quidem minus consequatur necessitatibus velit.</p>
+    <v-content id="content">
+      <v-container fluid>
+        <v-row>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+          <v-col cols="6" sm="6" md="3">
+            <v-card :to="{ name: 'Home' }" class="mx-auto">
+              <v-img
+                class="white--text"
+                height="100px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title class="card-title">
+                  <v-icon x-small color="white">mdi-heart</v-icon>
+                  <span>4.4万</span>
+                </v-card-title>
+              </v-img>
+              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
+              <v-card-actions>
+                <v-btn x-small icon>
+                  <v-icon>mdi-heart</v-icon>
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
         </v-row>
       </v-container>
     </v-content>
@@ -141,4 +359,15 @@ export default {
     transparent 72px
   );
 }
+// start 视频卡片
+#content .card-title {
+  font-size: 1rem;
+  padding-top: 82px;
+  height: 10px;
+}
+#content .card-text {
+  height: 50px;
+  padding: 4px;
+}
+// end 视频卡片
 </style>
