@@ -3,7 +3,7 @@ const path = require('path')
 const utils = require('./utils')
 const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
-const vuxLoader = require('vux-loader')
+// const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -20,7 +20,7 @@ const createLintingRule = () => ({
   }
 })
 
-const webpackConfig = {
+module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
     app: './src/main.js'
@@ -75,9 +75,28 @@ const webpackConfig = {
           limit: 10000,
           name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
         }
-      }
+      },
+      // {
+      //   test: /\.s(c|a)ss$/,
+      //   use: [
+      //     'vue-style-loader',
+      //     'css-loader',
+      //     {
+      //       loader: 'sass-loader',
+      //       // Requires sass-loader@^7.0.0
+      //       options: {
+      //         implementation: require('sass'),
+      //         fiber: require('fibers'),
+      //         indentedSyntax: true // optional
+      //       }
+      //     }
+      //   ]
+      // }
     ]
   },
+  // plugins: [
+  //   new VuetifyLoaderPlugin()
+  // ],
   node: {
     // prevent webpack from injecting useless setImmediate polyfill because Vue
     // source contains it (although only uses it if it's native).
@@ -91,7 +110,3 @@ const webpackConfig = {
     child_process: 'empty'
   }
 }
-
-module.exports = vuxLoader.merge(webpackConfig, {
-  plugins: ['vux-ui']
-})

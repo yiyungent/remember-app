@@ -6,9 +6,9 @@ import router from './router'
 import store from './vuex'
 import axios from 'axios'
 import FastClick from 'fastclick'
-import { ViewBox } from 'vux'
+import vuetify from './plugins/vuetify';
 
-FastClick.attach(document.body)
+// FastClick.attach(document.body)
 
 // axios 请求拦截 - 在发送请求之前做某件事
 axios.interceptors.request.use(function(response){
@@ -21,7 +21,6 @@ axios.interceptors.request.use(function(response){
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
-Vue.component('view-box', ViewBox)
 
 
 /* eslint-disable no-new */
@@ -30,5 +29,6 @@ new Vue({
   router,
   store,
   components: { App },
+  vuetify,
   template: '<App/>'
 })
