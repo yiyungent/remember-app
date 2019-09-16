@@ -7,6 +7,11 @@ import store from './vuex'
 import axios from 'axios'
 // import FastClick from 'fastclick'
 
+// start ElementUI 全局引入
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+// end ElementUI 全局引入
+
 // FastClick.attach(document.body)
 
 // axios 请求拦截 - 在发送请求之前做某件事
@@ -20,6 +25,7 @@ axios.interceptors.request.use(function(response){
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+Vue.use(ElementUI);
 
 
 /* eslint-disable no-new */
