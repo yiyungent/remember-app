@@ -5,8 +5,7 @@ import App from './App'
 import router from './router'
 import store from './vuex'
 import axios from 'axios'
-import FastClick from 'fastclick'
-import vuetify from './plugins/vuetify';
+// import FastClick from 'fastclick'
 
 // FastClick.attach(document.body)
 
@@ -29,6 +28,5 @@ new Vue({
   router,
   store,
   components: { App },
-  vuetify,
   template: '<App/>'
 })
