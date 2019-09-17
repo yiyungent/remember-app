@@ -1,13 +1,7 @@
 <template>
   <v-app id="inspire">
     <!-- start 应用栏 -->
-    <v-app-bar
-      hide-on-scroll
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
       <v-btn icon>
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -28,7 +22,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="mx-auto pt-0" md="8" >
+          <v-col class="mx-auto pt-0" md="8">
             <v-tabs>
               <v-tab>简介</v-tab>
               <v-tab style="vertical-align:bottom;">
@@ -51,13 +45,93 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="mx-auto" md="8">
-            <div>【hanser】直播小剧场</div>
-            <span class="grey--text subtitle-1">1,000 miles of wonder</span>
+          <v-col class="mx-auto pt-0" md="8">
+            <v-row style="height:52px;">
+              <v-col xs="7" style="width:48px;">
+                <router-link :to="{name:'Home'}" style="text-decoration:none">
+                  <v-avatar max-width="48">
+                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+                  </v-avatar>
+                  <div style="transform: translate(60px, -46px);">
+                    <div class="black--text">沙优优</div>
+                    <div class="grey--text subtitle-1">5.6万粉丝</div>
+                  </div>
+                </router-link>
+              </v-col>
+              <v-col xs="1" offset="4">
+                <v-btn color="primary">
+                  <v-icon left>add</v-icon>关注
+                </v-btn>
+              </v-col>
+            </v-row>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="mx-auto" md="8">
+            <div>
+              <span>【hanser】直播小剧场</span>
+              <v-btn class="float-right mr-4" icon @click="showDesc = !showDesc">
+                <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+              </v-btn>
+            </div>
+            <div class="grey--text subtitle-1 py-1">
+              <span style="font-size:13px;" class="px-1">
+                <v-icon x-small>personal_video</v-icon>72.4万
+              </span>
+              <span style="font-size:13px;" class="px-1">
+                <v-icon x-small>star</v-icon>7456
+              </span>
+              <span style="font-size:13px;" class="px-1">2017-12-12</span>
+              <span style="font-size:13px;" class="px-1">
+                <v-icon x-small>personal_video</v-icon>全站日排行榜最高第九名
+              </span>
+            </div>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="mx-auto py-0" md="8">
+            <v-expand-transition>
+              <div v-show="showDesc">
+                <v-card-text
+                  class="py-1"
+                >I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.</v-card-text>
+              </div>
+            </v-expand-transition>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="mx-auto py-0" md="8">
+            <v-row class="mx-auto">
+              <v-col>
+                <v-btn large text icon color="gray">
+                  <v-icon>thumb_up</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn large text icon color="gray">
+                  <v-icon>thumb_down</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn large text icon color="gray">
+                  <v-icon>attach_money</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn large text icon color="gray">
+                  <v-icon>star</v-icon>
+                </v-btn>
+              </v-col>
+              <v-col>
+                <v-btn large text icon color="gray">
+                  <v-icon>share</v-icon>
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col class="mx-auto py-0" md="8">
             <v-divider class="mx-4"></v-divider>
           </v-col>
         </v-row>
@@ -70,7 +144,25 @@
         </v-row>
         <v-row>
           <v-col class="mx-auto" md="8">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore provident iste tempore aliquam doloribus, inventore dignissimos similique minus ipsa unde voluptatem obcaecati voluptatibus nisi sapiente amet temporibus dolor nobis. Error sint sapiente maiores impedit? Accusamus rerum animi ducimus adipisci autem explicabo quidem iure cumque facilis ullam provident impedit voluptatem similique, tempore illum atque illo aspernatur. Maiores in eos doloremque enim molestiae, hic nam mollitia voluptates minus rerum dicta, velit quod repellat animi sint inventore temporibus quasi, quos saepe commodi praesentium. Asperiores tempora repudiandae rerum provident nesciunt quisquam, repellendus accusamus dicta odio, eos eveniet ipsam? Libero sit sunt cum vitae beatae possimus nihil! Exercitationem in et iusto nihil necessitatibus sit dolores expedita! Sunt, quia voluptatibus est magnam animi expedita exercitationem, ut quod labore recusandae neque fuga alias rerum debitis accusamus nobis? Laborum at soluta qui omnis dicta molestias expedita fugiat totam accusamus quis ipsum explicabo sunt voluptas aspernatur, ullam quia modi! Eligendi voluptatibus blanditiis dignissimos quibusdam. Quaerat incidunt temporibus tenetur nemo iste ab velit, molestiae animi iusto provident facere impedit quibusdam nihil magni, ipsum aliquid aperiam ratione est optio magnam dolor ut labore blanditiis a! Excepturi nesciunt at ipsum ipsa sint veritatis inventore odio consectetur. Nobis odit perferendis, iusto autem expedita nihil doloribus, tenetur repudiandae, dolorum dolores voluptatem. Ducimus repudiandae tempora, harum impedit illo eos nihil odio quidem eaque ratione rerum molestiae voluptas blanditiis necessitatibus tempore. Modi id sequi illo minima ea rem accusamus esse numquam velit vel, rerum error at? Suscipit, doloribus nesciunt. Cum suscipit sequi amet. Doloribus, provident dolorem! Autem esse quis nesciunt temporibus optio iste impedit voluptates provident natus adipisci totam blanditiis quos accusamus architecto omnis voluptatum quaerat fugiat, debitis voluptatibus ullam rerum repudiandae. Dicta illo architecto quasi. Atque accusantium neque quas officia, nobis repellendus cumque harum deleniti, excepturi a repellat illo voluptate suscipit voluptas quia, debitis saepe repudiandae. Aperiam, quam adipisci necessitatibus voluptas sequi optio non quas nihil perspiciatis perferendis ad! Velit quam natus minima quae deserunt suscipit unde error pariatur mollitia, labore molestiae sequi dolorem animi commodi debitis quia placeat ullam aliquam! Vero, perferendis. Qui, nemo non! Saepe provident vero similique fuga voluptatem. Sed, atque vel! Corrupti nisi possimus laboriosam nobis, rem consequuntur saepe, eligendi facilis accusantium placeat sint similique asperiores, exercitationem ipsam ad nesciunt. Deserunt, laudantium amet similique cumque tempore facere dignissimos quae perspiciatis? Fugit itaque temporibus iste commodi aspernatur! Atque cupiditate corrupti maxime rem voluptas, dicta magni dolorem impedit rerum nisi repudiandae eius commodi totam ipsam velit ipsa? Incidunt perspiciatis quos inventore quam! Consequuntur in alias ipsa, sed tempore quos ut sint est nesciunt libero officiis aut expedita reiciendis maxime rem ducimus voluptate beatae vitae atque quis rerum nam repudiandae ipsam velit! Laborum distinctio illo ad sunt. Adipisci iste iure molestiae assumenda quia suscipit incidunt totam et repellat doloribus molestias eligendi esse voluptates corporis, itaque officia ducimus! Quaerat quidem delectus consequuntur similique, id, consequatur omnis voluptate accusamus nobis ullam totam eum et quos maiores aliquid non rem animi qui sunt corporis atque nihil hic. Ipsa aperiam dolores fuga molestias ipsam, fugiat eum modi magnam.</p>
+            <v-slide-group v-model="slideGroup" class center-active show-arrows>
+              <v-slide-item
+                v-for="(item, index) in courseInfos"
+                :key="index"
+                v-slot:default="{ active, toggle }"
+              >
+                <v-btn
+                  @click="toggle"
+                  :disabled="active"
+                  x-large
+                  class="mx-2"
+                  outlined
+                  :class="item.id==currentCourseInfoId?'v-slide-item--active':null"
+                >
+                  <div>第{{index+1}}话</div>
+                  <div>{{item.title}}</div>
+                </v-btn>
+              </v-slide-item>
+            </v-slide-group>
           </v-col>
         </v-row>
       </v-container>
@@ -133,7 +225,21 @@ export default {
           }
         ]
       },
-      player: null
+      player: null,
+      // 是否显式隐藏详细描述
+      showDesc: false,
+      // 滑动集数组件
+      slideGroup: null,
+      courseInfos: [
+        { id: 12, title: "测试12", videoUrl: "" },
+        { id: 13, title: "测试13", videoUrl: "" },
+        { id: 14, title: "测试14", videoUrl: "" },
+        { id: 15, title: "测试15", videoUrl: "" },
+        { id: 16, title: "测试16", videoUrl: "" },
+        { id: 17, title: "测试17", videoUrl: "" },
+        { id: 18, title: "测试18", videoUrl: "" }
+      ],
+      currentCourseInfoId: 17
     };
   },
   components: {
@@ -159,6 +265,11 @@ export default {
       } else {
         this.player.danmaku.hide();
       }
+    },
+    slideGroup(activeIndex) {
+      console.log(activeIndex);
+      console.log(this.courseInfos[activeIndex]);
+      this.currentCourseInfoId = this.courseInfos[activeIndex].id;
     }
   }
 };
@@ -166,5 +277,10 @@ export default {
 <style lang="less" scoped>
 .container {
   padding: 0;
+}
+// 集数选择-选中项样式
+.v-btn.v-slide-item--active {
+  color: #e91e63 !important;
+  caret-color: #e91e63 !important;
 }
 </style>
