@@ -105,26 +105,31 @@
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>thumb_up</v-icon>
+                  <span class="btn-icon-with-text">131</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>thumb_down</v-icon>
+                  <span class="btn-icon-with-text">缓存</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>attach_money</v-icon>
+                  <span class="btn-icon-with-text">121</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>star</v-icon>
+                  <span class="btn-icon-with-text">132</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>share</v-icon>
+                  <span class="btn-icon-with-text">12</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -282,5 +287,10 @@ export default {
 .v-btn.v-slide-item--active {
   color: #e91e63 !important;
   caret-color: #e91e63 !important;
+}
+.btn-icon-with-text {
+  transform: translate(-24px, 22px);
+  font-size: 8px;
+  color: gray;
 }
 </style>
