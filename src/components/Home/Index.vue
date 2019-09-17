@@ -99,12 +99,7 @@
       <!-- start 选项卡 -->
       <template v-slot:extension>
         <v-tabs background-color="transparent" center-active>
-          <v-tab
-            v-for="(item, i) in tabs"
-            :key="i"
-            :to="item.route"
-            :light="item.selected"
-          >{{ item.text }}</v-tab>
+          <v-tab v-for="(item, i) in tabs" :key="i" :to="item.route">{{ item.text }}</v-tab>
         </v-tabs>
       </template>
       <!-- end 选项卡 -->
@@ -137,12 +132,12 @@ export default {
         { text: "Backups", icon: "mdi-cloud-upload" }
       ],
       tabs: [
-        { id: 1, text: "直播", route: { name: "Home_Cat1", selected: false } },
-        { id: 2, text: "推荐", route: { name: "Home_Cat2", selected: true } },
-        { id: 3, text: "热门", route: { name: "Home_Cat3", selected: false } },
-        { id: 4, text: "影视", route: { name: "Home_Cat4", selected: false } },
-        { id: 5, text: "70年", route: { name: "Home_Cat5", selected: false } },
-        { id: 6, text: "音乐", route: { name: "Home_Cat6", selected: false } }
+        { id: 1, text: "直播", route: { name: "Home_Cat1" } },
+        { id: 2, text: "推荐", route: { name: "Home_Cat2" } },
+        { id: 3, text: "热门", route: { name: "Home_Cat3" } },
+        { id: 4, text: "影视", route: { name: "Home_Cat4" } },
+        { id: 5, text: "70年", route: { name: "Home_Cat5" } },
+        { id: 6, text: "音乐", route: { name: "Home_Cat6" } }
       ]
     };
   }

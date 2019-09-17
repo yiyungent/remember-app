@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+
 import Home from '@/components/Home/Index'
 import Home_Cat1 from '../components/Home/Cat1'
 import Home_Cat2 from '../components/Home/Cat2'
@@ -7,6 +8,8 @@ import Home_Cat3 from '../components/Home/Cat3'
 import Home_Cat4 from '../components/Home/Cat4'
 import Home_Cat5 from '../components/Home/Cat5'
 import Home_Cat6 from '../components/Home/Cat6'
+
+import CourseBox from '../components/CourseBox/Index'
 
 import NotFound from '@/components/NotFound'
 
@@ -51,21 +54,11 @@ export default new Router({
         }
       ]
     },
-    // {
-    //   name: 'CourseBox',
-    //   path: '/CourseBox/:id',
-    //   component: CourseBox,
-    //   meta: { tabbarItem: 0 },
-    //   children: [
-    //     {
-    //       // 当 /CourseBox/:id/Catalog 匹配成功，
-    //       // CourseBoxDetails 会被渲染在 CourseBox 的 <router-view> 中
-    //       path: 'Catalog',
-    //       component: CourseBoxCatalog,
-    //       meta: { tabbarItem: 2 }
-    //     }
-    //   ]
-    // },
+    {
+      name: 'CourseBox',
+      path: '/CourseBox/:id',
+      component: CourseBox,
+    },
     
     // 404 错误页面
     {
