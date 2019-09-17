@@ -55,8 +55,8 @@
       <v-divider></v-divider>
       <!-- start 一般导航区 -->
       <v-list nav dense>
-        <v-list-item-group v-model="item" color="blue">
-          <v-list-item v-for="(item, i) in items" :key="i">
+        <v-list-item-group v-model="drawerCurrentIndex" color="blue">
+          <v-list-item v-for="(item, i) in drawerItems" :key="i">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -99,18 +99,12 @@
       <!-- start 选项卡 -->
       <template v-slot:extension>
         <v-tabs background-color="transparent" center-active>
-          <v-tab>Tab 1</v-tab>
-          <v-tab>Tab 2</v-tab>
-          <v-tab>Tab 3</v-tab>
-          <v-tab>Tab 4</v-tab>
-          <v-tab>Tab 5</v-tab>
-          <v-tab>Tab 6</v-tab>
-          <v-tab>Tab 7</v-tab>
-          <v-tab>Tab 8</v-tab>
-          <v-tab>Tab 9</v-tab>
-          <v-tab>Tab 10</v-tab>
-          <v-tab>Tab 11</v-tab>
-          <v-tab>Tab 12</v-tab>
+          <v-tab
+            v-for="(item, i) in tabs"
+            :key="i"
+            :to="item.route"
+            :light="item.selected"
+          >{{ item.text }}</v-tab>
         </v-tabs>
       </template>
       <!-- end 选项卡 -->
@@ -118,210 +112,7 @@
     <!-- end 应用栏 -->
     <!-- start 主体内容区 -->
     <v-content id="content">
-      <v-container fluid>
-        <v-row>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-          <v-col cols="6" sm="6" md="3">
-            <v-card :to="{ name: 'Home' }" class="mx-auto">
-              <v-img
-                class="white--text"
-                height="100px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title class="card-title">
-                  <v-icon x-small color="white">mdi-heart</v-icon>
-                  <span>4.4万</span>
-                </v-card-title>
-              </v-img>
-              <v-card-text class="card-text">【互动视频】测一测你的你的计算机多少分！</v-card-text>
-              <v-card-actions>
-                <v-btn x-small icon>
-                  <v-icon>mdi-heart</v-icon>
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
+      <router-view></router-view>
     </v-content>
     <!-- end 主体内容区 -->
   </v-app>
@@ -335,8 +126,8 @@ export default {
   data() {
     return {
       drawer: null,
-      item: 0,
-      items: [
+      drawerCurrentIndex: 0,
+      drawerItems: [
         { text: "首页", icon: "mdi-folder" },
         { text: "历史记录", icon: "mdi-history" },
         { text: "我的收藏", icon: "mdi-star" },
@@ -345,7 +136,14 @@ export default {
         { text: "Offline", icon: "mdi-check-circle" },
         { text: "Backups", icon: "mdi-cloud-upload" }
       ],
-      colors: ["primary", "secondary", "yellow darken-2", "red", "orange"]
+      tabs: [
+        { id: 1, text: "直播", route: { name: "Home_Cat1", selected: false } },
+        { id: 2, text: "推荐", route: { name: "Home_Cat2", selected: true } },
+        { id: 3, text: "热门", route: { name: "Home_Cat3", selected: false } },
+        { id: 4, text: "影视", route: { name: "Home_Cat4", selected: false } },
+        { id: 5, text: "70年", route: { name: "Home_Cat5", selected: false } },
+        { id: 6, text: "音乐", route: { name: "Home_Cat6", selected: false } }
+      ]
     };
   }
 };
@@ -359,6 +157,8 @@ export default {
     transparent 72px
   );
 }
+</style>
+<style lang="less">
 // start 视频卡片
 #content .card-title {
   font-size: 1rem;
