@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './vuex'
 import axios from 'axios'
+import * as filters from './filters'
 
 import vuetify from "./plugins/vuetify";
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
@@ -27,13 +28,9 @@ axios.interceptors.request.use(function(response){
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
-// 全局过滤器
-Vue.filter('subStrPretty', function (value, length) {
-  if(value.length > length) {
-    return value.substr(0, length) + '...';
-  } else {
-    return value;
-  }
+// 注册常用全局过滤器
+Object.keys(filters).forEach(key => {
+  Vue.filter(key, filters[key])
 })
 
 

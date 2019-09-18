@@ -16,12 +16,15 @@
     <!-- end 应用栏 -->
     <v-content>
       <v-container fluid>
+        <!-- start 视频播放区 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
             <!-- <d-player style="height:230px;" :options="playerOptions" ref="player"></d-player> -->
             <d-player :options="playerOptions" ref="player"></d-player>
           </v-col>
         </v-row>
+        <!-- end 视频播放区 -->
+        <!-- start 视频下方导航条 -->
         <v-row>
           <v-col class="mx-auto pt-0" md="8">
             <v-tabs>
@@ -45,6 +48,8 @@
             </v-tabs>
           </v-col>
         </v-row>
+        <!-- end 视频下方导航条 -->
+        <!-- start 课程作者头像栏 -->
         <v-row>
           <v-col class="mx-auto pt-0" md="8">
             <v-row style="height:52px;">
@@ -67,6 +72,8 @@
             </v-row>
           </v-col>
         </v-row>
+        <!-- end 课程作者头像栏 -->
+        <!-- start 课程信息 -->
         <v-row>
           <v-col class="mx-auto" md="8">
             <div>
@@ -91,6 +98,8 @@
             </div>
           </v-col>
         </v-row>
+        <!-- end 课程信息 -->
+        <!-- start 课程描述 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
             <v-expand-transition>
@@ -100,6 +109,8 @@
             </v-expand-transition>
           </v-col>
         </v-row>
+        <!-- end 课程描述 -->
+        <!-- start 按钮栏 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
             <v-row class="mx-auto">
@@ -136,23 +147,26 @@
             </v-row>
           </v-col>
         </v-row>
+        <!-- end 按钮栏 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
             <v-divider class="mx-4"></v-divider>
           </v-col>
         </v-row>
+        <!-- start 选集 -->
         <v-row>
           <v-col class="mx-auto pa-0 pl-4" md="8">
-            <!-- start 选集 -->
-            <div class="pa-1 pb-0">选集</div>
-            <!-- end 选集 -->
+            <div class="pa-2">
+              <span>选集</span>
+              <span class="float-right mr-6">全 {{videoNum}} 话</span>
+            </div>
           </v-col>
         </v-row>
         <v-row>
           <v-col class="mx-auto pt-0" md="8">
-            <v-slide-group v-model="slideGroup" class center-active show-arrows>
+            <v-slide-group v-model="slideGroup" center-active>
               <v-slide-item
-                v-for="(item, index) in courseBox.courseInfos"
+                v-for="(item, index) in courseBox.videoInfos"
                 :key="index"
                 v-slot:default="{ active, toggle }"
               >
@@ -162,7 +176,7 @@
                   x-large
                   class="mx-2"
                   outlined
-                  :class="item.id==currentCourseInfoId?'v-slide-item--active':null"
+                  :class="item.id==currentVideoInfoId?'v-slide-item--active':null"
                 >
                   <div>第{{index+1}}话</div>
                   <div>{{item.title}}</div>
@@ -171,6 +185,7 @@
             </v-slide-group>
           </v-col>
         </v-row>
+        <!-- end 选集 -->
       </v-container>
     </v-content>
     <v-bottom-sheet v-model="isSendDm">
@@ -264,11 +279,20 @@ export default {
           commentNum: 0,
           viewNum: 0
         },
-        courseInfos: [{ id: 0, title: "loading", content: "" }]
+        videoInfos: [{ id: 0, title: "loading", playUrl: "" }]
       },
-      currentCourseInfoId: 17,
-      currentCourseInfoIndex: 0
+      currentVideoInfoId: 17,
+      currentVideoInfoIndex: 0
     };
+  },
+  computed: {
+    videoNum: function() {
+      if (this.courseBox != null && this.courseBox.videoInfos != null) {
+        return this.courseBox.videoInfos.length;
+      } else {
+        return 0;
+      }
+    }
   },
   components: {
     "d-player": VueDPlayer
@@ -305,19 +329,18 @@ export default {
           this.courseBox = res.data.data;
 
           // 有历史记录则为历史记录课件，否则第一个课件
-          if (res.data.data.lastAccessCourseInfo != null) {
-            this.currentCourseInfoId = res.data.data.lastAccessCourseInfo.id;
-            this.currentCourseInfoIndex =
-              res.data.data.lastAccessCourseInfo.page - 1;
+          if (res.data.data.lastPlayVideoInfo != null) {
+            this.currentVideoInfoId = res.data.data.lastPlayVideoInfo.id;
+            this.currentVideoInfoIndex =
+              res.data.data.lastPlayVideoInfo.page - 1;
           } else {
-            this.currentCourseInfoId = res.data.data.courseInfos[0].id;
-            this.currentCourseInfoIndex = 0;
+            this.currentVideoInfoId = res.data.data.videoInfos[0].id;
+            this.currentVideoInfoIndex = 0;
           }
           // 播放器
           // 跳转到当前集
           this.player.switchVideo({
-            url: this.courseBox.courseInfos[this.currentCourseInfoIndex]
-              .content,
+            url: this.courseBox.videoInfos[this.currentVideoInfoIndex].content,
             pic: "",
             thumbnails: ""
           });
@@ -343,13 +366,13 @@ export default {
     },
     slideGroup(activeIndex) {
       console.log(activeIndex);
-      console.log(this.courseBox.courseInfos[activeIndex]);
-      this.currentCourseInfoId = this.courseBox.courseInfos[activeIndex].id;
+      console.log(this.courseBox.videoInfos[activeIndex]);
+      this.currentVideoInfoId = this.courseBox.videoInfos[activeIndex].id;
 
       // 切换课件
-      var currentCourseInfo = this.courseBox.courseInfos[activeIndex];
+      var currentVideoInfo = this.courseBox.videoInfos[activeIndex];
       this.player.switchVideo({
-        url: currentCourseInfo.content,
+        url: currentVideoInfo.playUrl,
         pic: "",
         thumbnails: ""
       });

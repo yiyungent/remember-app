@@ -16,16 +16,15 @@ import NotFound from '@/components/NotFound'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
+  mode: 'hash',
   routes: [
-    {
-      path: '/Home',
-      redirect: { name: 'Home' }
-    },
+    // 首页及分类
     {
       name: 'Home',
       path: '/',
       component: Home,
+      redirect: { name: 'Home_Cat2' },
       children: [
         {
           name: 'Home_Cat1',
@@ -54,6 +53,7 @@ export default new Router({
         }
       ]
     },
+    // 课程页
     {
       name: 'CourseBox',
       path: '/CourseBox/:id',
