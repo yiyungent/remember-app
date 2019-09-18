@@ -18,6 +18,7 @@
       <v-container fluid>
         <v-row>
           <v-col class="mx-auto py-0" md="8">
+            <!-- <d-player style="height:230px;" :options="playerOptions" ref="player"></d-player> -->
             <d-player :options="playerOptions" ref="player"></d-player>
           </v-col>
         </v-row>
@@ -53,7 +54,7 @@
                     <img :src="courseBox.creator.avatar" alt="John" />
                   </v-avatar>
                   <div style="transform: translate(60px, -46px);">
-                    <div class="black--text">{{courseBox.creator.name}}</div>
+                    <div class="black--text">{{courseBox.creator.name | subStrPretty(5)}}</div>
                     <div class="grey--text subtitle-1">{{courseBox.creator.fansNum}}粉丝</div>
                   </div>
                 </router-link>
@@ -76,10 +77,12 @@
             </div>
             <div class="grey--text subtitle-1 py-1">
               <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>personal_video</v-icon>{{courseBox.stat.viewNum}}
+                <v-icon x-small>personal_video</v-icon>
+                {{courseBox.stat.viewNum}}
               </span>
               <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>star</v-icon>{{courseBox.stat.favNum}}
+                <v-icon x-small>star</v-icon>
+                {{courseBox.stat.favNum}}
               </span>
               <span style="font-size:13px;" class="px-1">{{courseBox.lastUpdateTime}}</span>
               <span style="font-size:13px;" class="px-1">
@@ -127,7 +130,7 @@
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>share</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.share}}</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.shareNum}}</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -149,7 +152,7 @@
           <v-col class="mx-auto pt-0" md="8">
             <v-slide-group v-model="slideGroup" class center-active show-arrows>
               <v-slide-item
-                v-for="(item, index) in courseInfos"
+                v-for="(item, index) in courseBox.courseInfos"
                 :key="index"
                 v-slot:default="{ active, toggle }"
               >
@@ -212,15 +215,21 @@ export default {
       // 视频播放器选项
       playerOptions: {
         video: {
-          url: "http://static.smartisanos.cn/common/video/t1-ui.mp4",
-          pic:
-            "http://static.smartisanos.cn/pr/img/video/video_03_cc87ce5bdb.jpg"
+          url: "",
+          pic: ""
         },
         autoplay: false,
-        // danmaku: {
-        //   // ...
-        //   addition: ["https://api.prprpr.me/dplayer/v3/bilibili?aid=[aid]"]
-        // },
+        subtitle: {
+          url: "/static/upload/subtitles/zm1.vtt",
+          type: "webvtt",
+          fontSize: "25px",
+          bottom: "10%",
+          color: "#b7daff"
+        },
+        danmaku: {
+          api: "/static/upload/danmakus/add-dm-1.json",
+          addition: ["/static/upload/danmakus/add-dm-1.json"]
+        },
         contextmenu: [
           {
             text: "GitHub",
@@ -235,37 +244,30 @@ export default {
       slideGroup: null,
       // 课程数据
       courseBox: {
-        id: 425,
-        name: "大学计算机的自我修养",
-        desc: "这里是大学计算机的自我修养的详细描述",
-        createTime: 1231231232222,
-        lastUpdateTime: 1231231232222,
+        id: 0,
+        name: "loading",
+        desc: "",
+        createTime: 0,
+        lastUpdateTime: 0,
         creator: {
-          id: 1,
-          name: "沙优优",
-          fansNum: 2313,
+          id: 0,
+          name: "",
+          fansNum: 0,
           avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
         },
         stat: {
-          likeNum: 434,
-          dislikeNum: 13,
-          coin: 23,
-          favNum: 33,
-          share: 12,
-          commentNum: 20000,
-          viewNum: 2313
-        }
+          likeNum: 0,
+          dislikeNum: 0,
+          coin: 0,
+          favNum: 0,
+          shareNum: 0,
+          commentNum: 0,
+          viewNum: 0
+        },
+        courseInfos: [{ id: 0, title: "loading", content: "" }]
       },
-      courseInfos: [
-        { id: 12, title: "测试12", videoUrl: "" },
-        { id: 13, title: "测试13", videoUrl: "" },
-        { id: 14, title: "测试14", videoUrl: "" },
-        { id: 15, title: "测试15", videoUrl: "" },
-        { id: 16, title: "测试16", videoUrl: "" },
-        { id: 17, title: "测试17", videoUrl: "" },
-        { id: 18, title: "测试18", videoUrl: "" }
-      ],
-      currentCourseInfoId: 17
+      currentCourseInfoId: 17,
+      currentCourseInfoIndex: 0
     };
   },
   components: {
@@ -273,17 +275,64 @@ export default {
   },
   mounted() {
     this.player = this.$refs.player.dp;
+    this.loadCourseBox();
   },
   methods: {
     sendDm() {
       console.log(this.dmText);
+      this.player.danmaku.send(
+        {
+          text: this.dmText,
+          color: "#b7daff",
+          type: "right" // should be `top` `bottom` or `right`
+        },
+        function() {
+          console.log("发送弹幕成功");
+        }
+      );
+    },
+    loadCourseBox() {
+      this.$http({
+        method: "get",
+        url: "/api/CourseBox",
+        params: {
+          id: this.$route.params.id
+        }
+      })
+        .then(res => {
+          //res是返回结果
+          console.log(res);
+          this.courseBox = res.data.data;
+
+          // 有历史记录则为历史记录课件，否则第一个课件
+          if (res.data.data.lastAccessCourseInfo != null) {
+            this.currentCourseInfoId = res.data.data.lastAccessCourseInfo.id;
+            this.currentCourseInfoIndex =
+              res.data.data.lastAccessCourseInfo.page - 1;
+          } else {
+            this.currentCourseInfoId = res.data.data.courseInfos[0].id;
+            this.currentCourseInfoIndex = 0;
+          }
+          // 播放器
+          // 跳转到当前集
+          this.player.switchVideo({
+            url: this.courseBox.courseInfos[this.currentCourseInfoIndex]
+              .content,
+            pic: "",
+            thumbnails: ""
+          });
+        })
+        .catch(err => {
+          //请求失败就会捕获报错信息
+          //err.response可拿到服务器返回的报错数据
+        });
     }
   },
   watch: {
     isSendDm(newVal) {
-      if (newVal) {
-        this.player.pause();
-      }
+      // if (newVal) {
+      //   this.player.pause();
+      // }
     },
     enableDm(newVal) {
       if (newVal) {
@@ -294,8 +343,16 @@ export default {
     },
     slideGroup(activeIndex) {
       console.log(activeIndex);
-      console.log(this.courseInfos[activeIndex]);
-      this.currentCourseInfoId = this.courseInfos[activeIndex].id;
+      console.log(this.courseBox.courseInfos[activeIndex]);
+      this.currentCourseInfoId = this.courseBox.courseInfos[activeIndex].id;
+
+      // 切换课件
+      var currentCourseInfo = this.courseBox.courseInfos[activeIndex];
+      this.player.switchVideo({
+        url: currentCourseInfo.content,
+        pic: "",
+        thumbnails: ""
+      });
     }
   }
 };

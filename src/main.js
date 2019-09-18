@@ -27,6 +27,15 @@ axios.interceptors.request.use(function(response){
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 
+// 全局过滤器
+Vue.filter('subStrPretty', function (value, length) {
+  if(value.length > length) {
+    return value.substr(0, length) + '...';
+  } else {
+    return value;
+  }
+})
+
 
 /* eslint-disable no-new */
 new Vue({
