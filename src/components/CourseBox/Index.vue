@@ -27,7 +27,7 @@
               <v-tab>简介</v-tab>
               <v-tab style="vertical-align:bottom;">
                 <span>评论</span>
-                <span style="font-size:10px;">2万</span>
+                <span style="font-size:10px;">{{courseBox.stat.commentNum}}</span>
               </v-tab>
               <div class="flex-grow-1"></div>
               <v-btn-toggle rounded fixed>
@@ -50,11 +50,11 @@
               <v-col xs="7" style="width:48px;">
                 <router-link :to="{name:'Home'}" style="text-decoration:none">
                   <v-avatar max-width="48">
-                    <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+                    <img :src="courseBox.creator.avatar" alt="John" />
                   </v-avatar>
                   <div style="transform: translate(60px, -46px);">
-                    <div class="black--text">沙优优</div>
-                    <div class="grey--text subtitle-1">5.6万粉丝</div>
+                    <div class="black--text">{{courseBox.creator.name}}</div>
+                    <div class="grey--text subtitle-1">{{courseBox.creator.fansNum}}粉丝</div>
                   </div>
                 </router-link>
               </v-col>
@@ -69,19 +69,19 @@
         <v-row>
           <v-col class="mx-auto" md="8">
             <div>
-              <span>【hanser】直播小剧场</span>
+              <span>{{courseBox.name}}</span>
               <v-btn class="float-right mr-4" icon @click="showDesc = !showDesc">
                 <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
               </v-btn>
             </div>
             <div class="grey--text subtitle-1 py-1">
               <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>personal_video</v-icon>72.4万
+                <v-icon x-small>personal_video</v-icon>{{courseBox.stat.viewNum}}
               </span>
               <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>star</v-icon>7456
+                <v-icon x-small>star</v-icon>{{courseBox.stat.favNum}}
               </span>
-              <span style="font-size:13px;" class="px-1">2017-12-12</span>
+              <span style="font-size:13px;" class="px-1">{{courseBox.lastUpdateTime}}</span>
               <span style="font-size:13px;" class="px-1">
                 <v-icon x-small>personal_video</v-icon>全站日排行榜最高第九名
               </span>
@@ -92,9 +92,7 @@
           <v-col class="mx-auto py-0" md="8">
             <v-expand-transition>
               <div v-show="showDesc">
-                <v-card-text
-                  class="py-1"
-                >I'm a thing. But, like most politicians, he promised more than he could deliver. You won't have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll go with that data file! Hey, you add a one and two zeros to that or we walk! You're going to do his laundry? I've got to find a way to escape.</v-card-text>
+                <v-card-text class="py-1">{{courseBox.desc}}</v-card-text>
               </div>
             </v-expand-transition>
           </v-col>
@@ -105,31 +103,31 @@
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>thumb_up</v-icon>
-                  <span class="btn-icon-with-text">131</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.likeNum}}</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>thumb_down</v-icon>
-                  <span class="btn-icon-with-text">缓存</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.dislikeNum}}</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>attach_money</v-icon>
-                  <span class="btn-icon-with-text">121</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.coin}}</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>star</v-icon>
-                  <span class="btn-icon-with-text">132</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.favNum}}</span>
                 </v-btn>
               </v-col>
               <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>share</v-icon>
-                  <span class="btn-icon-with-text">12</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.share}}</span>
                 </v-btn>
               </v-col>
             </v-row>
@@ -141,14 +139,14 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="mx-auto" md="8">
+          <v-col class="mx-auto pa-0 pl-4" md="8">
             <!-- start 选集 -->
-            <div>选集</div>
+            <div class="pa-1 pb-0">选集</div>
             <!-- end 选集 -->
           </v-col>
         </v-row>
         <v-row>
-          <v-col class="mx-auto" md="8">
+          <v-col class="mx-auto pt-0" md="8">
             <v-slide-group v-model="slideGroup" class center-active show-arrows>
               <v-slide-item
                 v-for="(item, index) in courseInfos"
@@ -235,6 +233,29 @@ export default {
       showDesc: false,
       // 滑动集数组件
       slideGroup: null,
+      // 课程数据
+      courseBox: {
+        id: 425,
+        name: "大学计算机的自我修养",
+        desc: "这里是大学计算机的自我修养的详细描述",
+        createTime: 1231231232222,
+        lastUpdateTime: 1231231232222,
+        creator: {
+          id: 1,
+          name: "沙优优",
+          fansNum: 2313,
+          avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
+        },
+        stat: {
+          likeNum: 434,
+          dislikeNum: 13,
+          coin: 23,
+          favNum: 33,
+          share: 12,
+          commentNum: 20000,
+          viewNum: 2313
+        }
+      },
       courseInfos: [
         { id: 12, title: "测试12", videoUrl: "" },
         { id: 13, title: "测试13", videoUrl: "" },
