@@ -88,6 +88,11 @@ export default {
           // 存入 localStorage
           localStorage.token = res.data.data.token;
           localStorage.token_expire = res.data.data.expire;
+
+          // 存入 vuex
+          // this.$store.commit('saveToken', res.data.data.token, res.data.data.expire);
+          this.$store.commit('getUser', this);
+
           // 跳转页面
           if (!!this.$route.query.redirect) {
             // TODO: 跳转到之前页

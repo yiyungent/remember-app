@@ -33,7 +33,7 @@ router.beforeEach((to,from,next) => {
   // 这里的meta就是我们刚刚在路由里面配置的meta
   if(to.meta.needLogin){
       // 下面这个判断是自行实现到底是否有没有登录
-      if (store.getters.isLogin){
+      if (store.getters.isLoginStore){
       // 登录就继续
           next();
       }else {

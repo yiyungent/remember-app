@@ -8,7 +8,7 @@
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
-                <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+                <v-img :src="!!user?user.avatar:'https://randomuser.me/api/portraits/women/85.jpg'"></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
                 <v-btn x-small outlined fab color="white">
@@ -18,8 +18,8 @@
             </v-list-item>
             <v-list-item link two-line>
               <v-list-item-content>
-                <v-list-item-title>admin</v-list-item-title>
-                <v-list-item-subtitle>硬币：267</v-list-item-subtitle>
+                <v-list-item-title>{{!!user?user.userName:'未登录'}}</v-list-item-title>
+                <v-list-item-subtitle>硬币：{{!!user?user.coin:'0'}}</v-list-item-subtitle>
               </v-list-item-content>
               <!-- <v-list-item-action>
                 <v-icon>mdi-menu-down</v-icon>
@@ -69,9 +69,10 @@
       <!-- end 一般导航区 -->
       <v-divider></v-divider>
       <!-- start 一般导航区 -->
+      <!-- start 设置区 -->
       <v-list nav dense>
         <v-list-item-group color="blue">
-          <v-list-item @click="logout">
+          <v-list-item v-show="isLogin" @click="logout">
             <v-list-item-icon>
               <v-icon>logout</v-icon>
             </v-list-item-icon>
@@ -79,8 +80,17 @@
               <v-list-item-title>注销</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+          <v-list-item v-show="!isLogin" :to="{name:'Login'}">
+            <v-list-item-icon>
+              <v-icon>logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>登录</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
+      <!-- end 设置区 -->
     </v-navigation-drawer>
     <!-- end 左侧导航抽屉 -->
     <!-- start 应用栏 -->
@@ -152,12 +162,25 @@ export default {
       ]
     };
   },
+  created() {
+    if (this.isLogin) {
+      this.$store.commit("getUser", this);
+    }
+  },
   methods: {
     logout() {
-      this.$store.commit('logout');
+      this.$store.commit("logout");
       this.$router.go(0);
     }
   },
+  computed: {
+    isLogin() {
+      return this.$store.state.user != null;
+    },
+    user() {
+      return this.$store.state.user;
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
