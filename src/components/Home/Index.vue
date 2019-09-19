@@ -34,19 +34,19 @@
       <v-list class="d-flex justify-space-between text-center">
         <v-list-item :to="{ name: 'Home'}">
           <v-list-item-content>
-            <v-list-item-title>1</v-list-item-title>
+            <v-list-item-title>{{user!=null?user.articleNum:0}}</v-list-item-title>
             <v-list-item-subtitle>动态</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'Home'}">
+        <v-list-item :to="{ name: 'MyFriends_MyFollow'}">
           <v-list-item-content>
-            <v-list-item-title>25</v-list-item-title>
+            <v-list-item-title>{{user!=null?user.followNum:0}}</v-list-item-title>
             <v-list-item-subtitle>关注</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'Home'}">
+        <v-list-item :to="{ name: 'MyFriends_MyFans'}">
           <v-list-item-content>
-            <v-list-item-title>25</v-list-item-title>
+            <v-list-item-title>{{user!=null?user.fansNum:0}}</v-list-item-title>
             <v-list-item-subtitle>粉丝</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -147,10 +147,8 @@ export default {
         { text: "首页", icon: "mdi-folder" },
         { text: "历史记录", icon: "mdi-history" },
         { text: "我的收藏", icon: "mdi-star" },
-        { text: "投稿", icon: "mdi-upload" },
-        { text: "Recent", icon: "mdi-history" },
-        { text: "Offline", icon: "mdi-check-circle" },
-        { text: "Backups", icon: "mdi-cloud-upload" }
+        { text: "我的课程", icon: "mdi-star" },
+        { text: "新建课程", icon: "mdi-upload" }
       ],
       tabs: [
         { id: 1, text: "直播", route: { name: "Home_Cat1" } },
@@ -163,7 +161,7 @@ export default {
     };
   },
   created() {
-    if (this.isLogin) {
+    if (!!localStorage.token) {
       this.$store.commit("getUser", this);
     }
   },

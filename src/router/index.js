@@ -10,6 +10,10 @@ import Home_Cat4 from '../components/Home/Cat4'
 import Home_Cat5 from '../components/Home/Cat5'
 import Home_Cat6 from '../components/Home/Cat6'
 
+import MyFriends from '../components/MyFriends/Index'
+import MyFriends_MyFollow from '../components/MyFriends/MyFollow'
+import MyFriends_MyFans from '../components/MyFriends/MyFans'
+
 import CourseBox from '../components/CourseBox/Index'
 
 import NotFound from '@/components/NotFound'
@@ -62,6 +66,31 @@ export default new Router({
           name: 'Home_Cat6',
           path: 'Cat6',
           component: Home_Cat6
+        }
+      ]
+    },
+    // 我的好友 = 我的关注 + 我的粉丝
+    {
+      name: 'MyFriends',
+      path: '/MyFriends',
+      component: MyFriends,
+      redirect: { name: 'MyFriends_MyFollow' },
+      children: [
+        {
+          name: 'MyFriends_MyFollow',
+          path: 'MyFollow',
+          component: MyFriends_MyFollow,
+          meta: {
+            needLogin: true
+          }
+        },
+        {
+          name: 'MyFriends_MyFans',
+          path: 'MyFans',
+          component: MyFriends_MyFans,
+          meta: {
+            needLogin: true
+          }
         }
       ]
     },

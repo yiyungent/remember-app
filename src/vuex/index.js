@@ -43,19 +43,19 @@ const store = new Vuex.Store({
     // }
   },
   getters: {    // thus.$store.getters.***
-    // isLoginStore: state => {
-    //   var currentUnixTime = Math.round(new Date().getTime() / 1000);
-    //   if (!!localStorage.token && !!localStorage.token_expire && currentUnixTime < localStorage.token_expire) {
-    //     // token 存在 且 不为空 且 未过期
-    //     console.log("store.getters.isLogin: true");
-    //     return true;
-    //   } else {
-    //     localStorage.removeItem('token');
-    //     console.log("store.getters.isLogin: false");
+    isLoginStore: state => {
+      var currentUnixTime = Math.round(new Date().getTime() / 1000);
+      if (!!localStorage.token && !!localStorage.token_expire && currentUnixTime < localStorage.token_expire) {
+        // token 存在 且 不为空 且 未过期
+        console.log("store.getters.isLogin: true");
+        return true;
+      } else {
+        localStorage.removeItem('token');
+        console.log("store.getters.isLogin: false");
 
-    //     return false;
-    //   }
-    // }
+        return false;
+      }
+    }
   }
 })
 
