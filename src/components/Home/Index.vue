@@ -67,6 +67,20 @@
         </v-list-item-group>
       </v-list>
       <!-- end 一般导航区 -->
+      <v-divider></v-divider>
+      <!-- start 一般导航区 -->
+      <v-list nav dense>
+        <v-list-item-group color="blue">
+          <v-list-item @click="logout">
+            <v-list-item-icon>
+              <v-icon>logout</v-icon>
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>注销</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
     </v-navigation-drawer>
     <!-- end 左侧导航抽屉 -->
     <!-- start 应用栏 -->
@@ -115,9 +129,6 @@
 
 <script>
 export default {
-  props: {
-    source: String
-  },
   data() {
     return {
       drawer: null,
@@ -140,7 +151,13 @@ export default {
         { id: 6, text: "音乐", route: { name: "Home_Cat6" } }
       ]
     };
-  }
+  },
+  methods: {
+    logout() {
+      this.$store.commit('logout');
+      this.$router.go(0);
+    }
+  },
 };
 </script>
 <style lang="less" scoped>
