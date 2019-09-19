@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <!-- start 应用栏 -->
     <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
-      <v-btn icon>
+      <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title>
@@ -26,5 +26,11 @@
   </v-app>
 </template>
 <script>
-export default {};
+export default {
+  methods: {
+    back() {
+      this.$router.go(-1);
+    }
+  },
+};
 </script>

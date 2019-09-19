@@ -1,5 +1,12 @@
 <template>
   <v-container fluid>
+    <v-row v-show="showLoading">
+      <v-col class="mx-auto py-0" md="8">
+        <div class="text-center">
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
+      </v-col>
+    </v-row>
     <v-row>
       <template v-for="item in items">
         <v-col cols="6" sm="6" md="3" :key="item.courseBox.id">
@@ -22,26 +29,8 @@ export default {
   name: "Home_Cat2",
   data() {
     return {
-      items: [
-        {
-          courseBox: {
-            id: 1,
-            name: "loading",
-            description: "loading",
-            creator: {
-              id: 0,
-              name: "loading",
-              userName: "loading",
-              desc: null,
-              avatar: "https://static.runoob.com/images/mix/img_fjords_wide.jpg"
-            },
-            picUrl: "https://static.runoob.com/images/mix/img_fjords_wide.jpg"
-          },
-          learnNum: 0,
-          totalSpendTime: 0,
-          rankingNum: 1
-        }
-      ]
+      items: [],
+      showLoading: true
     };
   },
   created() {
@@ -52,7 +41,7 @@ export default {
     loadList() {
       this.$http({
         method: "get",
-        url: "/api/Home/RankingCourseBox",
+        url: "/api/Home/LastCourseBox",
         params: {
           number: 10
         }
@@ -61,6 +50,7 @@ export default {
           this.items = res.data.data;
         } else {
         }
+        this.showLoading = false;
       });
     }
   }

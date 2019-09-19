@@ -1,5 +1,12 @@
 <template>
   <v-container fluid>
+    <v-row v-show="showLoading">
+      <v-col class="mx-auto pa-0" md="8">
+        <div class="text-center">
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col class="mx-auto pa-0" md="8">
         <v-list>
@@ -88,27 +95,10 @@
 export default {
   data() {
     return {
-      groups: [
-        {
-          id: 1,
-          groupName: "默认分组",
-          isFolder: true,
-          users: [
-            {
-              relation: 2,
-              createTime: 0,
-              user: {
-                id: 0,
-                userName: "loading",
-                desc: "loading",
-                avatar: ""
-              }
-            }
-          ]
-        }
-      ],
+      groups: [],
       snackbar: false,
-      tipMsg: ""
+      tipMsg: "",
+      showLoading: true
     };
   },
 
@@ -133,6 +123,7 @@ export default {
           this.tipMsg = res.data.message;
           this.snackbar = true;
         }
+        this.showLoading = false;
       });
     },
     followYou(user) {

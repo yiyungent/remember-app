@@ -151,12 +151,8 @@ export default {
         { text: "新建课程", icon: "mdi-upload" }
       ],
       tabs: [
-        { id: 1, text: "直播", route: { name: "Home_Cat1" } },
-        { id: 2, text: "推荐", route: { name: "Home_Cat2" } },
-        { id: 3, text: "热门", route: { name: "Home_Cat3" } },
-        { id: 4, text: "影视", route: { name: "Home_Cat4" } },
-        { id: 5, text: "70年", route: { name: "Home_Cat5" } },
-        { id: 6, text: "音乐", route: { name: "Home_Cat6" } }
+        { id: 1, text: "热门", route: { name: "Home_Cat1" } },
+        { id: 2, text: "最新", route: { name: "Home_Cat2" } },
       ]
     };
   },

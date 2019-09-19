@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <!-- start 应用栏 -->
     <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
-      <v-btn icon>
+      <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
       <v-toolbar-title>
@@ -349,6 +349,9 @@ export default {
           //请求失败就会捕获报错信息
           //err.response可拿到服务器返回的报错数据
         });
+    },
+    back() {
+      this.$router.go(-1);
     }
   },
   watch: {

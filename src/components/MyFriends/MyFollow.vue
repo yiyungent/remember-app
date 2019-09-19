@@ -1,5 +1,12 @@
 <template>
   <v-container fluid>
+    <v-row v-show="showLoading">
+      <v-col class="mx-auto pa-0" md="8">
+        <div class="text-center">
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
+      </v-col>
+    </v-row>
     <v-row>
       <v-col class="mx-auto pa-0" md="8">
         <v-list>
@@ -88,27 +95,10 @@
 export default {
   data() {
     return {
-      groups: [
-        {
-          id: 1,
-          groupName: "默认分组",
-          isFolder: true,
-          users: [
-            {
-              createTime: 0,
-              user: {
-                id: 0,
-                userName: "loading",
-                desc: "loading",
-                avatar: "",
-                isFollow: true
-              }
-            }
-          ]
-        }
-      ],
+      groups: [],
       snackbar: false,
-      tipMsg: ""
+      tipMsg: "",
+      showLoading: true
     };
   },
 
@@ -133,10 +123,12 @@ export default {
           this.tipMsg = res.data.message;
           this.snackbar = true;
         }
+        this.showLoading = false;
       });
     },
     followYou(user) {
       if (user.relation == 2) {
+        // 你是我的粉丝，我再关注你就是互粉
         user.relation = 3;
       } else if (user.relation == 0) {
         user.relation = 1;
@@ -144,9 +136,9 @@ export default {
     },
     noFollowYou(user) {
       if (user.relation == 3) {
+        // 我和你互粉，我不再关注你，那么就是你单方面关注我
         user.relation = 2;
       } else if (user.relation == 1) {
-        // 不再有关系
         user.relation = 0;
       }
     }
