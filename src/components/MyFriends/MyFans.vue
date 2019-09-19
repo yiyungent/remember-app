@@ -96,11 +96,11 @@ export default {
           users: [
             {
               relation: 2,
-              createTime: 1234567891234,
+              createTime: 0,
               user: {
-                id: 1,
-                userName: "测试",
-                desc: "测试描述",
+                id: 0,
+                userName: "loading",
+                desc: "loading",
                 avatar: ""
               }
             }
