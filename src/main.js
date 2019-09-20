@@ -5,7 +5,9 @@ import App from './App'
 import router from './router'
 import store from './vuex'
 import axios from 'axios'
+import qs from 'qs'
 import * as filters from './filters'
+import { isLoginMethod } from './utils/index'
 
 import vuetify from "./plugins/vuetify";
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
@@ -16,8 +18,20 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure
 
 // FastClick.attach(document.body)
 
+// build 环境
+axios.defaults.baseURL = 'http://api.moeci.com';
+
 // axios 请求拦截 - 在发送请求之前做某件事
 axios.interceptors.request.use(function (request) {
+  // 解决跨域 post 变 OPTIONS，导致 404
+  if (request.method === 'post') {
+    console.log('post 请求 触发');
+    request.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
+    request.data = qs.stringify({
+      ...request.data
+    })
+  }
+
   if (localStorage.token) {
     // 在 headers 中设置 Authorization 属性放token，token是存在缓存中的 
     request.headers.Authorization = `Bearer ${localStorage.token}`;
@@ -33,7 +47,7 @@ router.beforeEach((to, from, next) => {
   // 这里的meta就是我们刚刚在路由里面配置的meta
   if (to.meta.needLogin) {
     // 下面这个判断是自行实现到底是否有没有登录
-    if (store.getters.isLoginStore) {
+    if (isLoginMethod()) {
       // 登录就继续
       next();
     } else {

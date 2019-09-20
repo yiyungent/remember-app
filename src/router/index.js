@@ -97,7 +97,7 @@ export default new Router({
     // 课程页
     {
       name: 'CourseBox',
-      path: '/CourseBox/:id',
+      path: '/CourseBox/Index/:id',
       component: CourseBox,
       meta: { needLogin: true }
     },
