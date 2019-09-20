@@ -11,11 +11,21 @@
       <template v-for="item in items">
         <v-col cols="6" sm="6" md="3" :key="item.courseBox.id">
           <v-card :to="{ name: 'CourseBox', params: { id: item.courseBox.id } }" class="mx-auto">
-            <v-img class="white--text" height="100px" :src="item.courseBox.picUrl">
+            <v-img
+              class="white--text"
+              height="100px"
+              :src="item.courseBox.picUrl"
+              :lazy-src="item.courseBox.picUrl"
+            >
               <v-card-title class="card-title">
                 <v-icon x-small color="white">mdi-heart</v-icon>
                 <span>{{item.learnNum}}</span>
               </v-card-title>
+              <template v-slot:placeholder>
+                <v-row class="fill-height ma-0" align="center" justify="center">
+                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+                </v-row>
+              </template>
             </v-img>
             <v-card-text class="card-text">{{item.courseBox.name}}</v-card-text>
           </v-card>

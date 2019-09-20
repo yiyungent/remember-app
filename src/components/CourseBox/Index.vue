@@ -340,7 +340,7 @@ export default {
           // 播放器
           // 跳转到当前集
           this.player.switchVideo({
-            url: this.courseBox.videoInfos[this.currentVideoInfoIndex].content,
+            url: this.courseBox.videoInfos[this.currentVideoInfoIndex].playUrl,
             pic: "",
             thumbnails: ""
           });

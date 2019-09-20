@@ -104,7 +104,10 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
-          <v-img src="https://cdn.vuetifyjs.com/images/logos/logo.svg" alt="Vuetify"></v-img>
+          <v-img
+            :src="!!user?user.avatar:'https://cdn.vuetifyjs.com/images/logos/logo.svg'"
+            alt="Vuetify"
+          ></v-img>
         </v-avatar>
       </v-btn>
       <v-toolbar-title>
@@ -152,7 +155,7 @@ export default {
       ],
       tabs: [
         { id: 1, text: "热门", route: { name: "Home_Cat1" } },
-        { id: 2, text: "最新", route: { name: "Home_Cat2" } },
+        { id: 2, text: "最新", route: { name: "Home_Cat2" } }
       ]
     };
   },

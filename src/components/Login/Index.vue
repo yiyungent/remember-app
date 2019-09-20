@@ -91,12 +91,16 @@ export default {
 
           // 存入 vuex
           // this.$store.commit('saveToken', res.data.data.token, res.data.data.expire);
-          this.$store.commit('getUser', this);
+          this.$store.commit("getUser", this);
 
           // 跳转页面
           if (!!this.$route.query.redirect) {
             // TODO: 跳转到之前页
-            // window.location.href = this.$route.query.redirect;
+            // history模式
+            window.location.href = this.$route.query.redirect;
+            // 失败
+            // window.location.href =
+            // window.location.origin + "/#" + this.$route.query.redirect;
             // this.$router.push({ path: this.$route.query.redirect });
             this.$router.push({ path: "/" });
           } else {
@@ -110,11 +114,16 @@ export default {
       });
     },
     isLoginRedirect() {
-      if (this.$store.getters.isLogin) {
+      if (this.$store.getters.isLoginStore) {
         // 跳转页面
         if (!!this.$route.query.redirect) {
           // TODO: 跳转到之前页
-          // window.location.href = this.$route.query.redirect;
+          // history模式
+          window.location.href = this.$route.query.redirect;
+          // 以下失败
+          // window.location.href =
+          // window.location.origin + "/#" + this.$route.query.redirect;
+          // console.log(this.$route.query.redirect);
           // this.$router.push({ path: this.$route.query.redirect });
           this.$router.push({ path: "/" });
         } else {
