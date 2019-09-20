@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row v-show="showLoading">
+    <v-row v-show="loading">
       <v-col class="mx-auto pa-0" md="8">
         <div class="text-center">
           <v-progress-circular indeterminate color="primary"></v-progress-circular>
@@ -98,7 +98,7 @@ export default {
       groups: [],
       snackbar: false,
       tipMsg: "",
-      showLoading: true
+      loading: true
     };
   },
 
@@ -123,7 +123,7 @@ export default {
           this.tipMsg = res.data.message;
           this.snackbar = true;
         }
-        this.showLoading = false;
+        this.loading = false;
       });
     },
     followYou(user) {

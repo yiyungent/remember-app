@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <!-- start 应用栏 -->
-    <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
       <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -220,6 +220,9 @@ import "vue-dplayer/dist/vue-dplayer.css";
 
 export default {
   name: "CourseBox",
+  metaInfo: {
+    title: !!this.courseBox ? this.courseBox.name : ""
+  },
   data() {
     return {
       // 是否处于发送弹幕中
@@ -242,7 +245,7 @@ export default {
           color: "#b7daff"
         },
         danmaku: {
-          api: "/static/upload/danmakus/add-dm-1.json",
+          // api: "/static/upload/danmakus/add-dm-1.json",
           addition: ["/static/upload/danmakus/add-dm-1.json"]
         },
         contextmenu: [
@@ -297,9 +300,11 @@ export default {
   components: {
     "d-player": VueDPlayer
   },
+  created() {
+    this.loadCourseBox();
+  },
   mounted() {
     this.player = this.$refs.player.dp;
-    this.loadCourseBox();
   },
   methods: {
     sendDm() {
@@ -351,7 +356,8 @@ export default {
         });
     },
     back() {
-      this.$router.go(-1);
+      // this.$router.go(-1);
+      this.$router.push({ name: "Home" });
     }
   },
   watch: {

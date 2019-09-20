@@ -61,7 +61,12 @@
 </template>
 
 <script>
+import { isLoginMethod } from "./../../utils/index";
+
 export default {
+  metaInfo: {
+    title: "登录 - remember"
+  },
   data() {
     return {
       loginAccount: "",
@@ -97,14 +102,14 @@ export default {
           if (!!this.$route.query.redirect) {
             // TODO: 跳转到之前页
             // history模式
-            window.location.href = this.$route.query.redirect;
+            // window.location.href = this.$route.query.redirect;
             // 失败
             // window.location.href =
             // window.location.origin + "/#" + this.$route.query.redirect;
             // this.$router.push({ path: this.$route.query.redirect });
-            this.$router.push({ path: "/" });
+            this.$router.push({ name: "Home" });
           } else {
-            this.$router.push({ path: "/" });
+            this.$router.push({ name: "Home" });
           }
         } else {
           // 登录失败
@@ -114,20 +119,20 @@ export default {
       });
     },
     isLoginRedirect() {
-      if (this.$store.getters.isLoginStore) {
+      if (isLoginMethod()) {
         // 跳转页面
         if (!!this.$route.query.redirect) {
           // TODO: 跳转到之前页
           // history模式
-          window.location.href = this.$route.query.redirect;
+          // window.location.href = this.$route.query.redirect;
           // 以下失败
           // window.location.href =
           // window.location.origin + "/#" + this.$route.query.redirect;
           // console.log(this.$route.query.redirect);
           // this.$router.push({ path: this.$route.query.redirect });
-          this.$router.push({ path: "/" });
+          this.$router.push({ name: "Home" });
         } else {
-          this.$router.push({ path: "/" });
+          this.$router.push({ name: "Home" });
         }
       }
     }

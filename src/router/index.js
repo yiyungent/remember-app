@@ -1,22 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Login from '../components/Login/Index'
-import Home from '@/components/Home/Index'
-import Home_Cat1 from '../components/Home/Cat1'
-import Home_Cat2 from '../components/Home/Cat2'
-import Home_Cat3 from '../components/Home/Cat3'
-import Home_Cat4 from '../components/Home/Cat4'
-import Home_Cat5 from '../components/Home/Cat5'
-import Home_Cat6 from '../components/Home/Cat6'
+const Login = () => import('../components/Login/Index')
+const Home = () => import('@/components/Home/Index')
+const Home_Cat1 = () => import('../components/Home/Cat1')
+const Home_Cat2 = () => import('../components/Home/Cat2')
+const Home_Cat3 = () => import('../components/Home/Cat3')
+const Home_Cat4 = () => import('../components/Home/Cat4')
+const Home_Cat5 = () => import('../components/Home/Cat5')
+const Home_Cat6 = () => import('../components/Home/Cat6')
 
-import MyFriends from '../components/MyFriends/Index'
-import MyFriends_MyFollow from '../components/MyFriends/MyFollow'
-import MyFriends_MyFans from '../components/MyFriends/MyFans'
+const MyFriends = () => import('../components/MyFriends/Index')
+const MyFriends_MyFollow = () => import('../components/MyFriends/MyFollow')
+const MyFriends_MyFans = () => import('../components/MyFriends/MyFans')
 
-import CourseBox from '../components/CourseBox/Index'
+const CourseBox = () => import('../components/CourseBox/Index')
 
-import NotFound from '@/components/NotFound'
+const NotFound = () => import('@/components/NotFound')
 
 Vue.use(Router)
 

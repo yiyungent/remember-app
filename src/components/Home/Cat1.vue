@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row v-show="showLoading">
+    <v-row v-show="loading">
       <v-col class="mx-auto py-0" md="8">
         <div class="text-center">
           <v-progress-circular indeterminate color="primary"></v-progress-circular>
@@ -39,7 +39,7 @@ export default {
   data() {
     return {
       items: [],
-      showLoading: true
+      loading: true
     };
   },
   created() {
@@ -59,9 +59,12 @@ export default {
           this.items = res.data.data;
         } else {
         }
-        this.showLoading = false;
+        this.loading = false;
       });
     }
+  },
+  metaInfo: {
+    title: "热门课程 - remember"
   }
 };
 </script>

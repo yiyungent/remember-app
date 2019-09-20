@@ -8,6 +8,10 @@ import axios from 'axios'
 import qs from 'qs'
 import * as filters from './filters'
 import { isLoginMethod } from './utils/index'
+import MetaInfo from 'vue-meta-info'
+
+Vue.use(MetaInfo)
+
 
 import vuetify from "./plugins/vuetify";
 import 'roboto-fontface/css/roboto/roboto-fontface.css'

@@ -63,6 +63,9 @@ export default {
         this.showLoading = false;
       });
     }
+  },
+  metaInfo: {
+    title: "最新课程 - remember"
   }
 };
 </script>
