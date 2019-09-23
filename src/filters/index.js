@@ -32,14 +32,25 @@ const moneyFormat = value => {
 
 
 const subStrPretty = (value, length) => {
-    if(value == null) {
-        return '';
-      }
-      if(value.length > length) {
-        return value.substr(0, length) + '...';
-      } else {
-        return value;
-      }
+    if (!!value) {
+        if (value.length > length) {
+            return value.substr(0, length) + '...';
+        } else {
+            return value;
+        }
+    }
+    return '';
+}
+
+const numPretty = (value) => {
+    if (!!value) {
+        if (value >= 10000) {
+            return Math.round((value /10000) * 100) / 100;
+        } else {
+            return value;
+        }
+    }
+    return 0;
 }
 
 
@@ -48,5 +59,6 @@ const subStrPretty = (value, length) => {
 export {
     dateFormat,
     moneyFormat,
-    subStrPretty
+    subStrPretty,
+    numPretty
 }

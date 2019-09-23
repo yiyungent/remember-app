@@ -11,7 +11,8 @@ const store = new Vuex.Store({
     // token: localStorage.getItem('token') || '',
     // // token 过期时间（Unix时间戳）
     // token_expire: localStorage.getItem('token_expire') || 0,
-    user: null
+    user: null,
+    webInfo: null
   },
   mutations: {  // this.$store.commit('方法的名称', '按需传递唯一的参数')
     // 获取当前登录账号并保存到 user
@@ -43,19 +44,7 @@ const store = new Vuex.Store({
     // }
   },
   getters: {    // thus.$store.getters.***
-    isLoginStore: state => {
-      var currentUnixTime = Math.round(new Date().getTime() / 1000);
-      if (!!localStorage.token && !!localStorage.token_expire && currentUnixTime < localStorage.token_expire) {
-        // token 存在 且 不为空 且 未过期
-        console.log("store.getters.isLogin: true");
-        return true;
-      } else {
-        localStorage.removeItem('token');
-        console.log("store.getters.isLogin: false");
 
-        return false;
-      }
-    }
   }
 })
 

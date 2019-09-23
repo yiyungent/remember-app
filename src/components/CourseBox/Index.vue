@@ -31,10 +31,10 @@
               <v-tab>简介</v-tab>
               <v-tab style="vertical-align:bottom;">
                 <span>评论</span>
-                <span style="font-size:10px;">{{courseBox.stat.commentNum}}</span>
+                <span style="font-size:10px;">{{courseBox.stat.commentNum | numPretty}}</span>
               </v-tab>
               <div class="flex-grow-1"></div>
-              <v-btn-toggle rounded fixed>
+              <!-- <v-btn-toggle rounded fixed>
                 <v-expand-x-transition>
                   <v-btn
                     v-show="enableDm"
@@ -44,7 +44,7 @@
                 <v-btn @click="enableDm=!enableDm">
                   <v-icon>{{enableDm?'personal_video':'tv_off'}}</v-icon>
                 </v-btn>
-              </v-btn-toggle>
+              </v-btn-toggle>-->
             </v-tabs>
           </v-col>
         </v-row>
@@ -56,11 +56,11 @@
               <v-col xs="7" style="width:48px;">
                 <router-link :to="{name:'Home'}" style="text-decoration:none">
                   <v-avatar max-width="48">
-                    <img :src="courseBox.creator.avatar" alt="John" />
+                    <img :src="courseBox.creator.avatar" />
                   </v-avatar>
                   <div style="transform: translate(60px, -46px);">
-                    <div class="black--text">{{courseBox.creator.name | subStrPretty(5)}}</div>
-                    <div class="grey--text subtitle-1">{{courseBox.creator.fansNum}}粉丝</div>
+                    <div class="black--text">{{courseBox.creator.userName | subStrPretty(5)}}</div>
+                    <div class="grey--text subtitle-1" style="font-size:6px;">{{courseBox.creator.fansNum | numPretty}}粉丝</div>
                   </div>
                 </router-link>
               </v-col>
@@ -75,9 +75,9 @@
         <!-- end 课程作者头像栏 -->
         <!-- start 课程信息 -->
         <v-row>
-          <v-col class="mx-auto" md="8">
+          <v-col class="mx-auto pb-0" md="8">
             <div>
-              <span>{{courseBox.name}}</span>
+              <span style="font-size:18px;">{{courseBox.name || substrPretty(8) }}</span>
               <v-btn class="float-right mr-4" icon @click="showDesc = !showDesc">
                 <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
               </v-btn>
@@ -85,16 +85,12 @@
             <div class="grey--text subtitle-1 py-1">
               <span style="font-size:13px;" class="px-1">
                 <v-icon x-small>personal_video</v-icon>
-                {{courseBox.stat.viewNum}}
+                <span>{{courseBox.stat.viewNum | numPretty}}</span>
               </span>
-              <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>star</v-icon>
-                {{courseBox.stat.favNum}}
-              </span>
-              <span style="font-size:13px;" class="px-1">{{courseBox.lastUpdateTime}}</span>
-              <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>personal_video</v-icon>全站日排行榜最高第九名
-              </span>
+              <span
+                style="font-size:13px;"
+                class="px-1"
+              >{{courseBox.lastUpdateTime | dateFormat('YYYY-MM-DD HH:mm')}}</span>
             </div>
           </v-col>
         </v-row>
@@ -114,36 +110,36 @@
         <v-row>
           <v-col class="mx-auto py-0" md="8">
             <v-row class="mx-auto">
-              <v-col>
+              <v-col class="text-center pt-0">
                 <v-btn large text icon color="gray">
                   <v-icon>thumb_up</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.likeNum}}</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.likeNum | numPretty}}</span>
                 </v-btn>
               </v-col>
-              <v-col>
+              <v-col class="text-center pt-0">
                 <v-btn large text icon color="gray">
                   <v-icon>thumb_down</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.dislikeNum}}</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.dislikeNum | numPretty}}</span>
                 </v-btn>
               </v-col>
-              <v-col>
+              <!-- <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>attach_money</v-icon>
                   <span class="btn-icon-with-text">{{courseBox.stat.coin}}</span>
                 </v-btn>
-              </v-col>
-              <v-col>
+              </v-col>-->
+              <v-col class="text-center pt-0">
                 <v-btn large text icon color="gray">
                   <v-icon>star</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.favNum}}</span>
+                  <span class="btn-icon-with-text">{{courseBox.stat.favNum | numPretty}}</span>
                 </v-btn>
               </v-col>
-              <v-col>
+              <!-- <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>share</v-icon>
                   <span class="btn-icon-with-text">{{courseBox.stat.shareNum}}</span>
                 </v-btn>
-              </v-col>
+              </v-col>-->
             </v-row>
           </v-col>
         </v-row>
@@ -188,7 +184,7 @@
         <!-- end 选集 -->
       </v-container>
     </v-content>
-    <v-bottom-sheet v-model="isSendDm">
+    <!-- <v-bottom-sheet v-model="isSendDm">
       <v-sheet height="48" color="white">
         <v-row>
           <v-col cols="10" style="padding-top:0;padding-right:0;">
@@ -211,7 +207,7 @@
           </v-col>
         </v-row>
       </v-sheet>
-    </v-bottom-sheet>
+    </v-bottom-sheet>-->
   </v-app>
 </template>
 <script>
@@ -220,8 +216,10 @@ import "vue-dplayer/dist/vue-dplayer.css";
 
 export default {
   name: "CourseBox",
-  metaInfo: {
-    title: !!this.courseBox ? this.courseBox.name : ""
+  metaInfo() {
+    return {
+      title: !!this.courseBox ? this.courseBox.name : ""
+    };
   },
   data() {
     return {
@@ -244,10 +242,10 @@ export default {
           bottom: "10%",
           color: "#b7daff"
         },
-        danmaku: {
-          // api: "/static/upload/danmakus/add-dm-1.json",
-          addition: ["/static/upload/danmakus/add-dm-1.json"]
-        },
+        // danmaku: {
+        //   // api: "/static/upload/danmakus/add-dm-1.json",
+        //   addition: ["/static/upload/danmakus/add-dm-1.json"]
+        // },
         contextmenu: [
           {
             text: "GitHub",
@@ -344,11 +342,16 @@ export default {
           }
           // 播放器
           // 跳转到当前集
+          var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
           this.player.switchVideo({
-            url: this.courseBox.videoInfos[this.currentVideoInfoIndex].playUrl,
+            url: video.playUrl,
             pic: "",
             thumbnails: ""
           });
+          // 如果当前集有播放历史记录，则调至上次播放位置
+          if (!!video.lastPlayAt) {
+            this.player.seek(video.lastPlayAt);
+          }
         })
         .catch(err => {
           //请求失败就会捕获报错信息
@@ -375,16 +378,20 @@ export default {
     },
     slideGroup(activeIndex) {
       console.log(activeIndex);
-      console.log(this.courseBox.videoInfos[activeIndex]);
-      this.currentVideoInfoId = this.courseBox.videoInfos[activeIndex].id;
+      var currentVideo = this.courseBox.videoInfos[activeIndex];
+      console.log(currentVideo);
+      this.currentVideoInfoId = currentVideo.id;
 
       // 切换课件
-      var currentVideoInfo = this.courseBox.videoInfos[activeIndex];
       this.player.switchVideo({
-        url: currentVideoInfo.playUrl,
+        url: currentVideo.playUrl,
         pic: "",
         thumbnails: ""
       });
+      // 如果有播放历史记录，则调至此位置
+      if (!!currentVideo.lastPlayAt) {
+        this.player.seek(currentVideo.lastPlayAt);
+      }
     }
   }
 };
@@ -399,7 +406,7 @@ export default {
   caret-color: #e91e63 !important;
 }
 .btn-icon-with-text {
-  transform: translate(-24px, 22px);
+  transform: translate(-18px, 22px);
   font-size: 8px;
   color: gray;
 }

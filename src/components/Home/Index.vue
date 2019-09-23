@@ -125,7 +125,7 @@
       </v-btn>
       <!-- start 选项卡 -->
       <template v-slot:extension>
-        <v-tabs background-color="transparent" center-active>
+        <v-tabs background-color="transparent" center-active >
           <v-tab v-for="(item, i) in tabs" :key="i" :to="item.route">{{ item.text }}</v-tab>
         </v-tabs>
       </template>
@@ -141,6 +141,8 @@
 </template>
 
 <script>
+import { isLoginMethod } from './../../utils/index'
+
 export default {
   data() {
     return {
@@ -160,7 +162,7 @@ export default {
     };
   },
   created() {
-    if (!!localStorage.token) {
+    if (isLoginMethod()) {
       this.$store.commit("getUser", this);
     }
   },
@@ -172,7 +174,7 @@ export default {
   },
   computed: {
     isLogin() {
-      return this.$store.state.user != null;
+      return isLoginMethod();
     },
     user() {
       return this.$store.state.user;
