@@ -5,10 +5,10 @@ const Login = () => import('../components/Login/Index')
 const Home = () => import('@/components/Home/Index')
 const Home_Cat1 = () => import('../components/Home/Cat1')
 const Home_Cat2 = () => import('../components/Home/Cat2')
-const Home_Cat3 = () => import('../components/Home/Cat3')
-const Home_Cat4 = () => import('../components/Home/Cat4')
-const Home_Cat5 = () => import('../components/Home/Cat5')
-const Home_Cat6 = () => import('../components/Home/Cat6')
+// const Home_Cat3 = () => import('../components/Home/Cat3')
+// const Home_Cat4 = () => import('../components/Home/Cat4')
+// const Home_Cat5 = () => import('../components/Home/Cat5')
+// const Home_Cat6 = () => import('../components/Home/Cat6')
 
 const MyFriends = () => import('../components/MyFriends/Index')
 const MyFriends_MyFollow = () => import('../components/MyFriends/MyFollow')
@@ -50,23 +50,24 @@ export default new Router({
           name: 'Home_Cat2',
           path: 'Cat2',
           component: Home_Cat2
-        }, {
-          name: 'Home_Cat3',
-          path: 'Cat3',
-          component: Home_Cat3
-        }, {
-          name: 'Home_Cat4',
-          path: 'Cat4',
-          component: Home_Cat4
-        }, {
-          name: 'Home_Cat5',
-          path: 'Cat5',
-          component: Home_Cat5
-        }, {
-          name: 'Home_Cat6',
-          path: 'Cat6',
-          component: Home_Cat6
-        }
+        }, 
+        // {
+        //   name: 'Home_Cat3',
+        //   path: 'Cat3',
+        //   component: Home_Cat3
+        // }, {
+        //   name: 'Home_Cat4',
+        //   path: 'Cat4',
+        //   component: Home_Cat4
+        // }, {
+        //   name: 'Home_Cat5',
+        //   path: 'Cat5',
+        //   component: Home_Cat5
+        // }, {
+        //   name: 'Home_Cat6',
+        //   path: 'Cat6',
+        //   component: Home_Cat6
+        // }
       ]
     },
     // 我的好友 = 我的关注 + 我的粉丝

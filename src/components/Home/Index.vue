@@ -4,11 +4,11 @@
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <!-- start 顶部头像区 -->
       <template v-slot:prepend>
-        <v-img :aspect-ratio="16/9" src="https://cdn.vuetifyjs.com/images/parallax/material.jpg">
+        <v-img :aspect-ratio="16/9" src="http://api.moeci.com/assets/images/default-avatar-background.png">
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
-                <v-img :src="!!user?user.avatar:'https://randomuser.me/api/portraits/women/85.jpg'"></v-img>
+                <v-img :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
                 <v-btn x-small outlined fab color="white">
@@ -30,7 +30,7 @@
       </template>
       <!-- start 顶部头像区 -->
       <v-divider></v-divider>
-      <!-- start 我的动态，关注，粉丝 -->
+      <!-- start 按钮栏 -->
       <v-list class="d-flex justify-space-between text-center">
         <v-list-item :to="{ name: 'Home'}">
           <v-list-item-content>
@@ -51,11 +51,11 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
-      <!-- end 我的动态，关注，粉丝 -->
+      <!-- end 按钮栏 -->
       <v-divider></v-divider>
       <!-- start 一般导航区 -->
       <v-list nav dense>
-        <v-list-item-group v-model="drawerCurrentIndex" color="blue">
+        <v-list-item-group v-model="drawerCurrentIndex" color="primary">
           <v-list-item v-for="(item, i) in drawerItems" :key="i">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
@@ -71,7 +71,7 @@
       <!-- start 一般导航区 -->
       <!-- start 设置区 -->
       <v-list nav dense>
-        <v-list-item-group color="blue">
+        <v-list-item-group color="primary">
           <v-list-item v-show="isLogin" @click="logout">
             <v-list-item-icon>
               <v-icon>logout</v-icon>
@@ -98,14 +98,14 @@
       hide-on-scroll
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
-      color="blue darken-3"
+      color="primary"
       dark
     >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
           <v-img
-            :src="!!user?user.avatar:'https://cdn.vuetifyjs.com/images/logos/logo.svg'"
+            :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
             alt="Vuetify"
           ></v-img>
         </v-avatar>

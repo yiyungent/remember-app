@@ -27,7 +27,7 @@
                 </v-row>
               </template>
             </v-img>
-            <v-card-text class="card-text">{{item.courseBox.name}}</v-card-text>
+            <v-card-text style="height:32px;" class="card-text">{{item.courseBox.name | subStrPretty(5)}}</v-card-text>
           </v-card>
         </v-col>
       </template>
