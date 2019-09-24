@@ -4,11 +4,16 @@
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <!-- start 顶部头像区 -->
       <template v-slot:prepend>
-        <v-img :aspect-ratio="16/9" src="http://api.moeci.com/assets/images/default-avatar-background.png">
+        <v-img
+          :aspect-ratio="16/9"
+          src="http://api.moeci.com/assets/images/default-avatar-background.png"
+        >
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
-                <v-img :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"></v-img>
+                <v-img
+                  :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
+                ></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
                 <v-btn x-small outlined fab color="white">
@@ -56,7 +61,7 @@
       <!-- start 一般导航区 -->
       <v-list nav dense>
         <v-list-item-group v-model="drawerCurrentIndex" color="primary">
-          <v-list-item v-for="(item, i) in drawerItems" :key="i">
+          <v-list-item :to="item.route" v-for="(item, i) in drawerItems" :key="i">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -94,13 +99,7 @@
     </v-navigation-drawer>
     <!-- end 左侧导航抽屉 -->
     <!-- start 应用栏 -->
-    <v-app-bar
-      hide-on-scroll
-      :clipped-left="$vuetify.breakpoint.lgAndUp"
-      app
-      color="primary"
-      dark
-    >
+    <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
@@ -125,7 +124,7 @@
       </v-btn>
       <!-- start 选项卡 -->
       <template v-slot:extension>
-        <v-tabs background-color="transparent" center-active >
+        <v-tabs background-color="transparent" center-active>
           <v-tab v-for="(item, i) in tabs" :key="i" :to="item.route">{{ item.text }}</v-tab>
         </v-tabs>
       </template>
@@ -141,7 +140,7 @@
 </template>
 
 <script>
-import { isLoginMethod } from './../../utils/index'
+import { isLoginMethod } from "./../../utils/index";
 
 export default {
   data() {
@@ -149,9 +148,9 @@ export default {
       drawer: null,
       drawerCurrentIndex: 0,
       drawerItems: [
-        { text: "首页", icon: "mdi-folder" },
+        { text: "首页", icon: "mdi-folder", route: { name: "Home" } },
         { text: "历史记录", icon: "mdi-history" },
-        { text: "我的收藏", icon: "mdi-star" },
+        { text: "我的收藏", icon: "mdi-star", route: { name: "MyFav" } },
         { text: "我的课程", icon: "mdi-star" },
         { text: "新建课程", icon: "mdi-upload" }
       ],

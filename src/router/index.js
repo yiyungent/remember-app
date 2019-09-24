@@ -14,6 +14,11 @@ const MyFriends = () => import('../components/MyFriends/Index')
 const MyFriends_MyFollow = () => import('../components/MyFriends/MyFollow')
 const MyFriends_MyFans = () => import('../components/MyFriends/MyFans')
 
+const MyFav = () => import('../components/MyFav/Index.vue')
+const MyFav_CourseBox = () => import('../components/MyFav/CourseBox.vue')
+const Favorite = () => import('../components/Favorite/Index.vue')
+
+
 const CourseBox = () => import('../components/CourseBox/Index')
 
 const NotFound = () => import('@/components/NotFound')
@@ -26,15 +31,17 @@ Vue.use(Router)
 // },
 
 export default new Router({
-  mode: 'history',
-  // mode: 'hash',
+  // mode: 'history',
+  mode: 'hash',
   routes: [
+
     // 登录页
     {
       name: 'Login',
       path: '/Login',
       component: Login
     },
+
     // 首页及分类
     {
       name: 'Home',
@@ -50,7 +57,7 @@ export default new Router({
           name: 'Home_Cat2',
           path: 'Cat2',
           component: Home_Cat2
-        }, 
+        },
         // {
         //   name: 'Home_Cat3',
         //   path: 'Cat3',
@@ -70,6 +77,7 @@ export default new Router({
         // }
       ]
     },
+
     // 我的好友 = 我的关注 + 我的粉丝
     {
       name: 'MyFriends',
@@ -95,10 +103,36 @@ export default new Router({
         }
       ]
     },
+
+    // 我的收藏 = 我的课程收藏
+    {
+      name: 'MyFav',
+      path: '/MyFav',
+      component: MyFav,
+      redirect: { name: 'MyFav_CourseBox' },
+      children: [
+        {
+          name: 'MyFav_CourseBox',
+          path: 'CourseBox',
+          component: MyFav_CourseBox,
+          meta: {
+            needLogin: true
+          }
+        }
+      ]
+    },
+
+    // 某收藏夹
+    {
+      name: 'Favorite',
+      path: '/Favorite/:id',
+      component: Favorite
+    },
+
     // 课程页
     {
       name: 'CourseBox',
-      path: '/CourseBox/Index/:id',
+      path: '/CourseBox/:id',
       component: CourseBox,
       meta: { needLogin: true }
     },
