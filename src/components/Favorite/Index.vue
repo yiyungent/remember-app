@@ -96,10 +96,12 @@
           </v-col>
         </v-row>
         <!-- end 收藏的课程 -->
-        <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
       </v-container>
     </v-content>
     <!-- end 主体内容区 -->
+    <!-- start 提示消息 -->
+    <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
+    <!-- end 提示消息 -->
   </v-app>
 </template>
 <script>
@@ -134,13 +136,18 @@ export default {
   },
 
   methods: {
-
     back() {
       this.$router.push({ name: "MyFav" });
     },
-    
+
     goCourseBox(id) {
       this.$router.push({ name: "CourseBox", params: { id: id } });
+
+      var currentRoute = {
+        name: "Favorite",
+        params: { id: this.$route.params.id }
+      };
+      sessionStorage.setItem("returnRoute", JSON.stringify(currentRoute));
     },
 
     loadFav() {
@@ -159,7 +166,7 @@ export default {
         }
         this.loading = false;
       });
-    },
+    }
   }
 };
 </script>

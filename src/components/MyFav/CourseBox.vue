@@ -46,7 +46,9 @@
         </v-list>
       </v-col>
     </v-row>
+    <!-- start 提示消息 -->
     <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
+    <!-- end 提示消息 -->
   </v-container>
 </template>
 <script>
@@ -80,7 +82,7 @@ export default {
       this.$store.commit("getUser", this);
     }
   },
-  
+
   mounted() {
     this.loadFavList();
   },

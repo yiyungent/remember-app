@@ -60,7 +60,10 @@
                   </v-avatar>
                   <div style="transform: translate(60px, -46px);">
                     <div class="black--text">{{courseBox.creator.userName | subStrPretty(5)}}</div>
-                    <div class="grey--text subtitle-1" style="font-size:6px;">{{courseBox.creator.fansNum | numPretty}}粉丝</div>
+                    <div
+                      class="grey--text subtitle-1"
+                      style="font-size:6px;"
+                    >{{courseBox.creator.fansNum | numPretty}}粉丝</div>
                   </div>
                 </router-link>
               </v-col>
@@ -129,7 +132,7 @@
                 </v-btn>
               </v-col>-->
               <v-col class="text-center pt-0">
-                <v-btn large text icon color="gray">
+                <v-btn @click="showSelectFav=true" large text icon color="gray">
                   <v-icon>star</v-icon>
                   <span class="btn-icon-with-text">{{courseBox.stat.favNum | numPretty}}</span>
                 </v-btn>
@@ -208,6 +211,39 @@
         </v-row>
       </v-sheet>
     </v-bottom-sheet>-->
+    <!-- start 选择收藏夹 -->
+    <v-bottom-sheet v-model="showSelectFav">
+      <v-list flat subheader three-line>
+        <v-subheader>
+          <v-icon color="yellow" class="pr-1">folder</v-icon>选择收藏夹
+          <div class="flex-grow-1"></div>
+          <v-btn text small style="color:gray;">
+            <v-icon>add</v-icon>新建收藏夹
+          </v-btn>
+        </v-subheader>
+        <v-list-item-group v-model="selectedFavList" multiple active-class>
+          <v-list-item v-for="(fav, index) in favList" :key="index">
+            <template v-slot:default="{ active, toggle }">
+              <v-list-item-action>
+                <v-checkbox v-model="active" color="primary" @click="toggle"></v-checkbox>
+              </v-list-item-action>
+
+              <v-list-item-content>
+                <v-list-item-title>{{fav.name}}</v-list-item-title>
+                <v-list-item-subtitle>{{fav.count}}个内容 · {{fav.isOpen?"公开":"私密"}}</v-list-item-subtitle>
+              </v-list-item-content>
+            </template>
+          </v-list-item>
+          <v-list-item>
+            <v-btn block @click="favCourseBox">完成</v-btn>
+          </v-list-item>
+        </v-list-item-group>
+      </v-list>
+    </v-bottom-sheet>
+    <!-- end 选择收藏夹 -->
+    <!-- start 提示消息 -->
+    <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
+    <!-- end 提示消息 -->
   </v-app>
 </template>
 <script>
@@ -283,7 +319,15 @@ export default {
         videoInfos: [{ id: 0, title: "loading", playUrl: "" }]
       },
       currentVideoInfoId: 17,
-      currentVideoInfoIndex: 0
+      currentVideoInfoIndex: 0,
+      // start 选择收藏夹
+      showSelectFav: false,
+      selectedFavList: [],
+      favList: [],
+      // end 选择收藏夹
+      // 提示消息
+      snackbar: false,
+      tipMsg: ""
     };
   },
   computed: {
@@ -358,9 +402,85 @@ export default {
           //err.response可拿到服务器返回的报错数据
         });
     },
+    loadFavList() {
+      this.$http({
+        method: "get",
+        url: "/api/Favorite/MyFavList"
+      }).then(res => {
+        if (res.data.code >= 1) {
+          this.favList = res.data.data.groups[0].favList;
+        } else {
+          this.tipMsg = res.data.message;
+          this.snackbar = true;
+        }
+      });
+
+      // 加载哪些收藏夹被选中
+      this.selectedFavList = [2];
+    },
+    favCourseBox() {
+      this.showSelectFav = false;
+      // 获取要收藏到的收藏夹
+      // 选择的收藏夹的ID
+      var favIds = [];
+      this.selectedFavList.forEach(ele => {
+        var index = ele - 1;
+        if (index >= 0) {
+          favIds.push(this.favList[index].id);
+        }
+      });
+      var selectedFavCount = favIds.length;
+      var successFavCount = 0;
+      var proArr = [];
+      favIds.forEach(favId => {
+        var pro = this.promiseFun("/api/Favorite/FavCourseBox", {
+          courseBoxId: this.$route.params.id,
+          favoriteId: favId
+        });
+        proArr.push(pro);
+      });
+
+      // 使用 Promise.all()
+      Promise.all(proArr).then(res => {
+        var successCount = 0;
+        res.forEach(ele => {
+          if (ele.data.code > 0) {
+            successCount++;
+          }
+        });
+        if (successCount < res.length) {
+          // 存在收藏失败
+          this.tipMsg = "收藏失败";
+          this.snackbar = true;
+        } else {
+          // 全部收藏成功
+          this.tipMsg = "收藏成功";
+          this.snackbar = true;
+        }
+      });
+    },
+
     back() {
-      // this.$router.go(-1);
-      this.$router.push({ name: "Home" });
+      if (!!sessionStorage.getItem("returnRoute")) {
+        var returnRoute = JSON.parse(sessionStorage.getItem("returnRoute"));
+        sessionStorage.removeItem("returnRoute");
+        this.$router.push(returnRoute);
+      } else {
+        this.$router.push({ name: "Home" });
+      }
+    },
+
+    promiseFun(url, data) {
+      return new Promise((resolve, reject) => {
+        this.$http.post(url, data).then(
+          res => {
+            resolve(res);
+          },
+          err => {
+            reject(err);
+          }
+        );
+      });
     }
   },
   watch: {
@@ -391,6 +511,11 @@ export default {
       // 如果有播放历史记录，则调至此位置
       if (!!currentVideo.lastPlayAt) {
         this.player.seek(currentVideo.lastPlayAt);
+      }
+    },
+    showSelectFav(newVal) {
+      if (newVal) {
+        this.loadFavList();
       }
     }
   }
