@@ -32,7 +32,7 @@
             >
               <v-row>
                 <v-col xs="4">
-                  <v-img :src="fav.picUrl" :lazy-src="fav.picUrl" max-width="190" max-height="120"></v-img>
+                  <v-img :src="fav.picUrl" :lazy-src="fav.picUrl" width="190" height="120"></v-img>
                 </v-col>
                 <v-col xs="4">
                   <v-list-item-content>
@@ -60,24 +60,10 @@ export default {
           groupName: "我的创建",
           favList: [
             {
-              id: 1,
+              id: 0,
               name: "默认收藏夹",
-              count: 45,
+              count: 0,
               isOpen: true,
-              picUrl: "https://picsum.photos/id/11/500/300"
-            },
-            {
-              id: 2,
-              name: "大学",
-              count: 5,
-              isOpen: false,
-              picUrl: "https://picsum.photos/id/11/500/300"
-            },
-            {
-              id: 3,
-              name: "超棒的",
-              count: 15,
-              isOpen: false,
               picUrl: "https://picsum.photos/id/11/500/300"
             }
           ]
@@ -85,7 +71,7 @@ export default {
       ],
       snackbar: false,
       tipMsg: "",
-      loading: false
+      loading: true
     };
   },
 
@@ -94,8 +80,9 @@ export default {
       this.$store.commit("getUser", this);
     }
   },
+  
   mounted() {
-    // this.loadFavList();
+    this.loadFavList();
   },
 
   methods: {

@@ -29,7 +29,7 @@
           <v-col class="mx-auto pl-4" md="8">
             <v-row>
               <v-col xs="4">
-                <v-img :src="fav.picUrl" :lazy-src="fav.picUrl" max-width="190" max-height="120"></v-img>
+                <v-img :src="fav.picUrl" :lazy-src="fav.picUrl" width="190" height="120"></v-img>
               </v-col>
               <v-col xs="4">
                 <v-list-item-content>
@@ -64,8 +64,8 @@
                     <v-img
                       :src="courseBox.picUrl"
                       :lazy-src="courseBox.picUrl"
-                      max-width="190"
-                      max-height="120"
+                      width="190"
+                      height="120"
                     ></v-img>
                   </v-col>
                   <v-col xs="4" class="pb-0">
@@ -107,53 +107,19 @@ export default {
   data() {
     return {
       fav: {
-        courseBoxs: [
-          {
-            id: 1,
-            name: "软件工程",
-            picUrl: "https://picsum.photos/id/11/500/300",
-            creator: {
-              id: 1,
-              userName: "admin"
-            },
-            learnNum: 1231,
-            favTime: 1324135
-          },
-          {
-            id: 2,
-            name: "计算机",
-            picUrl: "https://picsum.photos/id/11/500/300",
-            creator: {
-              id: 2,
-              userName: "guest"
-            },
-            learnNum: 31,
-            favTime: 1324135
-          },
-          {
-            id: 3,
-            name: "软件测试",
-            picUrl: "https://picsum.photos/id/11/500/300",
-            creator: {
-              id: 3,
-              userName: "root"
-            },
-            learnNum: 23,
-            favTime: 1324135
-          }
-        ],
+        courseBoxs: [],
         creator: {
-          id: 1,
-          userName: "admin"
+          id: 0,
+          userName: "loading"
         },
-        createTime: 1351355,
-        name: "这里的最棒了",
+        createTime: 0,
+        name: "loading",
         picUrl: "https://picsum.photos/id/11/500/300",
-        id: 1
+        id: 0
       },
       snackbar: false,
       tipMsg: "",
-      loading: false
+      loading: true
     };
   },
 
@@ -162,8 +128,9 @@ export default {
       this.$store.commit("getUser", this);
     }
   },
+
   mounted() {
-    // this.loadFav();
+    this.loadFav();
   },
 
   methods: {
