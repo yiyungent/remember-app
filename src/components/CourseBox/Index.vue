@@ -133,7 +133,8 @@
               </v-col>-->
               <v-col class="text-center pt-0">
                 <v-btn @click="showSelectFav=true" large text icon color="gray">
-                  <v-icon>star</v-icon>
+                  <v-icon v-show="isIFav" color="primary">star</v-icon>
+                  <v-icon v-show="!isIFav">star</v-icon>
                   <span class="btn-icon-with-text">{{courseBox.stat.favNum | numPretty}}</span>
                 </v-btn>
               </v-col>
@@ -221,6 +222,9 @@
             <v-icon>add</v-icon>新建收藏夹
           </v-btn>
         </v-subheader>
+        <div v-show="loadingSelectFav" class="text-center">
+          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
         <v-list-item-group v-model="selectedFavList" multiple active-class>
           <v-list-item v-for="(fav, index) in favList" :key="index">
             <template v-slot:default="{ active, toggle }">
@@ -322,12 +326,18 @@ export default {
       currentVideoInfoIndex: 0,
       // start 选择收藏夹
       showSelectFav: false,
+      loadingSelectFav: true,
       selectedFavList: [],
       favList: [],
+      favStat: {
+        courseBoxFavCount: 0,
+        myFavStat: { favIds: [] }
+      },
       // end 选择收藏夹
-      // 提示消息
+      // start 提示消息
       snackbar: false,
       tipMsg: ""
+      // end 提示消息
     };
   },
   computed: {
@@ -337,6 +347,16 @@ export default {
       } else {
         return 0;
       }
+    },
+    // 我收藏了此课程吗
+    isIFav: function() {
+      if (
+        !!this.favStat.myFavStat &&
+        this.favStat.myFavStat.favIds.length >= 1
+      ) {
+        return true;
+      }
+      return false;
     }
   },
   components: {
@@ -344,6 +364,7 @@ export default {
   },
   created() {
     this.loadCourseBox();
+    this.loadFavStat();
   },
   mounted() {
     this.player = this.$refs.player.dp;
@@ -403,6 +424,7 @@ export default {
         });
     },
     loadFavList() {
+      this.loadingSelectFav = true;
       this.$http({
         method: "get",
         url: "/api/Favorite/MyFavList"
@@ -413,12 +435,30 @@ export default {
           this.tipMsg = res.data.message;
           this.snackbar = true;
         }
+        this.loadMyFav();
+        this.loadingSelectFav = false;
       });
-
-      // 加载哪些收藏夹被选中
-      this.selectedFavList = [2];
     },
+
+    loadFavStat() {
+      this.$http({
+        method: "get",
+        url: "/api/Favorite/FavStatInCourseBox",
+        params: {
+          courseBoxId: this.$route.params.id
+        }
+      }).then(res => {
+        if (res.data.code >= 1) {
+          this.favStat = res.data.data;
+        } else {
+          this.tipMsg = res.data.message;
+          this.snackbar = true;
+        }
+      });
+    },
+
     favCourseBox() {
+      this.loadFavStat();
       this.showSelectFav = false;
       // 获取要收藏到的收藏夹
       // 选择的收藏夹的ID
@@ -429,35 +469,37 @@ export default {
           favIds.push(this.favList[index].id);
         }
       });
-      var selectedFavCount = favIds.length;
-      var successFavCount = 0;
-      var proArr = [];
-      favIds.forEach(favId => {
-        var pro = this.promiseFun("/api/Favorite/FavCourseBox", {
+      this.$http({
+        method: "post",
+        url: "/api/Favorite/FavCourseBox",
+        data: {
           courseBoxId: this.$route.params.id,
-          favoriteId: favId
-        });
-        proArr.push(pro);
-      });
-
-      // 使用 Promise.all()
-      Promise.all(proArr).then(res => {
-        var successCount = 0;
-        res.forEach(ele => {
-          if (ele.data.code > 0) {
-            successCount++;
-          }
-        });
-        if (successCount < res.length) {
-          // 存在收藏失败
-          this.tipMsg = "收藏失败";
-          this.snackbar = true;
-        } else {
-          // 全部收藏成功
-          this.tipMsg = "收藏成功";
-          this.snackbar = true;
+          favListIds: favIds.join(",")
         }
+      }).then(res => {
+        if (res.data.code >= 1) {
+          this.tipMsg = res.data.message;
+          this.loadFavStat();
+          this.loadMyFav();
+        } else {
+          this.tipMsg = res.data.message;
+        }
+        this.snackbar = true;
       });
+    },
+
+    loadMyFav() {
+      // 加载哪些收藏夹被选中 -> 我的哪些收藏夹收藏了此课程 -> 要这些收藏夹的id
+      this.selectedFavList = [];
+      for (var i = 0; i < this.favList.length; i++) {
+        var currentFavId = this.favList[i].id;
+        if (
+          !!this.favStat.myFavStat.favIds &&
+          this.favStat.myFavStat.favIds.includes(currentFavId)
+        ) {
+          this.selectedFavList.push(i + 1);
+        }
+      }
     },
 
     back() {
