@@ -218,7 +218,7 @@
         <v-subheader>
           <v-icon color="yellow" class="pr-1">folder</v-icon>选择收藏夹
           <div class="flex-grow-1"></div>
-          <v-btn text small style="color:gray;">
+          <v-btn @click="goCreateFav" text small style="color:gray;">
             <v-icon>add</v-icon>新建收藏夹
           </v-btn>
         </v-subheader>
@@ -500,6 +500,16 @@ export default {
           this.selectedFavList.push(i + 1);
         }
       }
+    },
+
+    goCreateFav() {
+      var currentRoute = {
+        name: "CourseBox",
+        params: { id: this.$route.params.id }
+      };
+      sessionStorage.setItem("returnRoute", JSON.stringify(currentRoute));
+
+      this.$router.push({ name: "CreateFavorite" });
     },
 
     back() {

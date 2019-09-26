@@ -17,6 +17,7 @@ const MyFriends_MyFans = () => import('../components/MyFriends/MyFans')
 const MyFav = () => import('../components/MyFav/Index.vue')
 const MyFav_CourseBox = () => import('../components/MyFav/CourseBox.vue')
 const Favorite = () => import('../components/Favorite/Index.vue')
+const CreateFavorite = () => import('../components/Favorite/CreateFavorite.vue')
 
 
 const CourseBox = () => import('../components/CourseBox/Index')
@@ -127,6 +128,11 @@ export default new Router({
       name: 'Favorite',
       path: '/Favorite/:id',
       component: Favorite
+    },
+    {
+      name: 'CreateFavorite',
+      path: '/CreateFavorite',
+      component: CreateFavorite
     },
 
     // 课程页

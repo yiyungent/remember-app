@@ -141,13 +141,13 @@ export default {
     },
 
     goCourseBox(id) {
-      this.$router.push({ name: "CourseBox", params: { id: id } });
-
       var currentRoute = {
         name: "Favorite",
         params: { id: this.$route.params.id }
       };
       sessionStorage.setItem("returnRoute", JSON.stringify(currentRoute));
+
+      this.$router.push({ name: "CourseBox", params: { id: id } });
     },
 
     loadFav() {
