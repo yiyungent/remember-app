@@ -9,7 +9,7 @@
         <span class="hidden-sm-and-down">remember</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-btn icon>
+      <v-btn icon @click="showMore=!showMore">
         <v-icon>more_vert</v-icon>
       </v-btn>
     </v-app-bar>
@@ -19,21 +19,20 @@
         <!-- start 视频播放区 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
-            <!-- <d-player style="height:230px;" :options="playerOptions" ref="player"></d-player> -->
-            <d-player :options="playerOptions" ref="player"></d-player>
+            <div id="video"></div>
           </v-col>
         </v-row>
         <!-- end 视频播放区 -->
         <!-- start 视频下方导航条 -->
         <v-row>
           <v-col class="mx-auto pt-0" md="8">
-            <v-tabs>
+            <v-tabs v-model="navTabs" @change="tabsChange">
               <v-tab>简介</v-tab>
               <v-tab style="vertical-align:bottom;">
                 <span>评论</span>
                 <span style="font-size:10px;">{{courseBox.stat.commentNum | numPretty}}</span>
               </v-tab>
-              <div class="flex-grow-1"></div>
+              <!-- <div class="flex-grow-1"></div> -->
               <!-- <v-btn-toggle rounded fixed>
                 <v-expand-x-transition>
                   <v-btn
@@ -49,169 +48,154 @@
           </v-col>
         </v-row>
         <!-- end 视频下方导航条 -->
-        <!-- start 课程作者头像栏 -->
-        <v-row>
-          <v-col class="mx-auto pt-0" md="8">
-            <v-row style="height:52px;">
-              <v-col xs="7" style="width:48px;">
-                <router-link :to="{name:'Home'}" style="text-decoration:none">
-                  <v-avatar max-width="48">
-                    <img :src="courseBox.creator.avatar" />
-                  </v-avatar>
-                  <div style="transform: translate(60px, -46px);">
-                    <div class="black--text">{{courseBox.creator.userName | subStrPretty(5)}}</div>
-                    <div
-                      class="grey--text subtitle-1"
-                      style="font-size:6px;"
-                    >{{courseBox.creator.fansNum | numPretty}}粉丝</div>
-                  </div>
-                </router-link>
-              </v-col>
-              <v-col xs="1" offset="4">
-                <v-btn color="primary">
-                  <v-icon left>add</v-icon>关注
-                </v-btn>
+
+        <swiper ref="mySwiper" @slideChangeTransitionStart="slideChange">
+          <swiper-slide style="overflow:hidden;">
+            <!-- start 课程作者头像栏 -->
+            <v-row style="padding-left: 10px;padding-right: 10px;">
+              <v-col class="mx-auto pt-0" md="8">
+                <v-row style="height:52px;">
+                  <v-col xs="7" style="width:48px;">
+                    <router-link :to="{name:'Home'}" style="text-decoration:none">
+                      <v-avatar max-width="48">
+                        <img :src="courseBox.creator.avatar" />
+                      </v-avatar>
+                      <div style="transform: translate(60px, -46px);">
+                        <div class="black--text">{{courseBox.creator.userName | subStrPretty(5)}}</div>
+                        <div
+                          class="grey--text subtitle-1"
+                          style="font-size:6px;"
+                        >{{courseBox.creator.fansNum | numPretty}}粉丝</div>
+                      </div>
+                    </router-link>
+                  </v-col>
+                  <v-col xs="1" offset="4">
+                    <v-btn color="primary">
+                      <v-icon left>add</v-icon>关注
+                    </v-btn>
+                  </v-col>
+                </v-row>
               </v-col>
             </v-row>
-          </v-col>
-        </v-row>
-        <!-- end 课程作者头像栏 -->
-        <!-- start 课程信息 -->
-        <v-row>
-          <v-col class="mx-auto pb-0" md="8">
-            <div>
-              <span style="font-size:18px;">{{courseBox.name || substrPretty(8) }}</span>
-              <v-btn class="float-right mr-4" icon @click="showDesc = !showDesc">
-                <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
-              </v-btn>
-            </div>
-            <div class="grey--text subtitle-1 py-1">
-              <span style="font-size:13px;" class="px-1">
-                <v-icon x-small>personal_video</v-icon>
-                <span>{{courseBox.stat.viewNum | numPretty}}</span>
-              </span>
-              <span
-                style="font-size:13px;"
-                class="px-1"
-              >{{courseBox.lastUpdateTime | dateFormat('YYYY-MM-DD HH:mm')}}</span>
-            </div>
-          </v-col>
-        </v-row>
-        <!-- end 课程信息 -->
-        <!-- start 课程描述 -->
-        <v-row>
-          <v-col class="mx-auto py-0" md="8">
-            <v-expand-transition>
-              <div v-show="showDesc">
-                <v-card-text class="py-1">{{courseBox.desc}}</v-card-text>
-              </div>
-            </v-expand-transition>
-          </v-col>
-        </v-row>
-        <!-- end 课程描述 -->
-        <!-- start 按钮栏 -->
-        <v-row>
-          <v-col class="mx-auto py-0" md="8">
-            <v-row class="mx-auto">
-              <v-col class="text-center pt-0">
-                <v-btn large text icon color="gray">
-                  <v-icon>thumb_up</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.likeNum | numPretty}}</span>
-                </v-btn>
+            <!-- end 课程作者头像栏 -->
+            <!-- start 课程信息 -->
+            <v-row style="padding-left: 10px;padding-right: 10px;">
+              <v-col class="mx-auto pb-0" md="8">
+                <div>
+                  <span style="font-size:18px;">{{courseBox.name || substrPretty(8) }}</span>
+                  <v-btn class="float-right mr-4" icon @click="showDesc = !showDesc">
+                    <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                  </v-btn>
+                </div>
+                <div class="grey--text subtitle-1 py-1">
+                  <span style="font-size:13px;" class="px-1">
+                    <v-icon x-small>personal_video</v-icon>
+                    <span>{{courseBox.stat.viewNum | numPretty}}</span>
+                  </span>
+                  <span
+                    style="font-size:13px;"
+                    class="px-1"
+                  >{{courseBox.lastUpdateTime | dateFormat('YYYY-MM-DD HH:mm')}}</span>
+                </div>
               </v-col>
-              <v-col class="text-center pt-0">
-                <v-btn large text icon color="gray">
-                  <v-icon>thumb_down</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.dislikeNum | numPretty}}</span>
-                </v-btn>
+            </v-row>
+            <!-- end 课程信息 -->
+            <!-- start 课程描述 -->
+            <v-row>
+              <v-col class="mx-auto py-0" md="8">
+                <v-expand-transition>
+                  <div v-show="showDesc">
+                    <v-card-text class="py-1">{{courseBox.desc}}</v-card-text>
+                  </div>
+                </v-expand-transition>
               </v-col>
-              <!-- <v-col>
+            </v-row>
+            <!-- end 课程描述 -->
+            <!-- start 按钮栏 -->
+            <v-row>
+              <v-col class="mx-auto py-0" md="8">
+                <v-row class="mx-auto">
+                  <v-col class="text-center pt-0">
+                    <v-btn large text icon color="gray">
+                      <v-icon>thumb_up</v-icon>
+                      <span class="btn-icon-with-text">{{courseBox.stat.likeNum | numPretty}}</span>
+                    </v-btn>
+                  </v-col>
+                  <v-col class="text-center pt-0">
+                    <v-btn large text icon color="gray">
+                      <v-icon>thumb_down</v-icon>
+                      <span class="btn-icon-with-text">{{courseBox.stat.dislikeNum | numPretty}}</span>
+                    </v-btn>
+                  </v-col>
+                  <!-- <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>attach_money</v-icon>
                   <span class="btn-icon-with-text">{{courseBox.stat.coin}}</span>
                 </v-btn>
-              </v-col>-->
-              <v-col class="text-center pt-0">
-                <v-btn @click="showSelectFav=true" large text icon color="gray">
-                  <v-icon v-show="isIFav" color="primary">star</v-icon>
-                  <v-icon v-show="!isIFav">star</v-icon>
-                  <span class="btn-icon-with-text">{{courseBox.stat.favNum | numPretty}}</span>
-                </v-btn>
-              </v-col>
-              <!-- <v-col>
+                  </v-col>-->
+                  <v-col class="text-center pt-0">
+                    <v-btn @click="showSelectFav=true" large text icon color="gray">
+                      <v-icon v-show="isIFav" color="primary">star</v-icon>
+                      <v-icon v-show="!isIFav">star</v-icon>
+                      <span class="btn-icon-with-text">{{courseBox.stat.favNum | numPretty}}</span>
+                    </v-btn>
+                  </v-col>
+                  <!-- <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>share</v-icon>
                   <span class="btn-icon-with-text">{{courseBox.stat.shareNum}}</span>
                 </v-btn>
-              </v-col>-->
+                  </v-col>-->
+                </v-row>
+              </v-col>
             </v-row>
-          </v-col>
-        </v-row>
-        <!-- end 按钮栏 -->
-        <v-row>
-          <v-col class="mx-auto py-0" md="8">
-            <v-divider class="mx-4"></v-divider>
-          </v-col>
-        </v-row>
-        <!-- start 选集 -->
-        <v-row>
-          <v-col class="mx-auto pa-0 pl-4" md="8">
-            <div class="pa-2">
-              <span>选集</span>
-              <span class="float-right mr-6">全 {{videoNum}} 话</span>
-            </div>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col class="mx-auto pt-0" md="8">
-            <v-slide-group v-model="slideGroup" center-active>
-              <v-slide-item
-                v-for="(item, index) in courseBox.videoInfos"
-                :key="index"
-                v-slot:default="{ active, toggle }"
-              >
-                <v-btn
-                  @click="toggle"
-                  :disabled="active"
-                  x-large
-                  class="mx-2"
-                  outlined
-                  :class="item.id==currentVideoInfoId?'v-slide-item--active':null"
-                >
-                  <div>第{{index+1}}话</div>
-                  <div>{{item.title}}</div>
-                </v-btn>
-              </v-slide-item>
-            </v-slide-group>
-          </v-col>
-        </v-row>
-        <!-- end 选集 -->
+            <!-- end 按钮栏 -->
+            <v-row>
+              <v-col class="mx-auto py-0" md="8">
+                <v-divider class="mx-4"></v-divider>
+              </v-col>
+            </v-row>
+            <!-- start 选集 -->
+            <v-row>
+              <v-col class="mx-auto pa-0 pl-4" md="8">
+                <div class="pa-2">
+                  <span>选集</span>
+                  <span class="float-right mr-6">全 {{videoNum}} 话</span>
+                </div>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mx-auto pt-0" md="8">
+                <v-slide-group v-model="slideGroup" center-active>
+                  <v-slide-item
+                    v-for="(item, index) in courseBox.videoInfos"
+                    :key="index"
+                    v-slot:default="{ active, toggle }"
+                  >
+                    <v-btn
+                      @click="toggle"
+                      :disabled="active"
+                      x-large
+                      class="mx-2"
+                      outlined
+                      :class="item.id==currentVideoInfoId?'v-slide-item--active':null"
+                    >
+                      <div>第{{index+1}}话</div>
+                      <div>{{item.title}}</div>
+                    </v-btn>
+                  </v-slide-item>
+                </v-slide-group>
+              </v-col>
+            </v-row>
+            <!-- end 选集 -->
+          </swiper-slide>
+          <swiper-slide style="overflow:hidden;">
+            <comments></comments>
+          </swiper-slide>
+        </swiper>
+
       </v-container>
     </v-content>
-    <!-- <v-bottom-sheet v-model="isSendDm">
-      <v-sheet height="48" color="white">
-        <v-row>
-          <v-col cols="10" style="padding-top:0;padding-right:0;">
-            <v-text-field
-              v-model="dmText"
-              autofocus
-              solo
-              shaped
-              height="48px"
-              label="发个友善的弹幕见证当下"
-              clearable
-            ></v-text-field>
-          </v-col>
-          <v-col cols="2">
-            <div>
-              <v-btn small color="pink" text icon>
-                <v-icon>mdi-send</v-icon>
-              </v-btn>
-            </div>
-          </v-col>
-        </v-row>
-      </v-sheet>
-    </v-bottom-sheet>-->
     <!-- start 选择收藏夹 -->
     <v-bottom-sheet v-model="showSelectFav">
       <v-list flat subheader three-line>
@@ -245,14 +229,27 @@
       </v-list>
     </v-bottom-sheet>
     <!-- end 选择收藏夹 -->
+    <!-- start 底部更多菜单 -->
+    <v-bottom-sheet v-model="showMore">
+      <v-list>
+        <v-list-item @click="learnCourseBox">
+          <v-list-item-icon>
+            <v-icon>{{isILearn?"cancel":"add"}}</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>
+            <v-list-item-title>{{isILearn?"取消学习":"加入学习"}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list>
+    </v-bottom-sheet>
+    <!-- end 底部更多菜单 -->
     <!-- start 提示消息 -->
     <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
     <!-- end 提示消息 -->
   </v-app>
 </template>
 <script>
-import VueDPlayer from "vue-dplayer";
-import "vue-dplayer/dist/vue-dplayer.css";
+import comments from './Comments'
 
 export default {
   name: "CourseBox",
@@ -261,41 +258,23 @@ export default {
       title: !!this.courseBox ? this.courseBox.name : ""
     };
   },
+  components: {
+    'comments': comments
+  },
   data() {
     return {
-      // 是否处于发送弹幕中
-      isSendDm: false,
-      // 弹幕文本
-      dmText: "",
-      enableDm: true,
-      // 视频播放器选项
-      playerOptions: {
-        video: {
-          url: "",
-          pic: ""
-        },
-        autoplay: false,
-        subtitle: {
-          url: "/static/upload/subtitles/zm1.vtt",
-          type: "webvtt",
-          fontSize: "25px",
-          bottom: "10%",
-          color: "#b7daff"
-        },
-        // danmaku: {
-        //   // api: "/static/upload/danmakus/add-dm-1.json",
-        //   addition: ["/static/upload/danmakus/add-dm-1.json"]
-        // },
-        contextmenu: [
-          {
-            text: "GitHub",
-            link: "https://github.com/MoePlayer/vue-dplayer"
-          }
-        ]
+      // 视频对象
+      videoObject: {
+        container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
+        variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
+        video:
+          "https://remstatic.oss-cn-beijing.aliyuncs.com/videos/01-%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91_01/1%E3%80%81%E5%A7%94%E6%89%98%E5%A4%8D%E4%B9%A0.mp4" //视频地址(必填)
       },
       player: null,
       // 是否显式隐藏详细描述
       showDesc: false,
+      // 导航条[简介，评论]
+      navTabs: 0,
       // 滑动集数组件
       slideGroup: null,
       // 课程数据
@@ -334,6 +313,9 @@ export default {
         myFavStat: { favIds: [] }
       },
       // end 选择收藏夹
+      // start 是否显示更多底部菜单
+      showMore: false,
+      // end 是否显示更多底部菜单
       // start 提示消息
       snackbar: false,
       tipMsg: ""
@@ -357,32 +339,29 @@ export default {
         return true;
       }
       return false;
+    },
+    // 我学习了此课程吗
+    isILearn: function() {
+      return !!this.courseBox.joinTime && this.courseBox.jointTime > 0;
+    },
+    swiper() {
+      return this.$refs.mySwiper.swiper;
     }
-  },
-  components: {
-    "d-player": VueDPlayer
   },
   created() {
     this.loadCourseBox();
     this.loadFavStat();
   },
   mounted() {
-    this.player = this.$refs.player.dp;
+    this.player = new ckplayer(this.videoObject);
+    window.player = this.player;
+
+    // current swiper instance
+    // 然后你就可以使用当前上下文内的swiper对象去做你想做的事了
+    window.swiper = this.swiper;
+    // this.swiper.on('slideChange', this.slideChangeStart)
   },
   methods: {
-    sendDm() {
-      console.log(this.dmText);
-      this.player.danmaku.send(
-        {
-          text: this.dmText,
-          color: "#b7daff",
-          type: "right" // should be `top` `bottom` or `right`
-        },
-        function() {
-          console.log("发送弹幕成功");
-        }
-      );
-    },
     loadCourseBox() {
       this.$http({
         method: "get",
@@ -390,38 +369,29 @@ export default {
         params: {
           id: this.$route.params.id
         }
-      })
-        .then(res => {
-          //res是返回结果
-          console.log(res);
-          this.courseBox = res.data.data;
+      }).then(res => {
+        //res是返回结果
+        // console.log(res);
+        this.courseBox = res.data.data;
 
-          // 有历史记录则为历史记录课件，否则第一个课件
-          if (res.data.data.lastPlayVideoInfo != null) {
-            this.currentVideoInfoId = res.data.data.lastPlayVideoInfo.id;
-            this.currentVideoInfoIndex =
-              res.data.data.lastPlayVideoInfo.page - 1;
-          } else {
-            this.currentVideoInfoId = res.data.data.videoInfos[0].id;
-            this.currentVideoInfoIndex = 0;
-          }
-          // 播放器
-          // 跳转到当前集
-          var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
-          this.player.switchVideo({
-            url: video.playUrl,
-            pic: "",
-            thumbnails: ""
-          });
-          // 如果当前集有播放历史记录，则调至上次播放位置
-          if (!!video.lastPlayAt) {
-            this.player.seek(video.lastPlayAt);
-          }
-        })
-        .catch(err => {
-          //请求失败就会捕获报错信息
-          //err.response可拿到服务器返回的报错数据
-        });
+        // 有历史记录则为历史记录课件，否则第一个课件
+        if (res.data.data.lastPlayVideoInfo != null) {
+          this.currentVideoInfoId = res.data.data.lastPlayVideoInfo.id;
+          this.currentVideoInfoIndex = res.data.data.lastPlayVideoInfo.page - 1;
+        } else {
+          this.currentVideoInfoId = res.data.data.videoInfos[0].id;
+          this.currentVideoInfoIndex = 0;
+        }
+        // 播放器
+        // 跳转到当前集
+        var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
+        this.player.newVideo({ autoplay: false, video: video.playUrl });
+        // 如果当前集有播放历史记录，则调至上次播放位置
+        if (!!video.lastPlayAt) {
+          // TODO: 注意：这里是关键帧，而不是秒数
+          this.player.videoSeek(video.lastPlayAt);
+        }
+      });
     },
     loadFavList() {
       this.loadingSelectFav = true;
@@ -502,6 +472,41 @@ export default {
       }
     },
 
+    // 加入学习/取消学习此课程
+    learnCourseBox() {
+      this.showMore = false;
+      this.$http({
+        method: "post",
+        url: "/api/CourseBox/LearnCourseBox",
+        data: {
+          courseBoxId: this.$route.params.id
+        }
+      }).then(res => {
+        this.tipMsg = res.data.message;
+        this.snackbar = true;
+        if (res.data.code >= 1) {
+          // 更新data - 计算属性才会随之更新
+          if (this.isILearn) {
+            this.courseBox.joinTime = -1;
+          } else {
+            this.courseBox.joinTime = res.data.data.joinTime;
+          }
+        }
+      });
+    },
+
+    slideChange() {
+      this.navTabs = this.swiper.activeIndex;
+      if (this.navTabs == 1) {
+        // TODO: 命令 评论组件开始加载评论数据
+        console.log("开始加载评论数据");
+      }
+    },
+
+    tabsChange(val) {
+      this.swiper.slideTo(val, 220, true);
+    },
+
     goCreateFav() {
       var currentRoute = {
         name: "CourseBox",
@@ -520,34 +525,9 @@ export default {
       } else {
         this.$router.push({ name: "Home" });
       }
-    },
-
-    promiseFun(url, data) {
-      return new Promise((resolve, reject) => {
-        this.$http.post(url, data).then(
-          res => {
-            resolve(res);
-          },
-          err => {
-            reject(err);
-          }
-        );
-      });
     }
   },
   watch: {
-    isSendDm(newVal) {
-      // if (newVal) {
-      //   this.player.pause();
-      // }
-    },
-    enableDm(newVal) {
-      if (newVal) {
-        this.player.danmaku.show();
-      } else {
-        this.player.danmaku.hide();
-      }
-    },
     slideGroup(activeIndex) {
       console.log(activeIndex);
       var currentVideo = this.courseBox.videoInfos[activeIndex];
@@ -555,14 +535,11 @@ export default {
       this.currentVideoInfoId = currentVideo.id;
 
       // 切换课件
-      this.player.switchVideo({
-        url: currentVideo.playUrl,
-        pic: "",
-        thumbnails: ""
-      });
+      this.player.newVideo({ autoplay: false, video: currentVideo.playUrl });
       // 如果有播放历史记录，则调至此位置
       if (!!currentVideo.lastPlayAt) {
-        this.player.seek(currentVideo.lastPlayAt);
+        // TODO: 注意：这里是关键帧，而不是秒数
+        this.player.videoSeek(currentVideo.lastPlayAt);
       }
     },
     showSelectFav(newVal) {

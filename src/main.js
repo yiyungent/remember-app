@@ -9,6 +9,11 @@ import qs from 'qs'
 import * as filters from './filters'
 import { isLoginMethod } from './utils/index'
 import MetaInfo from 'vue-meta-info'
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+// require styles
+import 'swiper/dist/css/swiper.css'
+
+Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
 Vue.use(MetaInfo)
 
@@ -24,6 +29,7 @@ import 'font-awesome/css/font-awesome.min.css' // Ensure you are using css-loade
 // FastClick.attach(document.body)
 
 // build 环境
+// axios.defaults.baseURL = 'http://api.tikotiko.fun';
 axios.defaults.baseURL = 'http://api.moeci.com';
 
 // axios 请求拦截 - 在发送请求之前做某件事
