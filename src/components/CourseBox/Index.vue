@@ -25,7 +25,7 @@
         <!-- end 视频播放区 -->
         <!-- start 视频下方导航条 -->
         <v-row>
-          <v-col class="mx-auto pt-0" md="8">
+          <v-col class="mx-auto pa-0" md="8">
             <v-tabs v-model="navTabs" @change="tabsChange">
               <v-tab>简介</v-tab>
               <v-tab style="vertical-align:bottom;">
@@ -208,7 +208,7 @@
           </swiper-slide>
           <swiper-slide style="overflow:hidden;">
             <v-row style="padding-left: 10px;padding-right: 10px;">
-              <v-col class="mx-auto pt-0" md="8">
+              <v-col class="mx-auto pa-0" md="8">
                 <comments></comments>
               </v-col>
             </v-row>
