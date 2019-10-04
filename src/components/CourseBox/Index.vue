@@ -17,14 +17,14 @@
     <v-content>
       <v-container fluid>
         <!-- start 视频播放区 -->
-        <v-row class="player-area">
+        <v-row>
           <v-col class="mx-auto py-0" md="8">
-            <div id="video" style="height:206px"></div>
+            <div id="video"></div>
           </v-col>
         </v-row>
         <!-- end 视频播放区 -->
         <!-- start 视频下方导航条 -->
-        <v-row class="nav-area">
+        <v-row>
           <v-col class="mx-auto pa-0" md="8">
             <v-tabs v-model="navTabs" @change="tabsChange" class="nav-tabs">
               <v-tab>简介</v-tab>
@@ -48,7 +48,8 @@
           </v-col>
         </v-row>
         <!-- end 视频下方导航条 -->
-        <swiper class="swiper-area" ref="mySwiper" @slideChangeTransitionStart="slideChange">
+        <!-- start 滑动切换区 -->
+        <swiper ref="mySwiper" @slideChangeTransitionStart="slideChange">
           <swiper-slide style="overflow:hidden;">
             <!-- start 课程作者头像栏 -->
             <v-row style="padding-left: 10px;padding-right: 10px;">
@@ -213,6 +214,7 @@
             </v-row>
           </swiper-slide>
         </swiper>
+        <!-- end 滑动切换区 -->
       </v-container>
     </v-content>
     <!-- start 选择收藏夹 -->
@@ -618,24 +620,6 @@ export default {
 <style lang="less" scoped>
 .theme--light.v-application {
   background: #fff;
-}
-.player-area {
-  position: fixed;
-  top: 56px;
-  left: 0;
-  right: 0;
-  z-index: 4;
-}
-.nav-area {
-  position: fixed;
-  top: 56+206px;
-  right: 0;
-  left: 0;
-  z-index: 4;
-}
-.swiper-area {
-  position: absolute;
-  top: 56+206px;
 }
 .container {
   padding: 0;
