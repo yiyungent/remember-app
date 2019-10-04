@@ -17,16 +17,16 @@
     <v-content>
       <v-container fluid>
         <!-- start 视频播放区 -->
-        <v-row>
+        <v-row class="player-area">
           <v-col class="mx-auto py-0" md="8">
-            <div id="video"></div>
+            <div id="video" style="height:206px"></div>
           </v-col>
         </v-row>
         <!-- end 视频播放区 -->
         <!-- start 视频下方导航条 -->
-        <v-row>
+        <v-row class="nav-area">
           <v-col class="mx-auto pa-0" md="8">
-            <v-tabs v-model="navTabs" @change="tabsChange">
+            <v-tabs v-model="navTabs" @change="tabsChange" class="nav-tabs">
               <v-tab>简介</v-tab>
               <v-tab style="vertical-align:bottom;">
                 <span>评论</span>
@@ -48,8 +48,7 @@
           </v-col>
         </v-row>
         <!-- end 视频下方导航条 -->
-
-        <swiper ref="mySwiper" @slideChangeTransitionStart="slideChange">
+        <swiper class="swiper-area" ref="mySwiper" @slideChangeTransitionStart="slideChange">
           <swiper-slide style="overflow:hidden;">
             <!-- start 课程作者头像栏 -->
             <v-row style="padding-left: 10px;padding-right: 10px;">
@@ -270,7 +269,7 @@
 </template>
 <script>
 import comments from "./Comments";
-import oneColVideoList from '../Common/OneColVideoList'
+import oneColVideoList from "../Common/OneColVideoList";
 
 export default {
   name: "CourseBox",
@@ -331,7 +330,7 @@ export default {
           {
             id: 1,
             name: "推荐1",
-            picUrl: 'http://r.moeci.com//upload/images/courseBoxPics/4.jpg',
+            picUrl: "http://r.moeci.com//upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "哈哈"
@@ -344,7 +343,7 @@ export default {
           {
             id: 2,
             name: "推荐2",
-            picUrl: 'http://r.moeci.com//upload/images/courseBoxPics/4.jpg',
+            picUrl: "http://r.moeci.com//upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "看看"
@@ -357,7 +356,7 @@ export default {
           {
             id: 3,
             name: "推荐3",
-            picUrl: 'http://r.moeci.com//upload/images/courseBoxPics/4.jpg',
+            picUrl: "http://r.moeci.com//upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "建军节"
@@ -617,8 +616,33 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.theme--light.v-application {
+  background: #fff;
+}
+.player-area {
+  position: fixed;
+  top: 56px;
+  left: 0;
+  right: 0;
+  z-index: 4;
+}
+.nav-area {
+  position: fixed;
+  top: 56+206px;
+  right: 0;
+  left: 0;
+  z-index: 4;
+}
+.swiper-area {
+  position: absolute;
+  top: 56+206px;
+}
 .container {
   padding: 0;
+}
+.nav-tabs {
+  box-shadow: 0px 13px 15px -17px #ccc;
+  margin-bottom: 5px;
 }
 // 集数选择-选中项样式
 .v-btn.v-slide-item--active {
