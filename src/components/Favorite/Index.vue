@@ -51,48 +51,7 @@
         <!-- start 收藏的课程 -->
         <v-row>
           <v-col class="mx-auto pa-0" md="8">
-            <v-list>
-              <v-list-item
-                @click="goCourseBox(courseBox.id)"
-                link
-                class="pl-4"
-                v-for="courseBox in fav.courseBoxs"
-                :key="courseBox.id"
-              >
-                <v-row>
-                  <v-col xs="4" class="pb-0">
-                    <v-img
-                      :src="courseBox.picUrl"
-                      :lazy-src="courseBox.picUrl"
-                      width="190"
-                      height="120"
-                    ></v-img>
-                  </v-col>
-                  <v-col xs="4" class="pb-0">
-                    <v-list-item-content>
-                      <v-list-item-title>
-                        <span>{{courseBox.name}}</span>
-                      </v-list-item-title>
-                      <v-list-item-subtitle class="pt-7">
-                        <v-row>
-                          <v-col class="py-0">
-                            <v-icon></v-icon>
-                            {{courseBox.creator.userName}}
-                          </v-col>
-                        </v-row>
-                        <v-row>
-                          <v-col class="pt-1">
-                            <v-icon>fa-play-circle</v-icon>
-                            {{courseBox.learnNum}}
-                          </v-col>
-                          <!-- <v-col><v-icon>play-box-outline</v-icon>{{courseBox.learnNum}}</v-col> -->
-                        </v-row>
-                      </v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-col>
-                </v-row>
-              </v-list-item>
-            </v-list>
+            <one-col-video-list :list="fav.courseBoxs"></one-col-video-list>
           </v-col>
         </v-row>
         <!-- end 收藏的课程 -->
@@ -105,7 +64,13 @@
   </v-app>
 </template>
 <script>
+import oneColVideoList from '../Common/OneColVideoList'
+
 export default {
+  components:{
+    oneColVideoList
+  },
+
   data() {
     return {
       fav: {
@@ -138,16 +103,6 @@ export default {
   methods: {
     back() {
       this.$router.push({ name: "MyFav" });
-    },
-
-    goCourseBox(id) {
-      var currentRoute = {
-        name: "Favorite",
-        params: { id: this.$route.params.id }
-      };
-      sessionStorage.setItem("returnRoute", JSON.stringify(currentRoute));
-
-      this.$router.push({ name: "CourseBox", params: { id: id } });
     },
 
     loadFav() {

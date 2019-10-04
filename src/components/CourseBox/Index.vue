@@ -55,7 +55,7 @@
             <v-row style="padding-left: 10px;padding-right: 10px;">
               <v-col class="mx-auto pt-0" md="8">
                 <v-row style="height:52px;">
-                  <v-col xs="7" style="width:48px;">
+                  <v-col xs="11" style="width:48px;">
                     <router-link :to="{name:'Home'}" style="text-decoration:none">
                       <v-avatar max-width="48">
                         <img :src="courseBox.creator.avatar" />
@@ -69,8 +69,8 @@
                       </div>
                     </router-link>
                   </v-col>
-                  <v-col xs="1" offset="4">
-                    <v-btn color="primary">
+                  <v-col xs="1" offset="6">
+                    <v-btn small color="primary">
                       <v-icon left>add</v-icon>关注
                     </v-btn>
                   </v-col>
@@ -83,7 +83,7 @@
               <v-col class="mx-auto pb-0" md="8">
                 <div>
                   <span style="font-size:18px;">{{courseBox.name || substrPretty(8) }}</span>
-                  <v-btn class="float-right mr-4" icon @click="showDesc = !showDesc">
+                  <v-btn class="float-right" icon @click="showDesc = !showDesc">
                     <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                   </v-btn>
                 </div>
@@ -104,9 +104,7 @@
             <v-row>
               <v-col class="mx-auto py-0" md="8">
                 <v-expand-transition>
-                  <div v-show="showDesc">
-                    <v-card-text class="py-1">{{courseBox.desc}}</v-card-text>
-                  </div>
+                  <div class="px-3" v-show="showDesc">{{courseBox.desc}}</div>
                 </v-expand-transition>
               </v-col>
             </v-row>
@@ -188,12 +186,34 @@
               </v-col>
             </v-row>
             <!-- end 选集 -->
+            <v-row>
+              <v-col class="mx-auto py-0" md="8">
+                <v-divider class="mx-4"></v-divider>
+              </v-col>
+            </v-row>
+            <!-- start 更多推荐 -->
+            <v-row>
+              <v-col class="mx-auto pa-0 pl-4" md="8">
+                <div class="pa-2">
+                  <span>更多推荐</span>
+                </div>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col class="mx-auto py-0" md="8">
+                <one-col-video-list :list="recom.courseBoxs"></one-col-video-list>
+              </v-col>
+            </v-row>
+            <!-- end 更多推荐 -->
           </swiper-slide>
           <swiper-slide style="overflow:hidden;">
-            <comments></comments>
+            <v-row style="padding-left: 10px;padding-right: 10px;">
+              <v-col class="mx-auto pt-0" md="8">
+                <comments></comments>
+              </v-col>
+            </v-row>
           </swiper-slide>
         </swiper>
-
       </v-container>
     </v-content>
     <!-- start 选择收藏夹 -->
@@ -249,7 +269,8 @@
   </v-app>
 </template>
 <script>
-import comments from './Comments'
+import comments from "./Comments";
+import oneColVideoList from '../Common/OneColVideoList'
 
 export default {
   name: "CourseBox",
@@ -259,7 +280,8 @@ export default {
     };
   },
   components: {
-    'comments': comments
+    comments,
+    oneColVideoList
   },
   data() {
     return {
@@ -303,6 +325,50 @@ export default {
       },
       currentVideoInfoId: 17,
       currentVideoInfoIndex: 0,
+      // 更多推荐
+      recom: {
+        courseBoxs: [
+          {
+            id: 1,
+            name: "推荐1",
+            picUrl: 'http://r.moeci.com//upload/images/courseBoxPics/4.jpg',
+            creator: {
+              id: 1,
+              userName: "哈哈"
+            },
+            stat: {
+              favNum: 12,
+              viewNum: 56
+            }
+          },
+          {
+            id: 2,
+            name: "推荐2",
+            picUrl: 'http://r.moeci.com//upload/images/courseBoxPics/4.jpg',
+            creator: {
+              id: 1,
+              userName: "看看"
+            },
+            stat: {
+              favNum: 12,
+              viewNum: 123
+            }
+          },
+          {
+            id: 3,
+            name: "推荐3",
+            picUrl: 'http://r.moeci.com//upload/images/courseBoxPics/4.jpg',
+            creator: {
+              id: 1,
+              userName: "建军节"
+            },
+            stat: {
+              favNum: 12,
+              viewNum: 56
+            }
+          }
+        ]
+      },
       // start 选择收藏夹
       showSelectFav: false,
       loadingSelectFav: true,
