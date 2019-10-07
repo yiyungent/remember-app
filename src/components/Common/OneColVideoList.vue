@@ -24,7 +24,7 @@
               </v-row>
               <v-row>
                 <v-col class="pt-1">
-                  <v-icon>star</v-icon>
+                  <v-icon x-small>fa-star-o</v-icon>
                   {{item.stat.favNum}}
                 </v-col>
               </v-row>

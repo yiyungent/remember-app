@@ -19,7 +19,7 @@
         <!-- start 视频播放区 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
-            <div id="video"></div>
+            <div id="video" style="height:240px;"></div>
           </v-col>
         </v-row>
         <!-- end 视频播放区 -->
@@ -28,9 +28,12 @@
           <v-col class="mx-auto pa-0" md="8">
             <v-tabs v-model="navTabs" @change="tabsChange" class="nav-tabs">
               <v-tab>简介</v-tab>
-              <v-tab style="vertical-align:bottom;">
+              <v-tab>
                 <span>评论</span>
-                <span style="font-size:10px;">{{courseBox.stat.commentNum | numPretty}}</span>
+                <span
+                  class="pl-1 pt-1"
+                  style="font-size:10px;"
+                >{{courseBox.stat.commentNum | numPretty}}</span>
               </v-tab>
               <!-- <div class="flex-grow-1"></div> -->
               <!-- <v-btn-toggle rounded fixed>
@@ -122,7 +125,7 @@
                   <v-col class="text-center pt-0">
                     <v-btn large text icon color="gray">
                       <v-icon>thumb_down</v-icon>
-                      <span class="btn-icon-with-text">{{courseBox.stat.dislikeNum | numPretty}}</span>
+                      <span class="btn-icon-with-text"></span>
                     </v-btn>
                   </v-col>
                   <!-- <v-col>
@@ -156,18 +159,23 @@
             <!-- start 选集 -->
             <v-row>
               <v-col class="mx-auto pa-0 pl-4" md="8">
-                <div class="pa-2">
+                <div class="pa-2" style="vertical-align:middle" @click="showPage = true">
                   <span>选集</span>
-                  <span class="float-right mr-6">全 {{videoNum}} 话</span>
+                  <span class="float-right">
+                    <v-btn text small class="txt-gray txt-16">
+                      全 {{videoNum}} 集
+                      <v-icon class="pl-2">fa-angle-right</v-icon>
+                    </v-btn>
+                  </span>
                 </div>
               </v-col>
             </v-row>
             <v-row>
               <v-col class="mx-auto pt-0" md="8">
-                <v-slide-group v-model="slideGroup" center-active>
+                <v-slide-group v-model="slidePage" center-active>
                   <v-slide-item
                     v-for="(item, index) in courseBox.videoInfos"
-                    :key="index"
+                    :key="item.id"
                     v-slot:default="{ active, toggle }"
                   >
                     <v-btn
@@ -178,7 +186,7 @@
                       outlined
                       :class="item.id==currentVideoInfoId?'v-slide-item--active':null"
                     >
-                      <div>第{{index+1}}话</div>
+                      <div>第{{index+1}}集</div>
                       <div>{{item.title}}</div>
                     </v-btn>
                   </v-slide-item>
@@ -201,7 +209,7 @@
             </v-row>
             <v-row>
               <v-col class="mx-auto py-0" md="8">
-                <one-col-video-list :list="recom.courseBoxs"></one-col-video-list>
+                <one-col-video-list :list="recom.courseBoxs" @goItem="goRecomItem"></one-col-video-list>
               </v-col>
             </v-row>
             <!-- end 更多推荐 -->
@@ -219,7 +227,7 @@
     </v-content>
     <!-- start 选择收藏夹 -->
     <v-bottom-sheet v-model="showSelectFav">
-      <v-list flat subheader three-line>
+      <v-list class="pb-0" flat subheader three-line>
         <v-subheader>
           <v-icon color="yellow" class="pr-1">folder</v-icon>选择收藏夹
           <div class="flex-grow-1"></div>
@@ -243,9 +251,7 @@
               </v-list-item-content>
             </template>
           </v-list-item>
-          <v-list-item>
-            <v-btn block @click="favCourseBox">完成</v-btn>
-          </v-list-item>
+          <v-btn block @click="favCourseBox">完成</v-btn>
         </v-list-item-group>
       </v-list>
     </v-bottom-sheet>
@@ -264,6 +270,37 @@
       </v-list>
     </v-bottom-sheet>
     <!-- end 底部更多菜单 -->
+    <!-- start 展开选集 -->
+    <v-bottom-sheet v-model="showPage">
+      <v-list class="v-list-showPage">
+        <v-subheader class="justify-space-between" style="height:30px;">
+          <span>选集（{{videoNum}}）</span>
+          <span>
+            <v-btn icon @click="showPage=false">
+              <v-icon>close</v-icon>
+            </v-btn>
+          </span>
+        </v-subheader>
+        <swiper :options="showPageOption">
+          <swiper-slide>
+            <v-list-item v-for="(item, index) in courseBox.videoInfos" :key="item.id">
+              <v-btn
+                class="justify-space-between"
+                block
+                outlined
+                :class="item.id==currentVideoInfoId?'currentPlay':null"
+                @click="switchPage(index)"
+              >
+                <span>第 {{index+1}} 集</span>
+                <span class="txt-gray">{{ item.title }}</span>
+              </v-btn>
+            </v-list-item>
+          </swiper-slide>
+          <div class="swiper-scrollbar" slot="scrollbar"></div>
+        </swiper>
+      </v-list>
+    </v-bottom-sheet>
+    <!-- end 展开选集 -->
     <!-- start 提示消息 -->
     <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
     <!-- end 提示消息 -->
@@ -299,7 +336,7 @@ export default {
       // 导航条[简介，评论]
       navTabs: 0,
       // 滑动集数组件
-      slideGroup: null,
+      slidePage: null,
       // 课程数据
       courseBox: {
         id: 0,
@@ -383,6 +420,17 @@ export default {
       // start 是否显示更多底部菜单
       showMore: false,
       // end 是否显示更多底部菜单
+      // 展示选集页
+      showPage: false,
+      showPageOption: {
+        direction: "vertical",
+        slidesPerView: "auto",
+        freeMode: true,
+        scrollbar: {
+          el: ".swiper-scrollbar"
+        },
+        mousewheel: true
+      },
       // start 提示消息
       snackbar: false,
       tipMsg: ""
@@ -409,13 +457,14 @@ export default {
     },
     // 我学习了此课程吗
     isILearn: function() {
-      return !!this.courseBox.joinTime && this.courseBox.jointTime > 0;
+      return !!this.courseBox.joinTime && this.courseBox.joinTime > 0;
     },
     swiper() {
       return this.$refs.mySwiper.swiper;
     }
   },
   created() {
+    console.log("created");
     this.loadCourseBox();
     this.loadFavStat();
   },
@@ -574,6 +623,19 @@ export default {
       this.swiper.slideTo(val, 220, true);
     },
 
+    // 切换视频集
+    switchPage(currentIndex) {
+      var currentVideo = this.courseBox.videoInfos[currentIndex];
+      this.currentVideoInfoId = currentVideo.id;
+      // 切换课件
+      this.player.newVideo({ autoplay: false, video: currentVideo.playUrl });
+      // 如果有播放历史记录，则调至此位置
+      if (!!currentVideo.lastPlayAt) {
+        // TODO: 注意：这里是关键帧，而不是秒数
+        this.player.videoSeek(currentVideo.lastPlayAt);
+      }
+    },
+
     goCreateFav() {
       var currentRoute = {
         name: "CourseBox",
@@ -583,6 +645,8 @@ export default {
 
       this.$router.push({ name: "CreateFavorite" });
     },
+
+    goRecomItem() {},
 
     back() {
       if (!!sessionStorage.getItem("returnRoute")) {
@@ -595,24 +659,17 @@ export default {
     }
   },
   watch: {
-    slideGroup(activeIndex) {
-      console.log(activeIndex);
-      var currentVideo = this.courseBox.videoInfos[activeIndex];
-      console.log(currentVideo);
-      this.currentVideoInfoId = currentVideo.id;
-
-      // 切换课件
-      this.player.newVideo({ autoplay: false, video: currentVideo.playUrl });
-      // 如果有播放历史记录，则调至此位置
-      if (!!currentVideo.lastPlayAt) {
-        // TODO: 注意：这里是关键帧，而不是秒数
-        this.player.videoSeek(currentVideo.lastPlayAt);
-      }
+    slidePage(activeIndex) {
+      this.switchPage(activeIndex);
     },
     showSelectFav(newVal) {
       if (newVal) {
         this.loadFavList();
       }
+    },
+    $route(newVal) {
+      this.loadCourseBox();
+      this.loadFavStat();
     }
   }
 };
@@ -637,5 +694,24 @@ export default {
   transform: translate(-18px, 22px);
   font-size: 8px;
   color: gray;
+}
+.txt-gray {
+  color: gray;
+  font-weight: 300;
+}
+.txt-16 {
+  font-size: 16px;
+}
+.currentPlay {
+  color: #e91e63 !important;
+  caret-color: #e91e63 !important;
+  .txt-gray {
+    color: #e91e63 !important;
+  }
+}
+.v-list-showPage {
+  .v-btn--block {
+    min-width: 90% !important;
+  }
 }
 </style>
