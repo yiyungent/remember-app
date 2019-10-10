@@ -6,7 +6,8 @@ import moment from 'moment'
 
 const dateFormat = (input, fmtstring) => {
     // 使用momentjs这个日期格式化类库实现日期的格式化功能
-    return moment(input).format(fmtstring);
+    // 注意：统一使用 utc 时间
+    return moment(input).utc().format(fmtstring);
 }
 
 

@@ -14,7 +14,7 @@
               <span>{{item.author.userName}}</span>
             </v-col>
             <v-col class="py-0 ml-auto" cols="4">
-              <span class="float-right">{{item.createTime | dateFormat("YYYY-MM-DD")}}</span>
+              <span class="float-right">{{item.createTime | dateFormat("YYYY-MM-DD h:mm")}}</span>
             </v-col>
           </v-row>
           <v-row>
@@ -121,10 +121,10 @@ export default {
         this.snackbar = true;
         if (res.data.code >= 1) {
           this.loadComments();
+          this.showCommentArea = false;
+          this.inputContent = "";
         }
       });
-
-      this.inputContent = "";
     },
     loadComments() {
       var courseBoxId = this.$route.params.id;
