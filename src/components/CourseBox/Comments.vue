@@ -92,69 +92,16 @@
 export default {
   data() {
     return {
-      dataList: [
-        {
-          id: 1,
-          author: {
-            id: 1,
-            userName: "躲雨的猫",
-            avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
-          },
-          content: "",
-          createTime: 1779317793234,
-          likeNum: 35
-        },
-        {
-          id: 7,
-          author: {
-            id: 1,
-            userName: "躲雨的猫",
-            avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
-          },
-          content: "",
-          createTime: 1779317793234,
-          likeNum: 35
-        },
-        {
-          id: 2,
-          author: {
-            id: 1,
-            userName: "躲雨的猫",
-            avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
-          },
-          content: "",
-          createTime: 1779317793234,
-          likeNum: 35
-        },
-        {
-          id: 3,
-          author: {
-            id: 1,
-            userName: "躲雨的猫",
-            avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
-          },
-          content: "",
-          createTime: 1779317793234,
-          likeNum: 35
-        },
-        {
-          id: 4,
-          author: {
-            id: 1,
-            userName: "躲雨的猫",
-            avatar: "https://cdn.vuetifyjs.com/images/john.jpg"
-          },
-          content: "",
-          createTime: 1779317793234,
-          likeNum: 35
-        }
-      ],
+      dataList: [],
       fab: false,
       showCommentArea: false,
       inputContent: "",
       snackbar: false,
       tipMsg: ""
     };
+  },
+  created() {
+    this.loadComments();
   },
   methods: {
     sendComment() {
@@ -183,10 +130,10 @@ export default {
       var courseBoxId = this.$route.params.id;
 
       this.$http({
-        method: "post",
+        method: "get",
         url: "/api/CourseBox/SimpleComments",
         params: {
-          courseBoxId: courseBoxId,
+          courseBoxId: courseBoxId
         }
       }).then(res => {
         if (res.data.code > 0) {
