@@ -25,11 +25,11 @@
             <v-col class="py-0" cols="1"></v-col>
             <v-col class="py-0" xs="6">
               <span>
-                <v-btn class="ma-2" x-small icon color="gray">
+                <v-btn @click="commentDo(item.id, 1)" class="ma-2" x-small icon color="gray">
                   <v-icon>fa-thumbs-o-up</v-icon>
                   <span class="btn-icon-with-text">{{item.likeNum}}</span>
                 </v-btn>
-                <v-btn class="ma-4" x-small icon color="gray">
+                <v-btn @click="commentDo(item.id, 2)" class="ma-4" x-small icon color="gray">
                   <v-icon>fa-thumbs-o-down</v-icon>
                   <span class="btn-icon-with-text"></span>
                 </v-btn>
@@ -123,6 +123,28 @@ export default {
           this.loadComments();
           this.showCommentArea = false;
           this.inputContent = "";
+        }
+      });
+    },
+    commentDo(commentId, doType) {
+      this.$http({
+        method: "post",
+        url: "/api/CourseBox/CommentLike",
+        data: {
+          commentId: commentId,
+          doType: doType
+        }
+      }).then(res => {
+        this.tipMsg = res.data.message;
+        this.snackbar = true;
+        if (res.data.code >= 1) {
+          this.dataList.forEach(ele => {
+            if (ele.id == commentId) {
+              if (doType == 1) {
+                ele.likeNum = ele.likeNum + 1;
+              }
+            }
+          });
         }
       });
     },
