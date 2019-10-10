@@ -121,6 +121,10 @@ export default {
         this.snackbar = true;
         if (res.data.code >= 1) {
           this.loadComments();
+          // TODO: 改为这种方法事先保存当前登录用户信息，评论成功后，可返回评论ID，评论信息，用这些将其手动添加到dataList，而不需要重新加载
+          // this.dataList.unshift({
+
+          // });
           this.showCommentArea = false;
           this.inputContent = "";
 
