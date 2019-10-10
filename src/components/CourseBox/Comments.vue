@@ -123,6 +123,8 @@ export default {
           this.loadComments();
           this.showCommentArea = false;
           this.inputContent = "";
+
+          this.$emit("sendCommentSuccess");
         }
       });
     },
@@ -145,6 +147,8 @@ export default {
               }
             }
           });
+
+          this.$emit("commentDoSuccess", { commentId, doType });
         }
       });
     },

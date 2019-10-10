@@ -217,7 +217,7 @@
           <swiper-slide style="overflow:hidden;">
             <v-row style="padding-left: 10px;padding-right: 10px;">
               <v-col class="mx-auto pa-0" md="8">
-                <comments></comments>
+                <comments @sendCommentSuccess="sendCommentSuccess"></comments>
               </v-col>
             </v-row>
           </swiper-slide>
@@ -609,6 +609,10 @@ export default {
           }
         }
       });
+    },
+
+    sendCommentSuccess(){
+      this.courseBox.stat.commentNum = this.courseBox.stat.commentNum + 1;
     },
 
     slideChange() {
