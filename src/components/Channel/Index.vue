@@ -105,63 +105,68 @@
         <v-avatar size="32px" item>
           <v-img
             :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
-            alt="Vuetify"
+            alt="头像"
           ></v-img>
         </v-avatar>
       </v-btn>
-      <v-toolbar-title>
-        <span class="hidden-sm-and-down">remember</span>
+      <v-toolbar-title style="position: relative;left: 50%;margin-left: -80px;">
+        <span>频道</span>
       </v-toolbar-title>
-      <div class="flex-grow-1"></div>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-      <v-btn icon>
-        <v-badge overlap left>
-          <template v-slot:badge>0</template>
-          <v-icon>fa-envelope-o</v-icon>
-        </v-badge>
-      </v-btn>
-      <!-- start 选项卡 -->
-      <template v-slot:extension>
-        <v-tabs background-color="transparent" center-active>
-          <v-tab v-for="(item, i) in tabs" :key="i" :to="item.route">{{ item.text }}</v-tab>
-        </v-tabs>
-      </template>
-      <!-- end 选项卡 -->
     </v-app-bar>
     <!-- end 应用栏 -->
     <!-- start 主体内容区 -->
     <v-content id="content">
-      <router-view></router-view>
+      <v-container fluid>
+        <v-row>
+          <v-col class="mx-auto pa-0" md="8">
+            <v-list>
+              <v-list-group v-model="allCat" no-action>
+                <template v-slot:activator>
+                  <v-list-item-content>
+                    <v-list-item-title v-text="'全部分区（31）'"></v-list-item-title>
+                  </v-list-item-content>
+                </template>
+                <v-row>
+                  <v-col xs="3" cols="3" v-for="item in dataList" :key="item.id">
+                    <v-list-item
+                      link
+                      class="ma-auto pa-4 text-center"
+                      style="width:100px;flex:none;"
+                    >
+                      <div class="ma-auto">
+                        <v-icon class="pb-2">mdi-android</v-icon>
+                        <div>{{item.name}}</div>
+                      </div>
+                    </v-list-item>
+                  </v-col>
+                </v-row>
+              </v-list-group>
+            </v-list>
+          </v-col>
+        </v-row>
+      </v-container>
     </v-content>
     <!-- end 主体内容区 -->
     <!-- start 底部导航区 -->
-    <v-bottom-navigation
-    grow
-    fixed
-    color="primary"
-    light
-    v-model="bNavActiveBtn"
-  >
-    <v-btn>
-      <span>首页</span>
-      <v-icon>fa-home</v-icon>
-    </v-btn>
-    <v-btn :to="{name:'Channel'}">
-      <span>频道</span>
-      <v-icon>fa-cubes</v-icon>
-    </v-btn>
-    <v-btn>
-      <span>动态</span>
-      <v-icon>fa-comments-o</v-icon>
-    </v-btn>
-    <v-btn>
-      <span>会员购</span>
-      <v-icon>fa-shopping-bag</v-icon>
-    </v-btn>
-  </v-bottom-navigation>
-  <!-- end 底部导航区 -->
+    <v-bottom-navigation grow fixed color="primary" light v-model="bNavActiveBtn">
+      <v-btn :to="{name:'Home'}">
+        <span>首页</span>
+        <v-icon>fa-home</v-icon>
+      </v-btn>
+      <v-btn>
+        <span>频道</span>
+        <v-icon>fa-cubes</v-icon>
+      </v-btn>
+      <v-btn>
+        <span>动态</span>
+        <v-icon>fa-comments-o</v-icon>
+      </v-btn>
+      <v-btn>
+        <span>会员购</span>
+        <v-icon>fa-shopping-bag</v-icon>
+      </v-btn>
+    </v-bottom-navigation>
+    <!-- end 底部导航区 -->
   </v-app>
 </template>
 
@@ -180,11 +185,59 @@ export default {
         { text: "我的课程", icon: "mdi-star" },
         { text: "新建课程", icon: "mdi-upload" }
       ],
-      tabs: [
-        { id: 1, text: "热门", route: { name: "Home_Cat1" } },
-        { id: 2, text: "最新", route: { name: "Home_Cat2" } }
+      allCat: true,
+      dataList: [
+        {
+          id: 1,
+          name: "音乐"
+        },
+        {
+          id: 2,
+          name: "音乐"
+        },
+        {
+          id: 3,
+          name: "放映厅"
+        },
+        {
+          id: 4,
+          name: "软件工程"
+        },
+        {
+          id: 5,
+          name: "选修"
+        },
+        {
+          id: 6,
+          name: "选修"
+        },
+        {
+          id: 7,
+          name: "选修"
+        },
+        {
+          id: 8,
+          name: "选修"
+        },
+        {
+          id: 9,
+          name: "选修"
+        },
+
+        {
+          id: 10,
+          name: "选修"
+        },
+        {
+          id: 11,
+          name: "选修"
+        },
+        {
+          id: 12,
+          name: "选修"
+        }
       ],
-      bNavActiveBtn: 0
+      bNavActiveBtn: 1
     };
   },
   created() {
@@ -209,25 +262,4 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.lightbox {
-  box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.4) 0%,
-    transparent 72px
-  );
-}
-</style>
-<style lang="less">
-// start 视频卡片
-#content .card-title {
-  font-size: 1rem;
-  padding-top: 82px;
-  height: 10px;
-}
-#content .card-text {
-  height: 50px;
-  padding: 4px;
-}
-// end 视频卡片
 </style>

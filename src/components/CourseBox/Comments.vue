@@ -82,6 +82,7 @@
       ></v-textarea>
       <v-btn @click="sendComment" color="primary" block>发表评论</v-btn>
     </v-bottom-sheet>
+
     <!-- start 提示消息 -->
     <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
     <!-- end 提示消息 -->

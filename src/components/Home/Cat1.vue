@@ -9,7 +9,7 @@
     </v-row>
     <v-row>
       <template v-for="item in items">
-        <v-col cols="6" sm="6" md="3" :key="item.courseBox.id">
+        <v-col cols="6" sm="6" md="3" style="padding: 6px;" :key="item.courseBox.id">
           <v-card :to="{ name: 'CourseBox', params: { id: item.courseBox.id } }" class="mx-auto">
             <v-img
               class="white--text"

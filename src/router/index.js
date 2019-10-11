@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 const Login = () => import('../components/Login/Index')
 const Home = () => import('@/components/Home/Index')
+const Channel = () => import('@/components/Channel/Index')
 const Home_Cat1 = () => import('../components/Home/Cat1')
 const Home_Cat2 = () => import('../components/Home/Cat2')
 // const Home_Cat3 = () => import('../components/Home/Cat3')
@@ -77,6 +78,13 @@ export default new Router({
         //   component: Home_Cat6
         // }
       ]
+    },
+
+    // 频道
+    {
+      name: 'Channel',
+      path: '/Channel',
+      component: Channel
     },
 
     // 我的好友 = 我的关注 + 我的粉丝

@@ -53,7 +53,7 @@
         <!-- end 视频下方导航条 -->
         <!-- start 滑动切换区 -->
         <swiper ref="mySwiper" @slideChangeTransitionStart="slideChange">
-          <swiper-slide style="overflow:hidden;">
+          <swiper-slide style="overflow-x:hidden;">
             <!-- start 课程作者头像栏 -->
             <v-row style="padding-left: 10px;padding-right: 10px;">
               <v-col class="mx-auto pt-0" md="8">
@@ -214,7 +214,7 @@
             </v-row>
             <!-- end 更多推荐 -->
           </swiper-slide>
-          <swiper-slide style="overflow:hidden;">
+          <swiper-slide style="overflow-x:hidden;">
             <v-row style="padding-left: 10px;padding-right: 10px;">
               <v-col class="mx-auto pa-0" md="8">
                 <comments @sendCommentSuccess="sendCommentSuccess"></comments>
