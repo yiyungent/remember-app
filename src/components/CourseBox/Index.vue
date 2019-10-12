@@ -19,7 +19,7 @@
         <!-- start 视频播放区 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
-            <div id="video" style="height:240px;"></div>
+            <video-player ref="player" :pages="courseBox.videoInfos"></video-player>
           </v-col>
         </v-row>
         <!-- end 视频播放区 -->
@@ -309,6 +309,7 @@
 <script>
 import comments from "./Comments";
 import oneColVideoList from "../Common/OneColVideoList";
+import VideoPlayer from "../Common/VideoPlayer";
 
 export default {
   name: "CourseBox",
@@ -319,17 +320,11 @@ export default {
   },
   components: {
     comments,
-    oneColVideoList
+    oneColVideoList,
+    VideoPlayer
   },
   data() {
     return {
-      // 视频对象
-      videoObject: {
-        container: "#video", //“#”代表容器的ID，“.”或“”代表容器的class
-        variable: "player", //该属性必需设置，值等于下面的new chplayer()的对象
-        video:
-          "https://remstatic.oss-cn-beijing.aliyuncs.com/videos/01-%E7%A7%BB%E5%8A%A8web%E5%BC%80%E5%8F%91_01/1%E3%80%81%E5%A7%94%E6%89%98%E5%A4%8D%E4%B9%A0.mp4" //视频地址(必填)
-      },
       player: null,
       // 是否显式隐藏详细描述
       showDesc: false,
@@ -464,12 +459,11 @@ export default {
     }
   },
   created() {
-    console.log("created");
     this.loadCourseBox();
     this.loadFavStat();
   },
   mounted() {
-    this.player = new ckplayer(this.videoObject);
+    this.player = this.$refs.player;
     window.player = this.player;
 
     // current swiper instance
@@ -501,11 +495,13 @@ export default {
         // 播放器
         // 跳转到当前集
         var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
-        this.player.newVideo({ autoplay: false, video: video.playUrl });
+        // this.player.switchVideo(video.playUrl);
+        // TODO: Bug: 打开后无法自动跳转到默认集, player 无播放视频
+        this.player.switchPage(this.currentVideoInfoIndex + 1);
         // 如果当前集有播放历史记录，则调至上次播放位置
         if (!!video.lastPlayAt) {
           // TODO: 注意：这里是关键帧，而不是秒数
-          this.player.videoSeek(video.lastPlayAt);
+          this.player.seek(video.lastPlayAt);
         }
       });
     },
@@ -611,7 +607,7 @@ export default {
       });
     },
 
-    sendCommentSuccess(){
+    sendCommentSuccess() {
       this.courseBox.stat.commentNum = this.courseBox.stat.commentNum + 1;
     },
 
@@ -632,11 +628,12 @@ export default {
       var currentVideo = this.courseBox.videoInfos[currentIndex];
       this.currentVideoInfoId = currentVideo.id;
       // 切换课件
-      this.player.newVideo({ autoplay: false, video: currentVideo.playUrl });
+      // this.player.switchVideo(currentVideo.playUrl);
+      this.player.switchPage(currentIndex + 1);
       // 如果有播放历史记录，则调至此位置
       if (!!currentVideo.lastPlayAt) {
         // TODO: 注意：这里是关键帧，而不是秒数
-        this.player.videoSeek(currentVideo.lastPlayAt);
+        this.player.seek(currentVideo.lastPlayAt);
       }
     },
 
