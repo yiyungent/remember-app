@@ -27,9 +27,9 @@ import "@mdi/font/css/materialdesignicons.css" // Ensure you are using css-loade
 import 'material-design-icons-iconfont/dist/material-design-icons.css' // Ensure you are using css-loader
 import 'font-awesome/css/font-awesome.min.css' // Ensure you are using css-loader
 
-// import FastClick from 'fastclick'
+import FastClick from 'fastclick'
 
-// FastClick.attach(document.body)
+FastClick.attach(document.body)
 
 // build 环境
 // axios.defaults.baseURL = 'http://api.tikotiko.fun';
