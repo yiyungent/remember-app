@@ -1,6 +1,12 @@
 <template>
   <div style="height:240px;">
-    <d-player ref="player" :options="options" style="height:240px;"></d-player>
+    <d-player
+      ref="player"
+      :options="options"
+      style="height:240px;"
+      @pause="playHistoryPush"
+      @seeked="playHistoryPush"
+    ></d-player>
   </div>
 </template>
 
@@ -29,6 +35,13 @@ export default {
       // ]
       // currentPageId: 0,
       // currentPageIndex: 0
+      currentPage: {
+        id: 0,
+        title: "",
+        playUrl: "",
+        subTitleUrl: "",
+        lastPlayAt: 0
+      }
     };
   },
   props: ["pages", "lastPlayPage"],
@@ -65,6 +78,14 @@ export default {
     // 切换到第几集（一般来说说外部只用调这个方法即可）
     switchPage(num) {
       var page = this.pages[num - 1];
+      this.currentPage = {
+        id: page.id,
+        page: page.page,
+        title: page.title,
+        playUrl: page.playUrl,
+        subTitleUrl: page.subTitleUrl,
+        lastPlayAt: page.lastPlayAt
+      };
       this.switchVideo(page.playUrl);
       if (!!page.lastPlayAt) {
         this.seek(page.lastPlayAt);
@@ -104,6 +125,30 @@ export default {
     // 返回视频总时间
     duration() {
       return this.player.video.duration;
+    },
+    // 推送当前正在播放的视频历史
+    playHistoryPush() {
+      var currentPageId = this.currentPage.id;
+      var currentPagePlayPos = this.currentPlayPos();
+      this.$http({
+        method: "post",
+        url: "/api/CourseBox/playHistoryPush",
+        data: {
+          id: currentPageId,
+          lastPlayAt: currentPagePlayPos
+        }
+      }).then(res => {
+        console.log(
+          "推送播放历史",
+          new Date().toString(),
+          "当前播放" + currentPageId + "  位置:" + currentPagePlayPos
+        );
+        if (res.data.code > 0) {
+          console.log("推送播放历史 成功 :", res.data.data);
+        } else {
+          console.log("推送播放历史 失败  :" + res.data.message);
+        }
+      });
     }
   }
 };
