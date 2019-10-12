@@ -9,6 +9,7 @@ import qs from 'qs'
 import * as filters from './filters'
 import { isLoginMethod } from './utils/index'
 import MetaInfo from 'vue-meta-info'
+import ba from 'vue-ba'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 // require styles
 import 'swiper/dist/css/swiper.css'
@@ -17,6 +18,8 @@ Vue.use(VueAwesomeSwiper, /* { default global options } */)
 
 Vue.use(MetaInfo)
 
+Vue.use(ba, "609c6fc1c238ea6c9fdc64fecbaf4794");
+Vue.use(ba, { siteId: "609c6fc1c238ea6c9fdc64fecbaf4794" });
 
 import vuetify from "./plugins/vuetify";
 import 'roboto-fontface/css/roboto/roboto-fontface.css'
