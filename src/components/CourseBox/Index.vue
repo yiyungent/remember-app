@@ -19,7 +19,12 @@
         <!-- start 视频播放区 -->
         <v-row>
           <v-col class="mx-auto py-0" md="8">
-            <video-player ref="player" :pages="courseBox.videoInfos"></video-player>
+            <video-player
+              ref="player"
+              :pages="courseBox.videoInfos"
+              @playHistory="playHistory"
+              @playHistoryPush="playHistoryPush"
+            ></video-player>
           </v-col>
         </v-row>
         <!-- end 视频播放区 -->
@@ -304,12 +309,18 @@
     <!-- start 提示消息 -->
     <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
     <!-- end 提示消息 -->
+    <!-- start 播放历史提示 -->
+    <v-snackbar v-model="showPlayHistoryTip">
+      {{playHistoryMsg}}
+      <v-btn color="pink" text @click="playSeek">跳转播放</v-btn>
+    </v-snackbar>
   </v-app>
 </template>
 <script>
 import comments from "./Comments";
 import oneColVideoList from "../Common/OneColVideoList";
 import VideoPlayer from "../Common/VideoPlayer";
+import moment from "moment";
 
 export default {
   name: "CourseBox",
@@ -428,8 +439,10 @@ export default {
       },
       // start 提示消息
       snackbar: false,
-      tipMsg: ""
+      tipMsg: "",
       // end 提示消息
+      showPlayHistoryTip: false,
+      playHistoryMsg: "记忆您上次播放到"
     };
   },
   computed: {
@@ -499,10 +512,10 @@ export default {
         // TODO: Bug: 打开后无法自动跳转到默认集, player 无播放视频
         this.player.switchPage(this.currentVideoInfoIndex + 1);
         // 如果当前集有播放历史记录，则调至上次播放位置
-        if (!!video.lastPlayAt) {
-          // TODO: 注意：这里是关键帧，而不是秒数
-          this.player.seek(video.lastPlayAt);
-        }
+        // if (!!video.lastPlayAt) {
+        //   // TODO: 注意：这里是关键帧，而不是秒数
+        //   this.player.seek(video.lastPlayAt);
+        // }
       });
     },
     loadFavList() {
@@ -546,7 +559,8 @@ export default {
       // 选择的收藏夹的ID
       var favIds = [];
       this.selectedFavList.forEach(ele => {
-        var index = ele - 1;
+        var index = ele;
+        console.log(index);
         if (index >= 0) {
           favIds.push(this.favList[index].id);
         }
@@ -579,7 +593,7 @@ export default {
           !!this.favStat.myFavStat.favIds &&
           this.favStat.myFavStat.favIds.includes(currentFavId)
         ) {
-          this.selectedFavList.push(i + 1);
+          this.selectedFavList.push(i);
         }
       }
     },
@@ -611,6 +625,32 @@ export default {
       this.courseBox.stat.commentNum = this.courseBox.stat.commentNum + 1;
     },
 
+    playHistory(lastPlayAt) {
+      this.showPlayHistoryTip = true;
+      // console.log(lastPlayAt);
+      var prettyPlayPos = moment()
+        .set("seconds", lastPlayAt)
+        .format("mm:ss");
+      // console.log(prettyPlayPos);
+      // this.playHistoryMsg = "记忆您上次播放到 " + prettyPlayPos;
+      this.playHistoryMsg = "记忆您上次播放到 " + lastPlayAt + "秒";
+    },
+
+    playHistoryPush(playInfo) {
+      var page = playInfo.page;
+      var videoId = playInfo.videoId;
+      var lastPlayAt = playInfo.lastPlayAt;
+      console.log("更新本地播放历史数据", playInfo);
+      this.courseBox.videoInfos[page - 1].lastPlayAt = lastPlayAt;
+    },
+
+    playSeek() {
+      var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
+      var lastPlayAt = video.lastPlayAt;
+      this.player.seek(lastPlayAt);
+      this.showPlayHistoryTip = false;
+    },
+
     slideChange() {
       this.navTabs = this.swiper.activeIndex;
       if (this.navTabs == 1) {
@@ -630,11 +670,6 @@ export default {
       // 切换课件
       // this.player.switchVideo(currentVideo.playUrl);
       this.player.switchPage(currentIndex + 1);
-      // 如果有播放历史记录，则调至此位置
-      if (!!currentVideo.lastPlayAt) {
-        // TODO: 注意：这里是关键帧，而不是秒数
-        this.player.seek(currentVideo.lastPlayAt);
-      }
     },
 
     goCreateFav() {
@@ -665,6 +700,7 @@ export default {
     },
     showSelectFav(newVal) {
       if (newVal) {
+        this.favList = [];
         this.loadFavList();
       }
     },

@@ -4,6 +4,7 @@
       ref="player"
       :options="options"
       style="height:240px;"
+      @play="playHistoryPush"
       @pause="playHistoryPush"
       @seeked="playHistoryPush"
     ></d-player>
@@ -88,9 +89,8 @@ export default {
       };
       this.switchVideo(page.playUrl);
       if (!!page.lastPlayAt) {
-        this.seek(page.lastPlayAt);
-      } else {
-        this.seek(0);
+        // this.seek(page.lastPlayAt);
+        this.$emit("playHistory", page.lastPlayAt);
       }
     },
 
@@ -130,6 +130,16 @@ export default {
     playHistoryPush() {
       var currentPageId = this.currentPage.id;
       var currentPagePlayPos = this.currentPlayPos();
+      if (currentPageId == 0) {
+        return;
+      }
+      // 除了推送给服务端，也应当更新本地存储的数据
+      this.$emit("playHistoryPush", {
+        page: this.currentPage.page,
+        videoId: currentPageId,
+        lastPlayAt: currentPagePlayPos
+      });
+
       this.$http({
         method: "post",
         url: "/api/CourseBox/playHistoryPush",
