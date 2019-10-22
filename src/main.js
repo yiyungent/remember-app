@@ -33,13 +33,12 @@ FastClick.attach(document.body)
 
 // build 环境
 // axios.defaults.baseURL = 'http://api.tikotiko.fun';
-axios.defaults.baseURL = 'http://api.moeci.com';
+axios.defaults.baseURL = 'http://localhost:4530/';
 
 // axios 请求拦截 - 在发送请求之前做某件事
 axios.interceptors.request.use(function (request) {
   // 解决跨域 post 变 OPTIONS，导致 404
   if (request.method === 'post') {
-    console.log('post 请求 触发');
     request.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8'
     request.data = qs.stringify({
       ...request.data

@@ -6,13 +6,13 @@
       <template v-slot:prepend>
         <v-img
           :aspect-ratio="16/9"
-          src="http://api.moeci.com/assets/images/default-avatar-background.png"
+          src="http://localhost:4530/assets/images/default-avatar-background.png"
         >
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
                 <v-img
-                  :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
+                  :src="!!user?user.avatar:'http://localhost:4530/assets/images/guest-avatar.jpg'"
                 ></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
@@ -104,7 +104,7 @@
       <v-btn icon large>
         <v-avatar size="32px" item>
           <v-img
-            :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
+            :src="!!user?user.avatar:'http://localhost:4530/assets/images/guest-avatar.jpg'"
             alt="Vuetify"
           ></v-img>
         </v-avatar>
