@@ -22,7 +22,6 @@
             <video-player
               ref="player"
               :pages="courseBox.videoInfos"
-              @playHistory="playHistory"
               @playHistoryPush="playHistoryPush"
             ></video-player>
           </v-col>
@@ -294,7 +293,7 @@
                 block
                 outlined
                 :class="item.id==currentVideoInfoId?'currentPlay':null"
-                @click="switchPage(index)"
+                @click="switchPage(index+1)"
               >
                 <span>第 {{index+1}} 集</span>
                 <span class="txt-gray">{{ item.title }}</span>
@@ -310,9 +309,9 @@
     <v-snackbar v-model="snackbar">{{ tipMsg }}</v-snackbar>
     <!-- end 提示消息 -->
     <!-- start 播放历史提示 -->
-    <v-snackbar v-model="showPlayHistoryTip">
+    <v-snackbar v-model="showPlayHistoryTip" :timeout="10000" bottom>
       {{playHistoryMsg}}
-      <v-btn color="pink" text @click="playSeek">跳转播放</v-btn>
+      <v-btn color="pink" text @click="playHistorySeek">跳转播放</v-btn>
     </v-snackbar>
   </v-app>
 </template>
@@ -365,10 +364,17 @@ export default {
           commentNum: 0,
           viewNum: 0
         },
-        videoInfos: [{ id: 0, title: "loading", playUrl: "" }]
+        videoInfos: [{ id: 0, title: "loading", playUrl: "", lastPlatAt: 0 }],
+        lastPlayVideoInfo: {
+          id: 0,
+          page: 1,
+          title: "",
+          playUrl: "",
+          lastPlayAt: 1,
+          progressAt: 1
+        }
       },
-      currentVideoInfoId: 17,
-      currentVideoInfoIndex: 0,
+      currentVideoInfoId: 0,
       // 更多推荐
       recom: {
         courseBoxs: [
@@ -497,25 +503,11 @@ export default {
         // console.log(res);
         this.courseBox = res.data.data;
 
-        // 有历史记录则为历史记录课件，否则第一个课件
+        // 判断是否有历史记录，历史记录提示只出现在第一次打开课程页时
         if (res.data.data.lastPlayVideoInfo != null) {
-          this.currentVideoInfoId = res.data.data.lastPlayVideoInfo.id;
-          this.currentVideoInfoIndex = res.data.data.lastPlayVideoInfo.page - 1;
-        } else {
-          this.currentVideoInfoId = res.data.data.videoInfos[0].id;
-          this.currentVideoInfoIndex = 0;
+          // 有历史记录，弹出提示
+          this.playHistoryTip(this.courseBox.lastPlayVideoInfo);
         }
-        // 播放器
-        // 跳转到当前集
-        var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
-        // this.player.switchVideo(video.playUrl);
-        // TODO: Bug: 打开后无法自动跳转到默认集, player 无播放视频
-        this.player.switchPage(this.currentVideoInfoIndex + 1);
-        // 如果当前集有播放历史记录，则调至上次播放位置
-        // if (!!video.lastPlayAt) {
-        //   // TODO: 注意：这里是关键帧，而不是秒数
-        //   this.player.seek(video.lastPlayAt);
-        // }
       });
     },
     loadFavList() {
@@ -625,28 +617,34 @@ export default {
       this.courseBox.stat.commentNum = this.courseBox.stat.commentNum + 1;
     },
 
-    playHistory(lastPlayAt) {
+    // 弹出播放历史提示
+    playHistoryTip(lastPlayVideoInfo) {
+      var lastPlayAt = lastPlayVideoInfo.lastPlayAt;
       this.showPlayHistoryTip = true;
-      // console.log(lastPlayAt);
       var prettyPlayPos = moment()
         .set("seconds", lastPlayAt)
         .format("mm:ss");
-      // console.log(prettyPlayPos);
-      // this.playHistoryMsg = "记忆您上次播放到 " + prettyPlayPos;
-      this.playHistoryMsg = "记忆您上次播放到 " + lastPlayAt + "秒";
+      this.playHistoryMsg =
+        "记忆您上次播放到 第 " +
+        lastPlayVideoInfo.page +
+        " 集 " +
+        prettyPlayPos;
     },
 
+    // 播放历史推送 到 本地（更新本地内存中存的播放历史记录）
     playHistoryPush(playInfo) {
-      var page = playInfo.page;
-      var videoId = playInfo.videoId;
-      var lastPlayAt = playInfo.lastPlayAt;
-      console.log("更新本地播放历史数据", playInfo);
-      this.courseBox.videoInfos[page - 1].lastPlayAt = lastPlayAt;
+      // var page = playInfo.page;
+      // var videoId = playInfo.videoId;
+      // var lastPlayAt = playInfo.lastPlayAt;
+      // console.log("更新本地播放历史数据", playInfo);
+      // this.courseBox.videoInfos[page - 1].lastPlayAt = lastPlayAt;
     },
 
-    playSeek() {
-      var video = this.courseBox.videoInfos[this.currentVideoInfoIndex];
+    // 根据播放历史跳转到 最近播放历史 集以及具体位置
+    playHistorySeek() {
+      var video = this.courseBox.lastPlayVideoInfo;
       var lastPlayAt = video.lastPlayAt;
+      this.switchPage(video.page);
       this.player.seek(lastPlayAt);
       this.showPlayHistoryTip = false;
     },
@@ -664,12 +662,11 @@ export default {
     },
 
     // 切换视频集
-    switchPage(currentIndex) {
-      var currentVideo = this.courseBox.videoInfos[currentIndex];
+    switchPage(page) {
+      var currentVideo = this.courseBox.videoInfos[page - 1];
       this.currentVideoInfoId = currentVideo.id;
       // 切换课件
-      // this.player.switchVideo(currentVideo.playUrl);
-      this.player.switchPage(currentIndex + 1);
+      this.player.switchPage(page);
     },
 
     goCreateFav() {
@@ -696,7 +693,7 @@ export default {
   },
   watch: {
     slidePage(activeIndex) {
-      this.switchPage(activeIndex);
+      this.switchPage(activeIndex + 1);
     },
     showSelectFav(newVal) {
       if (newVal) {
