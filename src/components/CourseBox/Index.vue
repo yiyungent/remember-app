@@ -77,9 +77,21 @@
                     </router-link>
                   </v-col>
                   <v-col xs="1" offset="6">
-                    <v-btn small color="primary">
-                      <v-icon left>add</v-icon>关注
-                    </v-btn>
+                    <template v-if="creatorRelation==0||creatorRelation==2">
+                      <v-btn small color="primary" @click="follow(courseBox.creator.id, 1)">
+                        <v-icon left>add</v-icon>关注
+                      </v-btn>
+                    </template>
+                    <template v-else-if="creatorRelation==1">
+                      <v-btn small color="gray" @click="follow(courseBox.creator.id, 2)">
+                        <v-icon left>add</v-icon>已关注
+                      </v-btn>
+                    </template>
+                    <template v-else-if="creatorRelation==3">
+                      <v-btn small color="gray" @click="follow(courseBox.creator.id, 2)">
+                        <v-icon left>add</v-icon>已互粉
+                      </v-btn>
+                    </template>
                   </v-col>
                 </v-row>
               </v-col>
@@ -375,13 +387,15 @@ export default {
         }
       },
       currentVideoInfoId: 0,
+      // 我的此课程创建者的关系
+      creatorRelation: 0,
       // 更多推荐
       recom: {
         courseBoxs: [
           {
             id: 1,
             name: "推荐1",
-            picUrl: "http://r.moeci.com//upload/images/courseBoxPics/4.jpg",
+            picUrl: "http://localhost:4483/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "哈哈"
@@ -394,7 +408,7 @@ export default {
           {
             id: 2,
             name: "推荐2",
-            picUrl: "http://r.moeci.com//upload/images/courseBoxPics/4.jpg",
+            picUrl: "http://localhost:4483/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "看看"
@@ -407,7 +421,7 @@ export default {
           {
             id: 3,
             name: "推荐3",
-            picUrl: "http://r.moeci.com//upload/images/courseBoxPics/4.jpg",
+            picUrl: "http://localhost:4483/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "建军节"
@@ -508,8 +522,24 @@ export default {
           // 有历史记录，弹出提示
           this.playHistoryTip(this.courseBox.lastPlayVideoInfo);
         }
+
+        this.loadRelation();
       });
     },
+
+    loadRelation() {
+      // 获取当前登录账号和此课程创建者的关系
+      this.$http({
+        method: "get",
+        url: "/api/User/Relation",
+        params: {
+          uids: this.courseBox.creator.id
+        }
+      }).then(res => {
+        this.creatorRelation = res.data.data.relations[0].relation;
+      });
+    },
+
     loadFavList() {
       this.loadingSelectFav = true;
       this.$http({
@@ -667,6 +697,25 @@ export default {
       this.currentVideoInfoId = currentVideo.id;
       // 切换课件
       this.player.switchPage(page);
+    },
+
+    // 关注
+    follow(uid, act) {
+      this.$http({
+        method: "post",
+        url: "/api/User/Follow",
+        params: {
+          uid: this.courseBox.creator.id,
+          act: act
+        }
+      }).then(res => {
+        if (res.data.code > 0) {
+          this.creatorRelation = res.data.data.relation;
+          this.courseBox.creator.fansNum=res.data.data.followed.fans;
+        } else {
+          console.log("关注失败");
+        }
+      });
     },
 
     goCreateFav() {
