@@ -35,7 +35,7 @@
               <v-list-item-action>
                 <v-btn
                   v-if="user.relation==0"
-                  @click="followYou(user.user)"
+                  @click="follow(user.user.id, 1)"
                   small
                   tile
                   outlined
@@ -47,7 +47,7 @@
                 </v-btn>
                 <v-btn
                   v-else-if="user.relation==1"
-                  @click="noFollowYou(user.user)"
+                  @click="follow(user.user.id, 2)"
                   small
                   tile
                   outlined
@@ -59,7 +59,7 @@
                 </v-btn>
                 <v-btn
                   v-else-if="user.relation==2"
-                  @click="followYou(user)"
+                  @click="follow(user.user.id, 1)"
                   small
                   tile
                   outlined
@@ -71,7 +71,7 @@
                 </v-btn>
                 <v-btn
                   v-else-if="user.relation==3"
-                  @click="noFollowYou(user)"
+                  @click="follow(user.user.id, 2)"
                   small
                   tile
                   outlined
@@ -126,21 +126,29 @@ export default {
         this.loading = false;
       });
     },
-    followYou(user) {
-      if (user.relation == 2) {
-        // 你是我的粉丝，我再关注你就是互粉
-        user.relation = 3;
-      } else if (user.relation == 0) {
-        user.relation = 1;
-      }
-    },
-    noFollowYou(user) {
-      if (user.relation == 3) {
-        // 我和你互粉，我不再关注你，那么就是你单方面关注我
-        user.relation = 2;
-      } else if (user.relation == 1) {
-        user.relation = 0;
-      }
+    // 关注
+    follow(uid, act) {
+      this.$http({
+        method: "post",
+        url: "/api/User/Follow",
+        params: {
+          uid: uid,
+          act: act
+        }
+      }).then(res => {
+        if (res.data.code > 0) {
+          var group = this.groups[0];
+          var index = 0;
+          group.users.forEach(ele => {
+            if (ele.user.id == uid) {
+              this.groups[0].users[index].relation = res.data.data.relation;
+            }
+            index++;
+          });
+        } else {
+          console.log("关注失败");
+        }
+      });
     }
   }
 };

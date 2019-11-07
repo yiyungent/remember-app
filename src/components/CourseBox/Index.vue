@@ -77,7 +77,7 @@
                     </router-link>
                   </v-col>
                   <v-col xs="1" offset="6">
-                    <template v-if="creatorRelation==0||creatorRelation==2">
+                    <template v-if="creatorRelation==0">
                       <v-btn small color="primary" @click="follow(courseBox.creator.id, 1)">
                         <v-icon left>add</v-icon>关注
                       </v-btn>
@@ -85,6 +85,11 @@
                     <template v-else-if="creatorRelation==1">
                       <v-btn small color="gray" @click="follow(courseBox.creator.id, 2)">
                         <v-icon left>add</v-icon>已关注
+                      </v-btn>
+                    </template>
+                    <template v-if="creatorRelation==2">
+                      <v-btn small color="primary" @click="follow(courseBox.creator.id, 1)">
+                        <v-icon left>add</v-icon>回粉
                       </v-btn>
                     </template>
                     <template v-else-if="creatorRelation==3">
@@ -711,7 +716,7 @@ export default {
       }).then(res => {
         if (res.data.code > 0) {
           this.creatorRelation = res.data.data.relation;
-          this.courseBox.creator.fansNum=res.data.data.followed.fans;
+          this.courseBox.creator.fansNum = res.data.data.followed.fans;
         } else {
           console.log("关注失败");
         }
