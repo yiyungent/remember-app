@@ -33,7 +33,8 @@ FastClick.attach(document.body)
 
 // build 环境
 // axios.defaults.baseURL = 'http://api.tikotiko.fun';
-axios.defaults.baseURL = 'http://localhost:4530/';
+// axios.defaults.baseURL = 'http://localhost:4530/';
+axios.defaults.baseURL = process.env.API_ROOT;
 
 // axios 请求拦截 - 在发送请求之前做某件事
 axios.interceptors.request.use(function (request) {
