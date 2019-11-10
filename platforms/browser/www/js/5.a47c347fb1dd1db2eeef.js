@@ -1,0 +1,1 @@
+webpackJsonp([5],{YcJa:function(e,n,t){"use strict";Object.defineProperty(n,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n    找不到页面了\n")])},staticRenderFns:[]};var u=t("VU/8")({name:"NotFound"},r,!1,function(e){t("jP6F")},null,null);n.default=u.exports},jP6F:function(e,n){}});
