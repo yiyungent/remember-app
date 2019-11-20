@@ -400,7 +400,7 @@ export default {
           {
             id: 1,
             name: "推荐1",
-            picUrl: "http://localhost:4483/upload/images/courseBoxPics/4.jpg",
+            picUrl: "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "哈哈"
@@ -413,7 +413,7 @@ export default {
           {
             id: 2,
             name: "推荐2",
-            picUrl: "http://localhost:4483/upload/images/courseBoxPics/4.jpg",
+            picUrl: "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "看看"
@@ -426,7 +426,7 @@ export default {
           {
             id: 3,
             name: "推荐3",
-            picUrl: "http://localhost:4483/upload/images/courseBoxPics/4.jpg",
+            picUrl: "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "建军节"
