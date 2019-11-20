@@ -1,11 +1,11 @@
 {
   "background_color": "#FFF",
   "display": "standalone",
-  "name": "HelloCordova",
-  "short_name": "HelloCordova",
-  "version": "io.cordova.hellocordova",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "name": "remember",
+  "short_name": "remember",
+  "version": "com.remember.r",
+  "description": "一个简单的学习工具。",
+  "author": "匿名",
   "icons": [],
   "start_url": "index.html"
 }
