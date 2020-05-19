@@ -157,7 +157,7 @@ import { isLoginMethod } from "./../../utils/index";
 export default {
   data() {
     return {
-      rootUrl: "http://api.moeci.com",
+      rootUrl: "http://api.tikotiko.fun",
       drawer: null,
       drawerCurrentIndex: 0,
       drawerItems: [
