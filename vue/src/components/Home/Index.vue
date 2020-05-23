@@ -157,15 +157,15 @@ import { isLoginMethod } from "./../../utils/index";
 export default {
   data() {
     return {
-      rootUrl: "http://api.tikotiko.fun",
+      rootUrl: "https://api.moeci.com",
       drawer: null,
       drawerCurrentIndex: 0,
       drawerItems: [
         { text: "首页", icon: "mdi-folder", route: { name: "Home" } },
         { text: "历史记录", icon: "mdi-history" },
         { text: "我的收藏", icon: "mdi-star", route: { name: "MyFav" } },
-        { text: "我的课程", icon: "mdi-star" },
-        { text: "新建课程", icon: "mdi-upload" }
+        { text: "我的文章", icon: "mdi-star" },
+        { text: "新建文章", icon: "mdi-upload" }
       ],
       tabs: [
         { id: 1, text: "热门", route: { name: "Home_Cat1" } },
@@ -206,7 +206,7 @@ export default {
 }
 </style>
 <style lang="less">
-// start 视频卡片
+// start 文章卡片
 #content .card-title {
   font-size: 1rem;
   padding-top: 82px;
@@ -216,5 +216,5 @@ export default {
   height: 50px;
   padding: 4px;
 }
-// end 视频卡片
+// end 文章卡片
 </style>

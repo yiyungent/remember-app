@@ -1,5 +1,5 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  API_ROOT: '"http://api.tikotiko.fun"'
+  API_ROOT: '"https://api.moeci.com"'
 }
