@@ -5,7 +5,8 @@
 
 > :cake: 一个百宝袋，希望能帮到你
 
-[![repo size](https://img.shields.io/github/repo-size/yiyungent/remember-app.svg?style=flat)]()
+[![repo size](https://img.shields.io/github/repo-size/yiyungent/remember-app.svg?style=flat)][![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fyiyungent%2Fremember-app.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fyiyungent%2Fremember-app?ref=badge_shield)
+()
 [![LICENSE](https://img.shields.io/github/license/yiyungent/remember-app.svg?style=flat)](https://github.com/yiyungent/remember-app/blob/master/LICENSE)
 
 
@@ -72,3 +73,7 @@ Authored and maintained by yiyun with help from contributors ([list](https://git
 
 > GitHub [@yiyungent](https://github.com/yiyungent)
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fyiyungent%2Fremember-app.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fyiyungent%2Fremember-app?ref=badge_large)
