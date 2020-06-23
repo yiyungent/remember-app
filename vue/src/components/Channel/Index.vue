@@ -4,16 +4,11 @@
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <!-- start 顶部头像区 -->
       <template v-slot:prepend>
-        <v-img
-          :aspect-ratio="16/9"
-          src="http://api.moeci.com/assets/images/default-avatar-background.png"
-        >
+        <v-img :aspect-ratio="16/9" src="/static/images/default-avatar-background.png">
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
-                <v-img
-                  :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
-                ></v-img>
+                <v-img :src="!!user?user.avatar:'/static/images/guest-avatar.jpg'"></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
                 <v-btn x-small outlined fab color="white">
@@ -103,13 +98,10 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
-          <v-img
-            :src="!!user?user.avatar:'http://api.moeci.com/assets/images/guest-avatar.jpg'"
-            alt="头像"
-          ></v-img>
+          <v-img :src="!!user?user.avatar:'/static/images/guest-avatar.jpg'" alt="头像"></v-img>
         </v-avatar>
       </v-btn>
-      <v-toolbar-title style="position: relative;left: 50%;margin-left: -80px;">
+      <v-toolbar-title>
         <span>频道</span>
       </v-toolbar-title>
     </v-app-bar>
@@ -148,38 +140,24 @@
     </v-content>
     <!-- end 主体内容区 -->
     <!-- start 底部导航区 -->
-    <v-bottom-navigation grow fixed color="primary" light v-model="bNavActiveBtn">
-      <v-btn :to="{name:'Home'}">
-        <span>首页</span>
-        <v-icon>fa-home</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>频道</span>
-        <v-icon>fa-cubes</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>动态</span>
-        <v-icon>fa-comments-o</v-icon>
-      </v-btn>
-      <v-btn>
-        <span>会员购</span>
-        <v-icon>fa-shopping-bag</v-icon>
-      </v-btn>
-    </v-bottom-navigation>
+    <bottom-nav :activeBtn="bNavActiveBtn" @activeChange="(val)=>{bNavActiveBtn=val}"></bottom-nav>
     <!-- end 底部导航区 -->
   </v-app>
 </template>
 
 <script>
 import { isLoginMethod } from "./../../utils/index";
+import bottomNav from "./../Home/BottomNav";
 
 export default {
+  components: {
+    bottomNav
+  },
   data() {
     return {
-      drawer: null,
-      drawerCurrentIndex: 0,
+      drawer: false,
+      drawerCurrentIndex: -1,
       drawerItems: [
-        { text: "首页", icon: "mdi-folder", route: { name: "Home" } },
         { text: "历史记录", icon: "mdi-history" },
         { text: "我的收藏", icon: "mdi-star", route: { name: "MyFav" } },
         { text: "我的课程", icon: "mdi-star" },

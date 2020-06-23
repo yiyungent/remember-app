@@ -13,7 +13,7 @@ const dateFormat = (input, fmtstring) => {
 
 const moneyFormat = value => {
     if (!value) return '0.00';
-    /原来用的是Number(value).toFixed(0)，这样取整时有问题，例如0.51取整之后为1，感谢Nils指正/
+    // /原来用的是Number(value).toFixed(0)，这样取整时有问题，例如0.51取整之后为1，感谢Nils指正/
     var intPart = Math.floor(value); //获取整数部分
     var intPartFormat = intPart.toString().replace(/(\d)(?=(?:\d{3})+)/g, '1,'); //将整数部分逢三一断
     var floatPart = ".00"; //预定义小数部分

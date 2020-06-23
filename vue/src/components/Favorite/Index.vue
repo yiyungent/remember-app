@@ -64,11 +64,11 @@
   </v-app>
 </template>
 <script>
-import oneColVideoList from '../Common/OneColVideoList'
+import oneColItemList from '../Common/OneColItemList'
 
 export default {
   components:{
-    oneColVideoList
+    oneColItemList
   },
 
   data() {
