@@ -11,7 +11,7 @@
                 <v-img :src="!!user?user.avatar:'static/images/guest-avatar.jpg'"></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
-                <v-btn x-small outlined fab color="primary">
+                <v-btn x-small outlined fab color="primary" @click="$toast('提示文案');">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </v-list-item-icon>
