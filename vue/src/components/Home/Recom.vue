@@ -9,17 +9,17 @@
     </v-row>
     <v-row>
       <template v-for="item in items">
-        <v-col cols="6" sm="6" md="3" style="padding: 6px;" :key="item.courseBox.id">
-          <v-card :to="{ name: 'CourseBox', params: { id: item.courseBox.id } }" class="mx-auto">
+        <v-col cols="6" sm="6" md="3" style="padding: 6px;" :key="item.article.id">
+          <v-card :to="{ name: 'ArticleBox', params: { id: item.article.id } }" class="mx-auto">
             <v-img
               class="white--text"
               height="100px"
-              :src="item.courseBox.picUrl"
-              :lazy-src="item.courseBox.picUrl"
+              :src="item.article.picUrl"
+              :lazy-src="item.article.picUrl"
             >
               <v-card-title class="card-title">
                 <v-icon x-small color="white">mdi-heart</v-icon>
-                <span>{{item.learnNum}}</span>
+                <span>{{item.favNum}}</span>
               </v-card-title>
               <template v-slot:placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
@@ -27,7 +27,10 @@
                 </v-row>
               </template>
             </v-img>
-            <v-card-text style="height:32px;" class="card-text">{{item.courseBox.name | subStrPretty(5)}}</v-card-text>
+            <v-card-text
+              style="height:32px;"
+              class="card-text"
+            >{{item.article.title | subStrPretty(5)}}</v-card-text>
           </v-card>
         </v-col>
       </template>
@@ -36,15 +39,79 @@
 </template>
 <script>
 export default {
-  name: "Home_Cat2",
   data() {
     return {
-      items: [],
-      showLoading: true
+      items: [
+        {
+          article: { id: 1, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 2, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 3, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 4, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 5, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 6, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 7, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 8, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 9, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 10, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 11, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 12, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 13, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 14, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 15, title: "测试1", picUrl: "" },
+          favNum: 123
+        },
+        {
+          article: { id: 16, title: "测试1", picUrl: "" },
+          favNum: 123
+        }
+      ],
+      showLoading: false //true
     };
   },
   created() {
-    this.loadList();
+    // this.loadList();
   },
   mounted() {},
   methods: {

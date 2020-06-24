@@ -92,14 +92,7 @@
       <!-- end 设置区 -->
     </v-navigation-drawer>
     <!-- end 左侧导航抽屉 -->
-    <!-- start 应用栏 -->
     <top-header :tabs="tabs" :user="user" :drawerClick="()=>{drawer=!drawer}"></top-header>
-    <!-- end 应用栏 -->
-    <!-- start 主体内容区 -->
-    <v-content id="content">
-      <router-view></router-view>
-    </v-content>
-    <!-- end 主体内容区 -->
     <!-- start 底部导航区 -->
     <bottom-nav :activeBtn="bNavActiveBtn" @activeChange="(val)=>{bNavActiveBtn=val}"></bottom-nav>
     <!-- end 底部导航区 -->

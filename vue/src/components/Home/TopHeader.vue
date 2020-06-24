@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div :style="{height:'100%'}">
+    <!-- start 应用栏 -->
     <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="white" light>
       <v-app-bar-nav-icon @click.stop="drawerClick"></v-app-bar-nav-icon>
       <v-btn icon large>
@@ -28,6 +29,21 @@
       </template>
       <!-- end 选项卡 -->
     </v-app-bar>
+    <!-- end 应用栏 -->
+    <!-- start 主体内容区 -->
+    <v-content
+      id="content"
+      v-touch="{
+      left: () => swipe('Left'),
+      right: () => swipe('Right'),
+      up: () => swipe('Up'),
+      down: () => swipe('Down')
+    }"
+      :style="{height:'100%'}"
+    >
+      <router-view></router-view>
+    </v-content>
+    <!-- end 主体内容区 -->
   </div>
 </template>
 
@@ -37,6 +53,36 @@ export default {
     tabs: Array,
     user: Object,
     drawerClick: Function
+  },
+  data() {
+    return {};
+  },
+  methods: {
+    swipe(direction) {
+      var currentTabIndex = this.tabs.findIndex(
+        tab => tab.route.name === this.$route.name
+      );
+      switch (direction) {
+        case "Left":
+          // 向左滑动->(到当前标签的下一个标签tab)右边的一个标签tab
+          if (currentTabIndex >= this.tabs.length - 1) {
+            return;
+          }
+          var nextTab = this.tabs[currentTabIndex + 1];
+          this.$router.push({ name: nextTab.route.name });
+          break;
+        case "Right":
+          // 向右滑动->(到当前标签的上一个标签tab)左边的一个标签tab
+          if (currentTabIndex <= 0) {
+            return;
+          }
+          var preTab = this.tabs[currentTabIndex - 1];
+          this.$router.push({ name: preTab.route.name });
+          break;
+        default:
+          break;
+      }
+    }
   }
 };
 </script>
