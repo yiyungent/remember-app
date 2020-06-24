@@ -16,22 +16,20 @@ jobs:
         node-version: [10.x, 12.x, 14.x]
 
     steps:
-    #- uses: actions/checkout@v2
+    - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: cd vue
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: cd vue && npm ci && npm run build --if-present
+      
     - name: set up JDK 1.8
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - run: cd ..
-    - run: npm ci
-    - run: npm install -g cordova
+    - run: cd .. && npm ci && npm install -g cordova
     - run: cordova platform add android
-    #- name: Build with Gradle
+      
+    - name: Build with Gradle
     - run: cd platforms/android
     - run: ./gradlew build
