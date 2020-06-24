@@ -29,7 +29,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
-    - run: cd .. && npm ci && npm install -g cordova
+    - run: cd .. && npm install -g cordova
     #- run: cordova platform add android
       
     #- name: Build with Gradle
