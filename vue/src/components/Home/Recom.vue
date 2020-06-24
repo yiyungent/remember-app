@@ -43,67 +43,67 @@ export default {
     return {
       items: [
         {
-          article: { id: 1, title: "测试1", picUrl: "" },
+          article: { id: 1, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 2, title: "测试1", picUrl: "" },
+          article: { id: 2, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 3, title: "测试1", picUrl: "" },
+          article: { id: 3, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 4, title: "测试1", picUrl: "" },
+          article: { id: 4, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 5, title: "测试1", picUrl: "" },
+          article: { id: 5, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 6, title: "测试1", picUrl: "" },
+          article: { id: 6, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 7, title: "测试1", picUrl: "" },
+          article: { id: 7, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 8, title: "测试1", picUrl: "" },
+          article: { id: 8, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 9, title: "测试1", picUrl: "" },
+          article: { id: 9, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 10, title: "测试1", picUrl: "" },
+          article: { id: 10, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 11, title: "测试1", picUrl: "" },
+          article: { id: 11, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 12, title: "测试1", picUrl: "" },
+          article: { id: 12, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 13, title: "测试1", picUrl: "" },
+          article: { id: 13, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 14, title: "测试1", picUrl: "" },
+          article: { id: 14, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 15, title: "测试1", picUrl: "" },
+          article: { id: 15, title: "推荐1", picUrl: "" },
           favNum: 123
         },
         {
-          article: { id: 16, title: "测试1", picUrl: "" },
+          article: { id: 16, title: "推荐1", picUrl: "" },
           favNum: 123
         }
       ],

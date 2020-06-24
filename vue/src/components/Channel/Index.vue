@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <div>
     <!-- start 左侧导航抽屉 -->
     <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
       <!-- start 顶部头像区 -->
@@ -139,10 +139,7 @@
       </v-container>
     </v-content>
     <!-- end 主体内容区 -->
-    <!-- start 底部导航区 -->
-    <bottom-nav :activeBtn="bNavActiveBtn" @activeChange="(val)=>{bNavActiveBtn=val}"></bottom-nav>
-    <!-- end 底部导航区 -->
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -151,7 +148,7 @@ import bottomNav from "./../Home/BottomNav";
 
 export default {
   components: {
-    bottomNav
+    bottomNav,
   },
   data() {
     return {

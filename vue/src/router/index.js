@@ -2,11 +2,14 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 const Login = () => import('../components/Login/Index')
-const Home = () => import('@/components/Home/Index')
-const Channel = () => import('@/components/Channel/Index')
-const Home_Hot = () => import('../components/Home/Hot')
-const Home_Last = () => import('../components/Home/Last')
-const Home_Recom = () => import('../components/Home/Recom')
+const Home = () => import('@/views/Home/Index')
+const Home_TopHeader = () => import('@/views/Home/TopHeader')
+const Home_Channel = () => import('@/components/Channel/Index')
+const Home_Dynamic = () => import('@/components/Dynamic/Index')
+
+const Home_TopHeader_Hot = () => import('../components/Home/Hot')
+const Home_TopHeader_Last = () => import('../components/Home/Last')
+const Home_TopHeader_Recom = () => import('../components/Home/Recom')
 
 const MyFriends = () => import('../components/MyFriends/Index')
 const MyFriends_MyFollow = () => import('../components/MyFriends/MyFollow')
@@ -46,30 +49,26 @@ export default new Router({
       name: 'Home',
       path: '/',
       component: Home,
-      redirect: { name: 'Home_Recom' },
+      redirect: { name: 'Home_TopHeader' },
       children: [
         {
-          name: 'Home_Hot',
-          path: 'Hot',
-          component: Home_Hot
-        }, {
-          name: 'Home_Recom',
-          path: 'Recom',
-          component: Home_Recom
+          name: 'Home_TopHeader',
+          path: '/',
+          component: Home_TopHeader,
         },
+        // 频道
         {
-          name: 'Home_Last',
-          path: 'Last',
-          component: Home_Last
-        }
+          name: 'Home_Channel',
+          path: '/Channel',
+          component: Home_Channel
+        },
+        // 动态
+        {
+          name: 'Home_Dynamic',
+          path: '/Dynamic',
+          component: Home_Dynamic
+        },
       ]
-    },
-
-    // 频道
-    {
-      name: 'Channel',
-      path: '/Channel',
-      component: Channel
     },
 
     // 我的好友 = 我的关注 + 我的粉丝
