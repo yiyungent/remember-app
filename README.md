@@ -1,5 +1,5 @@
 <p align="center">
-<img src="docs/_images/logo.png" alt="logo">
+<img src="_res/_images/logo.png" alt="logo">
 </p>
 <h1 align="center">remember-app</h1>
 
@@ -22,15 +22,15 @@ remember-app: remember for mobile app.
 
  ## 截图
 
-<img src="docs/_images/1.png" width="200" height="348">
-<img src="docs/_images/2.png" width="200" height="348">
-<img src="docs/_images/3.png" width="200" height="348">
-<img src="docs/_images/4.png" width="200" height="348">
-<img src="docs/_images/5.png" width="200" height="348">
-<img src="docs/_images/6.png" width="200" height="348">
-<img src="docs/_images/7.png" width="200" height="348">
-<img src="docs/_images/8.png" width="200" height="348">
-<img src="docs/_images/9.png" width="200" height="348">
+<img src="_res/_images/1.png" width="200" height="348">
+<img src="_res/_images/2.png" width="200" height="348">
+<img src="_res/_images/3.png" width="200" height="348">
+<img src="_res/_images/4.png" width="200" height="348">
+<img src="_res/_images/5.png" width="200" height="348">
+<img src="_res/_images/6.png" width="200" height="348">
+<img src="_res/_images/7.png" width="200" height="348">
+<img src="_res/_images/8.png" width="200" height="348">
+<img src="_res/_images/9.png" width="200" height="348">
 
  
 ## TODO
@@ -67,7 +67,7 @@ remember-app: remember for mobile app.
 
 ## Author
 
-**remember-app** © [yiyun](https://github.com/yiyungent), Released under the [Apache 2.0](./LICENSE) License.<br>
+**remember-app** © [yiyun](https://github.com/yiyungent), Released under the [Apache-2.0](./LICENSE) License.<br>
 Authored and maintained by yiyun with help from contributors ([list](https://github.com/yiyungent/remember-app/contributors)).
 
 > GitHub [@yiyungent](https://github.com/yiyungent)
