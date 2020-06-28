@@ -1,7 +1,6 @@
 <template>
-  <div>
     <v-bottom-navigation grow fixed color="primary" light v-model="activeBtnModel">
-      <v-btn :to="{name:'Home'}">
+      <v-btn :to="{name:'Home_First'}">
         <span>首页</span>
         <v-icon>fa-home</v-icon>
       </v-btn>
@@ -18,7 +17,6 @@
         <v-icon>fa-shopping-bag</v-icon>
       </v-btn>
     </v-bottom-navigation>
-  </div>
 </template>
 
 <script>
@@ -32,12 +30,12 @@ export default {
     };
   },
   watch: {
-    // activeBtnModel() {
-    //   this.$emit("activeChange", this.activeBtnModel);
-    // },
-    // activeBtn() {
-    //   this.activeBtnModel = this.activeBtn;
-    // }
+    activeBtnModel() {
+      this.$emit("input", this.activeBtnModel);
+    },
+    activeBtn() {
+      this.activeBtnModel = this.activeBtn;
+    }
   }
 };
 </script>

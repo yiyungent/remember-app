@@ -143,12 +143,10 @@
 </template>
 
 <script>
-import { isLoginMethod } from "./../../utils/index";
-import bottomNav from "./../Home/BottomNav";
+import { isLoginMethod } from "@/utils/index";
 
 export default {
   components: {
-    bottomNav,
   },
   data() {
     return {

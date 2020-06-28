@@ -2,13 +2,13 @@
   <v-app id="inspire">
     <router-view></router-view>
     <!-- start 底部导航区 -->
-    <bottom-nav :activeBtn="bNavActiveBtn" @activeChange="(val)=>{bNavActiveBtn=val}"></bottom-nav>
+    <bottom-nav v-model="bNavActiveBtn"></bottom-nav>
     <!-- end 底部导航区 -->
   </v-app>
 </template>
 
 <script>
-import bottomNav from "../../components/Home/BottomNav";
+import bottomNav from "@/components/Common/BottomNav";
 
 export default {
   components: {

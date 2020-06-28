@@ -1,27 +1,27 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-const Login = () => import('../components/Login/Index')
+const Login = () => import('@/components/Login/Index')
 const Home = () => import('@/views/Home/Index')
-const Home_TopHeader = () => import('@/views/Home/TopHeader')
+const Home_First = () => import('@/components/Home/First')
 const Home_Channel = () => import('@/components/Channel/Index')
 const Home_Dynamic = () => import('@/components/Dynamic/Index')
 
-const Home_TopHeader_Hot = () => import('../components/Home/Hot')
-const Home_TopHeader_Last = () => import('../components/Home/Last')
-const Home_TopHeader_Recom = () => import('../components/Home/Recom')
+const Home_First_Hot = () => import('@/components/Home/Hot')
+const Home_First_Last = () => import('@/components/Home/Last')
+const Home_First_Recom = () => import('@/components/Home/Recom')
 
-const MyFriends = () => import('../components/MyFriends/Index')
-const MyFriends_MyFollow = () => import('../components/MyFriends/MyFollow')
-const MyFriends_MyFans = () => import('../components/MyFriends/MyFans')
+const MyFriends = () => import('@/components/MyFriends/Index')
+const MyFriends_MyFollow = () => import('@/components/MyFriends/MyFollow')
+const MyFriends_MyFans = () => import('@/components/MyFriends/MyFans')
 
-const MyFav = () => import('../components/MyFav/Index.vue')
-const MyFav_ArticleBox = () => import('../components/MyFav/ArticleBox.vue')
-const Favorite = () => import('../components/Favorite/Index.vue')
-const CreateFavorite = () => import('../components/Favorite/CreateFavorite.vue')
+const MyFav = () => import('@/components/MyFav/Index.vue')
+const MyFav_ArticleBox = () => import('@/components/MyFav/ArticleBox.vue')
+const Favorite = () => import('@/components/Favorite/Index.vue')
+const CreateFavorite = () => import('@/components/Favorite/CreateFavorite.vue')
 
 
-const ArticleBox = () => import('../components/ArticleBox/Index')
+const ArticleBox = () => import('@/components/ArticleBox/Index')
 
 const NotFound = () => import('@/components/NotFound')
 
@@ -49,12 +49,12 @@ export default new Router({
       name: 'Home',
       path: '/',
       component: Home,
-      redirect: { name: 'Home_TopHeader' },
+      redirect: { name: 'Home_First' },
       children: [
         {
-          name: 'Home_TopHeader',
-          path: '/',
-          component: Home_TopHeader,
+          name: 'Home_First',
+          path: '/First',
+          component: Home_First,
         },
         // 频道
         {
