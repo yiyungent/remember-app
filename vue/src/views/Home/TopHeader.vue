@@ -203,25 +203,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.lightbox {
-  box-shadow: 0 0 20px inset rgba(0, 0, 0, 0.2);
-  background-image: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.4) 0%,
-    transparent 72px
-  );
-}
-</style>
-<style lang="less">
-// start 文章卡片
-#content .card-title {
-  font-size: 1rem;
-  padding-top: 82px;
-  height: 10px;
-}
-#content .card-text {
-  height: 50px;
-  padding: 4px;
-}
-// end 文章卡片
+
 </style>
