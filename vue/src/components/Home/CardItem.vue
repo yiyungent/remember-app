@@ -1,5 +1,5 @@
 <template>
-  <v-card :to="{ name: 'ArticleBox', params: { id: item.article.id } }" class="mx-auto">
+  <v-card :to="{ name: 'Article', params: { id: item.article.id } }" class="mx-auto">
     <v-img
       class="white--text"
       height="100px"
@@ -16,7 +16,10 @@
         </v-row>
       </template>
     </v-img>
-    <v-card-text style="height:32px;" class="card-text">{{item.article.title | subStrPretty(18)}}</v-card-text>
+    <v-card-text class="card-text">
+      <div class="card-text-title">{{item.article.title | subStrPretty(22)}}</div>
+      <div class="card-text-cat">野生技术协会·项目实战</div>
+    </v-card-text>
   </v-card>
 </template>
 
@@ -45,8 +48,21 @@ export default {
   height: 10px;
 }
 .card-text {
-  height: 50px;
-  padding: 4px;
+  height: 78px;
+  padding: 0.5em;
+  letter-spacing: 0.1em;
+  flex-direction: column;
+  justify-content: space-between;
+  display: flex;
+
+  .card-text-title {
+    color: #000;
+    font-size: 13px;
+    font-weight: 360;
+  }
+  .card-text-cat {
+    font-size: 10px;
+  }
 }
 // end 文章卡片
 </style>
