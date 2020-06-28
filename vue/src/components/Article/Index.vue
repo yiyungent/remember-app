@@ -33,7 +33,7 @@
                 <span
                   class="pl-1 pt-1"
                   style="font-size:10px;"
-                >{{articleBox.stat.commentNum | numPretty}}</span>
+                >{{article.stat.commentNum | numPretty}}</span>
               </v-tab>
               <!-- <div class="flex-grow-1"></div> -->
               <!-- <v-btn-toggle rounded fixed>
@@ -61,35 +61,35 @@
                   <v-col xs="11" style="width:48px;">
                     <router-link :to="{name:'Home'}" style="text-decoration:none">
                       <v-avatar max-width="48">
-                        <img :src="articleBox.creator.avatar" />
+                        <img :src="article.creator.avatar" />
                       </v-avatar>
                       <div style="transform: translate(60px, -46px);">
-                        <div class="black--text">{{articleBox.creator.userName | subStrPretty(5)}}</div>
+                        <div class="black--text">{{article.creator.userName | subStrPretty(5)}}</div>
                         <div
                           class="grey--text subtitle-1"
                           style="font-size:6px;"
-                        >{{articleBox.creator.fansNum | numPretty}}粉丝</div>
+                        >{{article.creator.fansNum | numPretty}}粉丝</div>
                       </div>
                     </router-link>
                   </v-col>
                   <v-col xs="1" offset="6">
                     <template v-if="creatorRelation==0">
-                      <v-btn small color="primary" @click="follow(articleBox.creator.id, 1)">
+                      <v-btn small color="primary" @click="follow(article.creator.id, 1)">
                         <v-icon left>add</v-icon>关注
                       </v-btn>
                     </template>
                     <template v-else-if="creatorRelation==1">
-                      <v-btn small color="gray" @click="follow(articleBox.creator.id, 2)">
+                      <v-btn small color="gray" @click="follow(article.creator.id, 2)">
                         <v-icon left>add</v-icon>已关注
                       </v-btn>
                     </template>
                     <template v-if="creatorRelation==2">
-                      <v-btn small color="primary" @click="follow(articleBox.creator.id, 1)">
+                      <v-btn small color="primary" @click="follow(article.creator.id, 1)">
                         <v-icon left>add</v-icon>回粉
                       </v-btn>
                     </template>
                     <template v-else-if="creatorRelation==3">
-                      <v-btn small color="gray" @click="follow(articleBox.creator.id, 2)">
+                      <v-btn small color="gray" @click="follow(article.creator.id, 2)">
                         <v-icon left>add</v-icon>已互粉
                       </v-btn>
                     </template>
@@ -102,7 +102,7 @@
             <v-row style="padding-left: 10px;padding-right: 10px;">
               <v-col class="mx-auto pb-0" md="8">
                 <div>
-                  <span style="font-size:18px;">{{articleBox.name || substrPretty(8) }}</span>
+                  <span style="font-size:18px;">{{article.name || substrPretty(8) }}</span>
                   <v-btn class="float-right" icon @click="showDesc = !showDesc">
                     <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
                   </v-btn>
@@ -110,12 +110,12 @@
                 <div class="grey--text subtitle-1 py-1">
                   <span style="font-size:13px;" class="px-1">
                     <v-icon x-small>personal_video</v-icon>
-                    <span>{{articleBox.stat.viewNum | numPretty}}</span>
+                    <span>{{article.stat.viewNum | numPretty}}</span>
                   </span>
                   <span
                     style="font-size:13px;"
                     class="px-1"
-                  >{{articleBox.lastUpdateTime | dateFormat('YYYY-MM-DD HH:mm')}}</span>
+                  >{{article.lastUpdateTime | dateFormat('YYYY-MM-DD HH:mm')}}</span>
                 </div>
               </v-col>
             </v-row>
@@ -124,7 +124,7 @@
             <v-row>
               <v-col class="mx-auto py-0" md="8">
                 <v-expand-transition>
-                  <div class="px-3" v-show="showDesc">{{articleBox.desc}}</div>
+                  <div class="px-3" v-show="showDesc">{{article.desc}}</div>
                 </v-expand-transition>
               </v-col>
             </v-row>
@@ -136,7 +136,7 @@
                   <v-col class="text-center pt-0">
                     <v-btn large text icon color="gray">
                       <v-icon>thumb_up</v-icon>
-                      <span class="btn-icon-with-text">{{articleBox.stat.likeNum | numPretty}}</span>
+                      <span class="btn-icon-with-text">{{article.stat.likeNum | numPretty}}</span>
                     </v-btn>
                   </v-col>
                   <v-col class="text-center pt-0">
@@ -148,20 +148,20 @@
                   <!-- <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>attach_money</v-icon>
-                  <span class="btn-icon-with-text">{{articleBox.stat.coin}}</span>
+                  <span class="btn-icon-with-text">{{article.stat.coin}}</span>
                 </v-btn>
                   </v-col>-->
                   <v-col class="text-center pt-0">
                     <v-btn @click="showSelectFav=true" large text icon color="gray">
                       <v-icon v-show="isIFav" color="primary">star</v-icon>
                       <v-icon v-show="!isIFav">star</v-icon>
-                      <span class="btn-icon-with-text">{{articleBox.stat.favNum | numPretty}}</span>
+                      <span class="btn-icon-with-text">{{article.stat.favNum | numPretty}}</span>
                     </v-btn>
                   </v-col>
                   <!-- <v-col>
                 <v-btn large text icon color="gray">
                   <v-icon>share</v-icon>
-                  <span class="btn-icon-with-text">{{articleBox.stat.shareNum}}</span>
+                  <span class="btn-icon-with-text">{{article.stat.shareNum}}</span>
                 </v-btn>
                   </v-col>-->
                 </v-row>
@@ -256,21 +256,13 @@
 </template>
 <script>
 import comments from "./Comments";
-import oneColItemList from "../Common/OneColItemList";
-import articlePlayer from "../Common/ArticlePlayer";
+import oneColItemList from "@/components/Common/OneColItemList";
 import moment from "moment";
 
 export default {
-  name: "ArticleBox",
-  metaInfo() {
-    return {
-      title: !!this.articleBox ? this.articleBox.title : ""
-    };
-  },
   components: {
     comments,
     oneColItemList,
-    articlePlayer
   },
   data() {
     return {
@@ -282,7 +274,7 @@ export default {
       // 滑动集数组件
       slidePage: null,
       // 数据
-      articleBox: {
+      article: {
         id: 0,
         title: "loading",
         desc: "",
@@ -393,7 +385,7 @@ export default {
     },
     // 我看过了此吗
     isISeen: function() {
-      return !!this.articleBox.joinTime && this.articleBox.joinTime > 0;
+      return !!this.article.joinTime && this.article.joinTime > 0;
     },
     swiper() {
       return this.$refs.mySwiper.swiper;
@@ -423,12 +415,12 @@ export default {
       }).then(res => {
         //res是返回结果
         // console.log(res);
-        this.articleBox = res.data.data;
+        this.article = res.data.data;
 
         // 判断是否有历史记录，历史记录提示只出现在第一次打开页时
         if (res.data.data.lastPlayVideoInfo != null) {
           // 有历史记录，弹出提示
-          this.playHistoryTip(this.articleBox.lastPlayVideoInfo);
+          this.playHistoryTip(this.article.lastPlayVideoInfo);
         }
 
         this.loadRelation();
@@ -441,7 +433,7 @@ export default {
         method: "get",
         url: "/api/User/Relation",
         params: {
-          uids: this.articleBox.creator.id
+          uids: this.article.creator.id
         }
       }).then(res => {
         this.creatorRelation = res.data.data.relations[0].relation;
@@ -529,7 +521,7 @@ export default {
     },
 
     sendCommentSuccess() {
-      this.articleBox.stat.commentNum = this.articleBox.stat.commentNum + 1;
+      this.article.stat.commentNum = this.article.stat.commentNum + 1;
     },
 
     slideChange() {
@@ -550,13 +542,13 @@ export default {
         method: "post",
         url: "/api/User/Follow",
         params: {
-          uid: this.articleBox.creator.id,
+          uid: this.article.creator.id,
           act: act
         }
       }).then(res => {
         if (res.data.code > 0) {
           this.creatorRelation = res.data.data.relation;
-          this.articleBox.creator.fansNum = res.data.data.followed.fans;
+          this.article.creator.fansNum = res.data.data.followed.fans;
         } else {
           console.log("关注失败");
         }

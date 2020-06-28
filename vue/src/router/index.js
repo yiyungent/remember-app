@@ -3,25 +3,25 @@ import Router from 'vue-router'
 
 const Login = () => import('@/components/Login/Index')
 const Home = () => import('@/views/Home/Index')
-const Home_First = () => import('@/components/Home/First')
+const Home_Index = () => import('@/components/Home/Index')
 const Home_Channel = () => import('@/components/Channel/Index')
 const Home_Dynamic = () => import('@/components/Dynamic/Index')
 
-const Home_First_Hot = () => import('@/components/Home/Hot')
-const Home_First_Last = () => import('@/components/Home/Last')
-const Home_First_Recom = () => import('@/components/Home/Recom')
+const Home_Index_Hot = () => import('@/components/Home/Hot')
+const Home_Index_Last = () => import('@/components/Home/Last')
+const Home_Index_Recom = () => import('@/components/Home/Recom')
 
 const MyFriends = () => import('@/components/MyFriends/Index')
 const MyFriends_MyFollow = () => import('@/components/MyFriends/MyFollow')
 const MyFriends_MyFans = () => import('@/components/MyFriends/MyFans')
 
 const MyFav = () => import('@/components/MyFav/Index.vue')
-const MyFav_ArticleBox = () => import('@/components/MyFav/ArticleBox.vue')
+const MyFav_Article = () => import('@/components/MyFav/Article.vue')
 const Favorite = () => import('@/components/Favorite/Index.vue')
 const CreateFavorite = () => import('@/components/Favorite/CreateFavorite.vue')
 
 
-const ArticleBox = () => import('@/components/ArticleBox/Index')
+const Article = () => import('@/components/Article/Index')
 
 const NotFound = () => import('@/components/NotFound')
 
@@ -49,12 +49,12 @@ export default new Router({
       name: 'Home',
       path: '/',
       component: Home,
-      redirect: { name: 'Home_First' },
+      redirect: { name: 'Home_Index' },
       children: [
         {
-          name: 'Home_First',
-          path: '/First',
-          component: Home_First,
+          name: 'Home_Index',
+          path: '/Index',
+          component: Home_Index,
         },
         // 频道
         {
@@ -102,12 +102,12 @@ export default new Router({
       name: 'MyFav',
       path: '/MyFav',
       component: MyFav,
-      redirect: { name: 'MyFav_ArticleBox' },
+      redirect: { name: 'MyFav_Article' },
       children: [
         {
-          name: 'MyFav_ArticleBox',
-          path: 'ArticleBox',
-          component: MyFav_ArticleBox,
+          name: 'MyFav_Article',
+          path: 'Article',
+          component: MyFav_Article,
           meta: {
             needLogin: true
           }
@@ -129,9 +129,9 @@ export default new Router({
 
     // 文章页
     {
-      name: 'ArticleBox',
-      path: '/ArticleBox/:id',
-      component: ArticleBox,
+      name: 'Article',
+      path: '/Article/:id',
+      component: Article,
       meta: { needLogin: true }
     },
 

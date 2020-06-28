@@ -64,7 +64,7 @@
   </v-app>
 </template>
 <script>
-import oneColItemList from '../Common/OneColItemList'
+import oneColItemList from '@/components/Common/OneColItemList'
 
 export default {
   components:{

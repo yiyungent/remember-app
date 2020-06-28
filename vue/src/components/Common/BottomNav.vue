@@ -1,6 +1,6 @@
 <template>
     <v-bottom-navigation grow fixed color="primary" light v-model="activeBtnModel">
-      <v-btn :to="{name:'Home_First'}">
+      <v-btn :to="{name:'Home_Index'}">
         <span>首页</span>
         <v-icon>fa-home</v-icon>
       </v-btn>
@@ -22,19 +22,19 @@
 <script>
 export default {
   props: {
-    activeBtn: Number
+    value: Number
   },
   data() {
     return {
-      activeBtnModel: this.activeBtn
+      activeBtnModel: this.value
     };
   },
   watch: {
     activeBtnModel() {
       this.$emit("input", this.activeBtnModel);
     },
-    activeBtn() {
-      this.activeBtnModel = this.activeBtn;
+    value() {
+      this.activeBtnModel = this.value;
     }
   }
 };

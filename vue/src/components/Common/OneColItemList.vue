@@ -56,7 +56,7 @@ export default {
           query: this.$route.query
         })
       );
-      this.$router.push({ name: "CourseBox", params: { id: item.id } });
+      this.$router.push({ name: "Article", params: { id: item.id } });
     }
   },
   created() {
