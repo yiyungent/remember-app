@@ -46,79 +46,20 @@ export default {
           article: { id: 1, title: "最新1", picUrl: "" },
           favNum: 123
         },
-        {
-          article: { id: 2, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 3, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 4, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 5, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 6, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 7, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 8, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 9, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 10, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 11, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 12, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 13, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 14, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 15, title: "最新2", picUrl: "" },
-          favNum: 123
-        },
-        {
-          article: { id: 16, title: "最新2", picUrl: "" },
-          favNum: 123
-        }
       ],
       showLoading: false //true
     };
   },
   created() {
-    // this.loadList();
+    this.loadList();
   },
   mounted() {},
   methods: {
     loadList() {
+      this.showLoading = true;
       this.$http({
         method: "get",
-        url: "/api/Home/LastCourseBox",
+        url: "/api/article/last",
         params: {
           number: 10
         }

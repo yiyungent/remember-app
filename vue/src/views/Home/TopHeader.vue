@@ -144,10 +144,10 @@
 </template>
 
 <script>
-import { isLoginMethod } from "./../../utils/index";
-import hot from "../../components/Home/Hot";
-import recom from "../../components/Home/Recom";
-import last from "../../components/Home/Last";
+import { isLoginMethod } from "@/utils/index";
+import hot from "@/components/Home/Hot";
+import recom from "@/components/Home/Recom";
+import last from "@/components/Home/Last";
 
 export default {
   components: {

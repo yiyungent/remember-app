@@ -31,6 +31,9 @@ import FastClick from 'fastclick'
 
 FastClick.attach(document.body)
 
+// 开发环境引入 mock
+process.env.MOCK && require('@/mock')
+
 // build 环境
 // axios.defaults.baseURL = 'http://api.tikotiko.fun';
 // axios.defaults.baseURL = 'http://localhost:4530/';
