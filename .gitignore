@@ -1,5 +1,13 @@
+# Mac
 .DS_Store
+
+# Cordova
+platforms/
+plugins/
 node_modules/
+www/
+
+# Vue.js
 vue/node_modules/
 vue/dist/
 npm-debug.log*
@@ -16,5 +24,3 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
-
-vue/static/upload/videos

@@ -18,6 +18,9 @@ export default {
     return {
       bNavActiveBtn: 0
     };
+  },
+  created() {
+    // document.getElementById("test").innerText="views.Home.Index 已被创建"
   }
 };
 </script>

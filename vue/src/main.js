@@ -32,7 +32,8 @@ import FastClick from 'fastclick'
 FastClick.attach(document.body)
 
 // 开发环境引入 mock
-process.env.MOCK && require('@/mock')
+// process.env.MOCK && require('@/mock')
+require('@/mock')
 
 // build 环境
 // axios.defaults.baseURL = 'http://api.tikotiko.fun';
@@ -50,7 +51,7 @@ axios.interceptors.request.use(function (request) {
   }
 
   if (localStorage.token) {
-    // 在 headers 中设置 Authorization 属性放token，token是存在缓存中的 
+    // 在 headers 中设置 Authorization 属性放token，token是存在缓存中的
     request.headers.Authorization = `Bearer ${localStorage.token}`;
   }
 
@@ -89,6 +90,7 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
+// document.getElementById("test").innerText="准备 new Vue()"
 
 /* eslint-disable no-new */
 new Vue({
