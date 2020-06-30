@@ -1,12 +1,12 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from "vue";
+import Vuex from "vuex";
 
 // 如果在模块化构建系统中，请确保在开头调用了 Vue.use(Vuex)
-Vue.use(Vuex)
-
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {      // this.$store.state.***
+  state: {
+    // this.$store.state.***
     // // 注意：这里只是设置初始值，不会自动根据 localStorage 值的改变而自动更新
     // token: localStorage.getItem('token') || '',
     // // token 过期时间（Unix时间戳）
@@ -14,7 +14,8 @@ const store = new Vuex.Store({
     user: null,
     webInfo: null
   },
-  mutations: {  // this.$store.commit('方法的名称', '按需传递唯一的参数')
+  mutations: {
+    // this.$store.commit('方法的名称', '按需传递唯一的参数')
     // 获取当前登录账号并保存到 user
     getUser(state, vm) {
       vm.$http({
@@ -31,21 +32,21 @@ const store = new Vuex.Store({
     },
     // 注销账号
     logout(state) {
-      localStorage.removeItem('token');
+      localStorage.removeItem("token");
       // state.token = '';
       // state.token_expire = 0;
 
       state.user = null;
-    },
+    }
     // // 保存 token 信息
     // saveToken(state, token, token_expire) {
     //   state.token = token;
     //   state.token_expire = token_expire;
     // }
   },
-  getters: {    // thus.$store.getters.***
-
+  getters: {
+    // thus.$store.getters.***
   }
-})
+});
 
-export default store
+export default store;

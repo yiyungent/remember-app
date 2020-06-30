@@ -3,13 +3,22 @@
     <v-row v-show="showLoading">
       <v-col class="mx-auto py-0" md="8">
         <div class="text-center">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
         </div>
       </v-col>
     </v-row>
     <v-row>
       <template v-for="item in items">
-        <v-col cols="6" sm="6" md="3" style="padding: 6px;" :key="item.article.id">
+        <v-col
+          cols="6"
+          sm="6"
+          md="3"
+          style="padding: 6px;"
+          :key="item.article.id"
+        >
           <card-item :item="item"></card-item>
         </v-col>
       </template>
@@ -41,5 +50,4 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

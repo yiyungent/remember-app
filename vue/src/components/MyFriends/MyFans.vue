@@ -3,7 +3,10 @@
     <v-row v-show="loading">
       <v-col class="mx-auto pa-0" md="8">
         <div class="text-center">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
         </div>
       </v-col>
     </v-row>
@@ -23,18 +26,26 @@
               </v-list-item-content>
             </template>
 
-            <v-list-item class="pl-4" v-for="user in group.users" :key="user.user.id">
+            <v-list-item
+              class="pl-4"
+              v-for="user in group.users"
+              :key="user.user.id"
+            >
               <v-list-item-avatar>
                 <v-img :src="user.user.avatar"></v-img>
               </v-list-item-avatar>
               <v-list-item-content>
-                <v-list-item-title v-text="user.user.userName"></v-list-item-title>
-                <v-list-item-subtitle v-html="user.user.desc"></v-list-item-subtitle>
+                <v-list-item-title
+                  v-text="user.user.userName"
+                ></v-list-item-title>
+                <v-list-item-subtitle
+                  v-html="user.user.desc"
+                ></v-list-item-subtitle>
               </v-list-item-content>
               <!-- start 关注，已关注，回粉，已互粉 -->
               <v-list-item-action>
                 <v-btn
-                  v-if="user.relation==0"
+                  v-if="user.relation == 0"
                   @click="follow(user.user.id, 1)"
                   small
                   tile
@@ -46,7 +57,7 @@
                   <v-icon left>add</v-icon>关注
                 </v-btn>
                 <v-btn
-                  v-else-if="user.relation==1"
+                  v-else-if="user.relation == 1"
                   @click="follow(user.user.id, 2)"
                   small
                   tile
@@ -58,7 +69,7 @@
                   <v-icon left>add</v-icon>已关注
                 </v-btn>
                 <v-btn
-                  v-else-if="user.relation==2"
+                  v-else-if="user.relation == 2"
                   @click="follow(user.user.id, 1)"
                   small
                   tile
@@ -70,7 +81,7 @@
                   <v-icon left>add</v-icon>回粉
                 </v-btn>
                 <v-btn
-                  v-else-if="user.relation==3"
+                  v-else-if="user.relation == 3"
                   @click="follow(user.user.id, 2)"
                   small
                   tile
@@ -103,7 +114,7 @@ export default {
   },
 
   created() {
-    if (!!localStorage.token) {
+    if (localStorage.token) {
       this.$store.commit("getUser", this);
     }
   },

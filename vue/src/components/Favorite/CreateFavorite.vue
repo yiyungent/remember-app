@@ -1,7 +1,12 @@
 <template>
   <v-app id="inspire">
     <!-- start 应用栏 -->
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -12,9 +17,7 @@
         <span></span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-btn icon @click="submit">
-        <v-icon>save</v-icon>保存
-      </v-btn>
+      <v-btn icon @click="submit"> <v-icon>save</v-icon>保存 </v-btn>
     </v-app-bar>
     <!-- end 应用栏 -->
     <!-- start 主体内容区 -->
@@ -23,7 +26,10 @@
         <v-row v-show="loading">
           <v-col class="mx-auto pa-0" md="8">
             <div class="text-center">
-              <v-progress-circular indeterminate color="primary"></v-progress-circular>
+              <v-progress-circular
+                indeterminate
+                color="primary"
+              ></v-progress-circular>
             </div>
           </v-col>
         </v-row>
@@ -115,7 +121,7 @@ export default {
   },
 
   created() {
-    if (!!localStorage.token) {
+    if (localStorage.token) {
       this.$store.commit("getUser", this);
     }
   },
@@ -137,7 +143,7 @@ export default {
           }
         }).then(res => {
           if (res.data.code >= 1) {
-              this.back();
+            this.back();
           } else {
             this.tipMsg = res.data.message;
             this.snackbar = true;
@@ -147,7 +153,7 @@ export default {
     },
 
     back() {
-      if (!!sessionStorage.getItem("returnRoute")) {
+      if (sessionStorage.getItem("returnRoute")) {
         var returnRoute = JSON.parse(sessionStorage.getItem("returnRoute"));
         sessionStorage.removeItem("returnRoute");
         this.$router.push(returnRoute);

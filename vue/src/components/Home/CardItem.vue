@@ -1,5 +1,8 @@
 <template>
-  <v-card :to="{ name: 'Article', params: { id: item.article.id } }" class="mx-auto">
+  <v-card
+    :to="{ name: 'Article', params: { id: item.article.id } }"
+    class="mx-auto"
+  >
     <v-img
       class="white--text"
       height="100px"
@@ -8,16 +11,21 @@
     >
       <v-card-title class="card-title">
         <v-icon x-small color="white">mdi-heart</v-icon>
-        <span>{{item.favNum}}</span>
+        <span>{{ item.favNum }}</span>
       </v-card-title>
       <template v-slot:placeholder>
         <v-row class="fill-height ma-0" align="center" justify="center">
-          <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="grey lighten-5"
+          ></v-progress-circular>
         </v-row>
       </template>
     </v-img>
     <v-card-text class="card-text">
-      <div class="card-text-title">{{item.article.title | subStrPretty(22)}}</div>
+      <div class="card-text-title">
+        {{ item.article.title | subStrPretty(22) }}
+      </div>
       <div class="card-text-cat">野生技术协会·项目实战</div>
     </v-card-text>
   </v-card>

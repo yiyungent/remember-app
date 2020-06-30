@@ -1,14 +1,25 @@
 <template>
   <div>
     <!-- start 左侧导航抽屉 -->
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :clipped="$vuetify.breakpoint.lgAndUp"
+      app
+    >
       <!-- start 顶部头像区 -->
       <template v-slot:prepend>
-        <v-img :aspect-ratio="16/9" src="/static/images/default-avatar-background.png">
+        <v-img
+          :aspect-ratio="16 / 9"
+          src="/static/images/default-avatar-background.png"
+        >
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
-                <v-img :src="!!user?user.avatar:'/static/images/guest-avatar.jpg'"></v-img>
+                <v-img
+                  :src="
+                    !!user ? user.avatar : '/static/images/guest-avatar.jpg'
+                  "
+                ></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
                 <v-btn x-small outlined fab color="white">
@@ -18,8 +29,12 @@
             </v-list-item>
             <v-list-item link two-line>
               <v-list-item-content>
-                <v-list-item-title>{{!!user?user.userName:'未登录'}}</v-list-item-title>
-                <v-list-item-subtitle>硬币：{{!!user?user.coin:'0'}}</v-list-item-subtitle>
+                <v-list-item-title>{{
+                  !!user ? user.userName : "未登录"
+                }}</v-list-item-title>
+                <v-list-item-subtitle
+                  >硬币：{{ !!user ? user.coin : "0" }}</v-list-item-subtitle
+                >
               </v-list-item-content>
               <!-- <v-list-item-action>
                 <v-icon>mdi-menu-down</v-icon>
@@ -32,21 +47,27 @@
       <v-divider></v-divider>
       <!-- start 按钮栏 -->
       <v-list class="d-flex justify-space-between text-center">
-        <v-list-item :to="{ name: 'Home'}">
+        <v-list-item :to="{ name: 'Home' }">
           <v-list-item-content>
-            <v-list-item-title>{{user!=null?user.articleNum:0}}</v-list-item-title>
+            <v-list-item-title>{{
+              user != null ? user.articleNum : 0
+            }}</v-list-item-title>
             <v-list-item-subtitle>动态</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'MyFriends_MyFollow'}">
+        <v-list-item :to="{ name: 'MyFriends_MyFollow' }">
           <v-list-item-content>
-            <v-list-item-title>{{user!=null?user.followNum:0}}</v-list-item-title>
+            <v-list-item-title>{{
+              user != null ? user.followNum : 0
+            }}</v-list-item-title>
             <v-list-item-subtitle>关注</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'MyFriends_MyFans'}">
+        <v-list-item :to="{ name: 'MyFriends_MyFans' }">
           <v-list-item-content>
-            <v-list-item-title>{{user!=null?user.fansNum:0}}</v-list-item-title>
+            <v-list-item-title>{{
+              user != null ? user.fansNum : 0
+            }}</v-list-item-title>
             <v-list-item-subtitle>粉丝</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -56,7 +77,11 @@
       <!-- start 一般导航区 -->
       <v-list nav dense>
         <v-list-item-group v-model="drawerCurrentIndex" color="primary">
-          <v-list-item :to="item.route" v-for="(item, i) in drawerItems" :key="i">
+          <v-list-item
+            :to="item.route"
+            v-for="(item, i) in drawerItems"
+            :key="i"
+          >
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -80,7 +105,7 @@
               <v-list-item-title>注销</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item v-show="!isLogin" :to="{name:'Login'}">
+          <v-list-item v-show="!isLogin" :to="{ name: 'Login' }">
             <v-list-item-icon>
               <v-icon>logout</v-icon>
             </v-list-item-icon>
@@ -94,11 +119,20 @@
     </v-navigation-drawer>
     <!-- end 左侧导航抽屉 -->
     <!-- start 应用栏 -->
-    <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="white" light>
+    <v-app-bar
+      hide-on-scroll
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="white"
+      light
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
-          <v-img :src="!!user?user.avatar:'/static/images/guest-avatar.jpg'" alt="头像"></v-img>
+          <v-img
+            :src="!!user ? user.avatar : '/static/images/guest-avatar.jpg'"
+            alt="头像"
+          ></v-img>
         </v-avatar>
       </v-btn>
       <v-toolbar-title>
@@ -107,7 +141,7 @@
     </v-app-bar>
     <!-- end 应用栏 -->
     <!-- start 主体内容区 -->
-    <v-content id="content">
+    <v-main id="content">
       <v-container fluid>
         <v-row>
           <v-col class="mx-auto pa-0" md="8">
@@ -115,11 +149,18 @@
               <v-list-group v-model="allCat" no-action>
                 <template v-slot:activator>
                   <v-list-item-content>
-                    <v-list-item-title v-text="'全部分区（31）'"></v-list-item-title>
+                    <v-list-item-title
+                      v-text="'全部分区（31）'"
+                    ></v-list-item-title>
                   </v-list-item-content>
                 </template>
                 <v-row>
-                  <v-col xs="3" cols="3" v-for="item in dataList" :key="item.id">
+                  <v-col
+                    xs="3"
+                    cols="3"
+                    v-for="item in dataList"
+                    :key="item.id"
+                  >
                     <v-list-item
                       link
                       class="ma-auto pa-4 text-center"
@@ -127,7 +168,7 @@
                     >
                       <div class="ma-auto">
                         <v-icon class="pb-2">mdi-android</v-icon>
-                        <div>{{item.name}}</div>
+                        <div>{{ item.name }}</div>
                       </div>
                     </v-list-item>
                   </v-col>
@@ -137,7 +178,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
     <!-- end 主体内容区 -->
   </div>
 </template>
@@ -146,8 +187,7 @@
 import { isLoginMethod } from "@/utils/index";
 
 export default {
-  components: {
-  },
+  components: {},
   data() {
     return {
       drawer: false,
@@ -234,5 +274,4 @@ export default {
   }
 };
 </script>
-<style lang="less" scoped>
-</style>
+<style lang="less" scoped></style>

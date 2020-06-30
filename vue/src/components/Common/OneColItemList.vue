@@ -1,6 +1,12 @@
 <template>
   <v-list>
-    <v-list-item @click="goItem(item)" link class="pl-4" v-for="item in dataList" :key="item.id">
+    <v-list-item
+      @click="goItem(item)"
+      link
+      class="pl-4"
+      v-for="item in dataList"
+      :key="item.id"
+    >
       <v-row>
         <v-col xs="4" class="pb-0">
           <v-img
@@ -13,19 +19,19 @@
         <v-col xs="4" class="pb-0">
           <v-list-item-content>
             <v-list-item-title>
-              <span>{{item.name}}</span>
+              <span>{{ item.name }}</span>
             </v-list-item-title>
             <v-list-item-subtitle class="pt-4">
               <v-row>
                 <v-col class="py-0">
                   <v-icon></v-icon>
-                  {{item.creator.userName}}
+                  {{ item.creator.userName }}
                 </v-col>
               </v-row>
               <v-row>
                 <v-col class="pt-1">
                   <v-icon x-small>fa-star-o</v-icon>
-                  {{item.stat.favNum}}
+                  {{ item.stat.favNum }}
                 </v-col>
               </v-row>
             </v-list-item-subtitle>
@@ -64,11 +70,10 @@ export default {
   },
   watch: {
     list(newVal) {
-        this.dataList = newVal;
+      this.dataList = newVal;
     }
   }
 };
 </script>
 
-<style>
-</style>
+<style></style>

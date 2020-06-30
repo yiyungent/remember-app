@@ -1,14 +1,23 @@
 <template>
-  <div :style="{height:'100%'}">
+  <div :style="{ height: '100%' }">
     <!-- start 左侧导航抽屉 -->
-    <v-navigation-drawer v-model="drawer" :clipped="$vuetify.breakpoint.lgAndUp" app>
+    <v-navigation-drawer
+      v-model="drawer"
+      :clipped="$vuetify.breakpoint.lgAndUp"
+      app
+    >
       <!-- start 顶部头像区 -->
       <template v-slot:prepend>
-        <v-img :aspect-ratio="16/9" src="/static/images/default-avatar-background.png">
+        <v-img
+          :aspect-ratio="16 / 9"
+          src="/images/default-avatar-background.png"
+        >
           <v-list>
             <v-list-item class="d-flex justify-space-between">
               <v-list-item-avatar>
-                <v-img :src="!!user?user.avatar:'/static/images/guest-avatar.jpg'"></v-img>
+                <v-img
+                  :src="!!user ? user.avatar : '/images/guest-avatar.jpg'"
+                ></v-img>
               </v-list-item-avatar>
               <v-list-item-icon>
                 <v-btn x-small outlined fab color="white">
@@ -18,8 +27,12 @@
             </v-list-item>
             <v-list-item link two-line>
               <v-list-item-content>
-                <v-list-item-title>{{!!user?user.userName:'未登录'}}</v-list-item-title>
-                <v-list-item-subtitle>硬币：{{!!user?user.coin:'0'}}</v-list-item-subtitle>
+                <v-list-item-title>{{
+                  !!user ? user.userName : "未登录"
+                }}</v-list-item-title>
+                <v-list-item-subtitle
+                  >硬币：{{ !!user ? user.coin : "0" }}</v-list-item-subtitle
+                >
               </v-list-item-content>
               <!-- <v-list-item-action>
                 <v-icon>mdi-menu-down</v-icon>
@@ -32,21 +45,27 @@
       <v-divider></v-divider>
       <!-- start 按钮栏 -->
       <v-list class="d-flex justify-space-between text-center">
-        <v-list-item :to="{ name: 'Home_Dynamic'}">
+        <v-list-item :to="{ name: 'Home_Dynamic' }">
           <v-list-item-content>
-            <v-list-item-title>{{user!=null?user.articleNum:0}}</v-list-item-title>
+            <v-list-item-title>{{
+              user != null ? user.articleNum : 0
+            }}</v-list-item-title>
             <v-list-item-subtitle>动态</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'MyFriends_MyFollow'}">
+        <v-list-item :to="{ name: 'MyFriends_MyFollow' }">
           <v-list-item-content>
-            <v-list-item-title>{{user!=null?user.followNum:0}}</v-list-item-title>
+            <v-list-item-title>{{
+              user != null ? user.followNum : 0
+            }}</v-list-item-title>
             <v-list-item-subtitle>关注</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
-        <v-list-item :to="{ name: 'MyFriends_MyFans'}">
+        <v-list-item :to="{ name: 'MyFriends_MyFans' }">
           <v-list-item-content>
-            <v-list-item-title>{{user!=null?user.fansNum:0}}</v-list-item-title>
+            <v-list-item-title>{{
+              user != null ? user.fansNum : 0
+            }}</v-list-item-title>
             <v-list-item-subtitle>粉丝</v-list-item-subtitle>
           </v-list-item-content>
         </v-list-item>
@@ -56,7 +75,11 @@
       <!-- start 一般导航区 -->
       <v-list nav dense>
         <v-list-item-group v-model="drawerCurrentIndex" color="primary">
-          <v-list-item :to="item.route" v-for="(item, i) in drawerItems" :key="i">
+          <v-list-item
+            :to="item.route"
+            v-for="(item, i) in drawerItems"
+            :key="i"
+          >
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -80,7 +103,7 @@
               <v-list-item-title>注销</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-          <v-list-item v-show="!isLogin" :to="{name:'Login'}">
+          <v-list-item v-show="!isLogin" :to="{ name: 'Login' }">
             <v-list-item-icon>
               <v-icon>logout</v-icon>
             </v-list-item-icon>
@@ -94,11 +117,19 @@
     </v-navigation-drawer>
     <!-- end 左侧导航抽屉 -->
     <!-- start 应用栏 -->
-    <v-app-bar hide-on-scroll :clipped-left="$vuetify.breakpoint.lgAndUp" app color="white" light>
-      <v-app-bar-nav-icon @click.stop="drawer=!drawer"></v-app-bar-nav-icon>
+    <v-app-bar
+      hide-on-scroll
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="white"
+      light
+    >
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
-          <v-img :src="!!user?user.avatar:'/static/images/guest-avatar.jpg'"></v-img>
+          <v-img
+            :src="!!user ? user.avatar : '/images/guest-avatar.jpg'"
+          ></v-img>
         </v-avatar>
       </v-btn>
       <v-toolbar-title></v-toolbar-title>
@@ -114,7 +145,11 @@
       </v-btn>
       <!-- start 选项卡 -->
       <template v-slot:extension>
-        <v-tabs background-color="transparent" center-active v-model="currentTab">
+        <v-tabs
+          background-color="transparent"
+          center-active
+          v-model="currentTab"
+        >
           <v-tab v-for="(item, i) in tabs" :key="i">{{ item.text }}</v-tab>
         </v-tabs>
       </template>
@@ -122,12 +157,12 @@
     </v-app-bar>
     <!-- end 应用栏 -->
     <!-- start 主体内容区 -->
-    <v-content id="content" :style="{height:'100%'}">
-      <v-tabs-items v-model="currentTab" :style="{height:'100%'}">
+    <v-main id="content" :style="{ height: '100%' }">
+      <v-tabs-items v-model="currentTab" :style="{ height: '100%' }">
         <!-- 设置最左边的height:100% 解决内容不足时无法触发v-touch -->
         <v-tab-item
-          v-touch="{right: () => drawer=true}"
-          :style="{height:'100%'}"
+          v-touch="{ right: () => (drawer = true) }"
+          :style="{ height: '100%' }"
         >
           <hot></hot>
         </v-tab-item>
@@ -138,7 +173,7 @@
           <last></last>
         </v-tab-item>
       </v-tabs-items>
-    </v-content>
+    </v-main>
     <!-- end 主体内容区 -->
   </div>
 </template>
@@ -202,6 +237,4 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-
-</style>
+<style lang="less" scoped></style>

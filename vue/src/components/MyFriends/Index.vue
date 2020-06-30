@@ -1,7 +1,12 @@
 <template>
   <v-app id="inspire">
     <!-- start 应用栏 -->
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -11,8 +16,8 @@
       <!-- start 选项卡 -->
       <template v-slot:extension>
         <v-tabs background-color="primary" color="basil" grow>
-          <v-tab :to="{name:'MyFriends_MyFollow'}">我的关注</v-tab>
-          <v-tab :to="{name:'MyFriends_MyFans'}">我的粉丝</v-tab>
+          <v-tab :to="{ name: 'MyFriends_MyFollow' }">我的关注</v-tab>
+          <v-tab :to="{ name: 'MyFriends_MyFans' }">我的粉丝</v-tab>
         </v-tabs>
       </template>
       <!-- end 选项卡 -->

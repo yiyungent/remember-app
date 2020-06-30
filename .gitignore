@@ -17,6 +17,10 @@ vue/test/unit/coverage/
 vue/test/e2e/reports/
 selenium-debug.log
 
+# Vue.js local env files
+.env.local
+.env.*.local
+
 # Editor directories and files
 .idea
 .vscode
@@ -24,3 +28,4 @@ selenium-debug.log
 *.ntvs*
 *.njsproj
 *.sln
+*.sw?

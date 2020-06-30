@@ -1,7 +1,12 @@
 <template>
   <v-app id="inspire">
     <!-- start 应用栏 -->
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -20,7 +25,10 @@
         <v-row v-show="loading">
           <v-col class="mx-auto pa-0" md="8">
             <div class="text-center">
-              <v-progress-circular indeterminate color="primary"></v-progress-circular>
+              <v-progress-circular
+                indeterminate
+                color="primary"
+              ></v-progress-circular>
             </div>
           </v-col>
         </v-row>
@@ -29,12 +37,22 @@
           <v-col class="mx-auto pl-4" md="8">
             <v-row>
               <v-col xs="4">
-                <v-img :src="fav.picUrl" :lazy-src="fav.picUrl" width="190" height="120"></v-img>
+                <v-img
+                  :src="fav.picUrl"
+                  :lazy-src="fav.picUrl"
+                  width="190"
+                  height="120"
+                ></v-img>
               </v-col>
               <v-col xs="4">
                 <v-list-item-content>
-                  <v-list-item-title style="height:68px;" v-text="fav.name"></v-list-item-title>
-                  <v-list-item-subtitle v-html="'创建者：'+fav.creator.userName"></v-list-item-subtitle>
+                  <v-list-item-title
+                    style="height:68px;"
+                    v-text="fav.name"
+                  ></v-list-item-title>
+                  <v-list-item-subtitle
+                    v-html="'创建者：' + fav.creator.userName"
+                  ></v-list-item-subtitle>
                 </v-list-item-content>
               </v-col>
             </v-row>
@@ -44,7 +62,7 @@
         <v-row>
           <v-col class="mx-auto pl-4 py-0" md="8">
             <v-icon color="primary">mdi-star</v-icon>
-            全部({{fav.courseBoxs.length}})
+            全部({{ fav.courseBoxs.length }})
             <v-divider></v-divider>
           </v-col>
         </v-row>
@@ -64,10 +82,10 @@
   </v-app>
 </template>
 <script>
-import oneColItemList from '@/components/Common/OneColItemList'
+import oneColItemList from "@/components/Common/OneColItemList";
 
 export default {
-  components:{
+  components: {
     oneColItemList
   },
 
@@ -91,7 +109,7 @@ export default {
   },
 
   created() {
-    if (!!localStorage.token) {
+    if (localStorage.token) {
       this.$store.commit("getUser", this);
     }
   },

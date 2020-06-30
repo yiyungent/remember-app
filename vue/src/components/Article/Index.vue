@@ -1,7 +1,12 @@
 <template>
   <v-app id="inspire">
     <!-- start 应用栏 -->
-    <v-app-bar :clipped-left="$vuetify.breakpoint.lgAndUp" app color="primary" dark>
+    <v-app-bar
+      :clipped-left="$vuetify.breakpoint.lgAndUp"
+      app
+      color="primary"
+      dark
+    >
       <v-btn icon @click="back">
         <v-icon>arrow_back</v-icon>
       </v-btn>
@@ -9,7 +14,7 @@
         <span class="hidden-sm-and-down">remember</span>
       </v-toolbar-title>
       <div class="flex-grow-1"></div>
-      <v-btn icon @click="showMore=!showMore">
+      <v-btn icon @click="showMore = !showMore">
         <v-icon>more_vert</v-icon>
       </v-btn>
     </v-app-bar>
@@ -30,10 +35,9 @@
               <v-tab>简介</v-tab>
               <v-tab>
                 <span>评论</span>
-                <span
-                  class="pl-1 pt-1"
-                  style="font-size:10px;"
-                >{{article.stat.commentNum | numPretty}}</span>
+                <span class="pl-1 pt-1" style="font-size:10px;">{{
+                  article.stat.commentNum | numPretty
+                }}</span>
               </v-tab>
               <!-- <div class="flex-grow-1"></div> -->
               <!-- <v-btn-toggle rounded fixed>
@@ -59,37 +63,60 @@
               <v-col class="mx-auto pt-0" md="8">
                 <v-row style="height:52px;">
                   <v-col xs="11" style="width:48px;">
-                    <router-link :to="{name:'Home'}" style="text-decoration:none">
+                    <router-link
+                      :to="{ name: 'Home' }"
+                      style="text-decoration:none"
+                    >
                       <v-avatar max-width="48">
                         <img :src="article.creator.avatar" />
                       </v-avatar>
                       <div style="transform: translate(60px, -46px);">
-                        <div class="black--text">{{article.creator.userName | subStrPretty(5)}}</div>
+                        <div class="black--text">
+                          {{ article.creator.userName | subStrPretty(5) }}
+                        </div>
                         <div
                           class="grey--text subtitle-1"
                           style="font-size:6px;"
-                        >{{article.creator.fansNum | numPretty}}粉丝</div>
+                        >
+                          {{ article.creator.fansNum | numPretty }}粉丝
+                        </div>
                       </div>
                     </router-link>
                   </v-col>
                   <v-col xs="1" offset="6">
-                    <template v-if="creatorRelation==0">
-                      <v-btn small color="primary" @click="follow(article.creator.id, 1)">
+                    <template v-if="creatorRelation == 0">
+                      <v-btn
+                        small
+                        color="primary"
+                        @click="follow(article.creator.id, 1)"
+                      >
                         <v-icon left>add</v-icon>关注
                       </v-btn>
                     </template>
-                    <template v-else-if="creatorRelation==1">
-                      <v-btn small color="gray" @click="follow(article.creator.id, 2)">
+                    <template v-else-if="creatorRelation == 1">
+                      <v-btn
+                        small
+                        color="gray"
+                        @click="follow(article.creator.id, 2)"
+                      >
                         <v-icon left>add</v-icon>已关注
                       </v-btn>
                     </template>
-                    <template v-if="creatorRelation==2">
-                      <v-btn small color="primary" @click="follow(article.creator.id, 1)">
+                    <template v-if="creatorRelation == 2">
+                      <v-btn
+                        small
+                        color="primary"
+                        @click="follow(article.creator.id, 1)"
+                      >
                         <v-icon left>add</v-icon>回粉
                       </v-btn>
                     </template>
-                    <template v-else-if="creatorRelation==3">
-                      <v-btn small color="gray" @click="follow(article.creator.id, 2)">
+                    <template v-else-if="creatorRelation == 3">
+                      <v-btn
+                        small
+                        color="gray"
+                        @click="follow(article.creator.id, 2)"
+                      >
                         <v-icon left>add</v-icon>已互粉
                       </v-btn>
                     </template>
@@ -102,20 +129,23 @@
             <v-row style="padding-left: 10px;padding-right: 10px;">
               <v-col class="mx-auto pb-0" md="8">
                 <div>
-                  <span style="font-size:18px;">{{article.name || substrPretty(8) }}</span>
+                  <span style="font-size:18px;">{{
+                    article.name || substrPretty(8)
+                  }}</span>
                   <v-btn class="float-right" icon @click="showDesc = !showDesc">
-                    <v-icon>{{ showDesc ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                    <v-icon>{{
+                      showDesc ? "mdi-chevron-up" : "mdi-chevron-down"
+                    }}</v-icon>
                   </v-btn>
                 </div>
                 <div class="grey--text subtitle-1 py-1">
                   <span style="font-size:13px;" class="px-1">
                     <v-icon x-small>personal_video</v-icon>
-                    <span>{{article.stat.viewNum | numPretty}}</span>
+                    <span>{{ article.stat.viewNum | numPretty }}</span>
                   </span>
-                  <span
-                    style="font-size:13px;"
-                    class="px-1"
-                  >{{article.lastUpdateTime | dateFormat('YYYY-MM-DD HH:mm')}}</span>
+                  <span style="font-size:13px;" class="px-1">{{
+                    article.lastUpdateTime | dateFormat("YYYY-MM-DD HH:mm")
+                  }}</span>
                 </div>
               </v-col>
             </v-row>
@@ -124,7 +154,7 @@
             <v-row>
               <v-col class="mx-auto py-0" md="8">
                 <v-expand-transition>
-                  <div class="px-3" v-show="showDesc">{{article.desc}}</div>
+                  <div class="px-3" v-show="showDesc">{{ article.desc }}</div>
                 </v-expand-transition>
               </v-col>
             </v-row>
@@ -136,7 +166,9 @@
                   <v-col class="text-center pt-0">
                     <v-btn large text icon color="gray">
                       <v-icon>thumb_up</v-icon>
-                      <span class="btn-icon-with-text">{{article.stat.likeNum | numPretty}}</span>
+                      <span class="btn-icon-with-text">{{
+                        article.stat.likeNum | numPretty
+                      }}</span>
                     </v-btn>
                   </v-col>
                   <v-col class="text-center pt-0">
@@ -152,10 +184,18 @@
                 </v-btn>
                   </v-col>-->
                   <v-col class="text-center pt-0">
-                    <v-btn @click="showSelectFav=true" large text icon color="gray">
+                    <v-btn
+                      @click="showSelectFav = true"
+                      large
+                      text
+                      icon
+                      color="gray"
+                    >
                       <v-icon v-show="isIFav" color="primary">star</v-icon>
                       <v-icon v-show="!isIFav">star</v-icon>
-                      <span class="btn-icon-with-text">{{article.stat.favNum | numPretty}}</span>
+                      <span class="btn-icon-with-text">{{
+                        article.stat.favNum | numPretty
+                      }}</span>
                     </v-btn>
                   </v-col>
                   <!-- <v-col>
@@ -188,7 +228,10 @@
             </v-row>
             <v-row>
               <v-col class="mx-auto py-0" md="8">
-                <one-col-video-list :list="recom.courseBoxs" @goItem="goRecomItem"></one-col-video-list>
+                <one-col-video-list
+                  :list="recom.courseBoxs"
+                  @goItem="goRecomItem"
+                ></one-col-video-list>
               </v-col>
             </v-row>
             <!-- end 更多推荐 -->
@@ -215,18 +258,28 @@
           </v-btn>
         </v-subheader>
         <div v-show="loadingSelectFav" class="text-center">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
         </div>
         <v-list-item-group v-model="selectedFavList" multiple active-class>
           <v-list-item v-for="(fav, index) in favList" :key="index">
             <template v-slot:default="{ active, toggle }">
               <v-list-item-action>
-                <v-checkbox v-model="active" color="primary" @click="toggle"></v-checkbox>
+                <v-checkbox
+                  v-model="active"
+                  color="primary"
+                  @click="toggle"
+                ></v-checkbox>
               </v-list-item-action>
 
               <v-list-item-content>
-                <v-list-item-title>{{fav.name}}</v-list-item-title>
-                <v-list-item-subtitle>{{fav.count}}个内容 · {{fav.isOpen?"公开":"私密"}}</v-list-item-subtitle>
+                <v-list-item-title>{{ fav.name }}</v-list-item-title>
+                <v-list-item-subtitle
+                  >{{ fav.count }}个内容 ·
+                  {{ fav.isOpen ? "公开" : "私密" }}</v-list-item-subtitle
+                >
               </v-list-item-content>
             </template>
           </v-list-item>
@@ -240,10 +293,12 @@
       <v-list>
         <v-list-item @click="learnCourseBox">
           <v-list-item-icon>
-            <v-icon>{{isILearn?"cancel":"add"}}</v-icon>
+            <v-icon>{{ isILearn ? "cancel" : "add" }}</v-icon>
           </v-list-item-icon>
           <v-list-item-content>
-            <v-list-item-title>{{isILearn?"取消学习":"加入学习"}}</v-list-item-title>
+            <v-list-item-title>{{
+              isILearn ? "取消学习" : "加入学习"
+            }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -262,7 +317,7 @@ import moment from "moment";
 export default {
   components: {
     comments,
-    oneColItemList,
+    oneColItemList
   },
   data() {
     return {
@@ -294,7 +349,7 @@ export default {
           shareNum: 0,
           commentNum: 0,
           viewNum: 0
-        },
+        }
       },
       // 我的此创建者的关系
       creatorRelation: 0,
@@ -304,7 +359,8 @@ export default {
           {
             id: 1,
             title: "推荐1",
-            picUrl: "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
+            picUrl:
+              "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "哈哈"
@@ -317,7 +373,8 @@ export default {
           {
             id: 2,
             title: "推荐2",
-            picUrl: "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
+            picUrl:
+              "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "看看"
@@ -330,7 +387,8 @@ export default {
           {
             id: 3,
             title: "推荐3",
-            picUrl: "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
+            picUrl:
+              "https://www.tikotiko.fun/upload/images/courseBoxPics/4.jpg",
             creator: {
               id: 1,
               userName: "建军节"
@@ -368,7 +426,7 @@ export default {
       },
       // start 提示消息
       snackbar: false,
-      tipMsg: "",
+      tipMsg: ""
       // end 提示消息
     };
   },
@@ -568,7 +626,7 @@ export default {
     goRecomItem() {},
 
     back() {
-      if (!!sessionStorage.getItem("returnRoute")) {
+      if (sessionStorage.getItem("returnRoute")) {
         var returnRoute = JSON.parse(sessionStorage.getItem("returnRoute"));
         sessionStorage.removeItem("returnRoute");
         this.$router.push(returnRoute);

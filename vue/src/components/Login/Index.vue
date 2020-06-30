@@ -10,7 +10,14 @@
                 <div class="flex-grow-1"></div>
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
-                    <v-btn class="mr-3" href="/register" icon large target="_blank" v-on="on">
+                    <v-btn
+                      class="mr-3"
+                      href="/register"
+                      icon
+                      large
+                      target="_blank"
+                      v-on="on"
+                    >
                       注册
                       <v-icon>account-plus</v-icon>
                     </v-btn>
@@ -99,7 +106,7 @@ export default {
           this.$store.commit("getUser", this);
 
           // 跳转页面
-          if (!!this.$route.query.redirect) {
+          if (this.$route.query.redirect) {
             // TODO: 跳转到之前页
             // history模式
             // window.location.href = this.$route.query.redirect;
@@ -121,7 +128,7 @@ export default {
     isLoginRedirect() {
       if (isLoginMethod()) {
         // 跳转页面
-        if (!!this.$route.query.redirect) {
+        if (this.$route.query.redirect) {
           // TODO: 跳转到之前页
           // history模式
           // window.location.href = this.$route.query.redirect;

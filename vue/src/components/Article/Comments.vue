@@ -11,25 +11,39 @@
               </v-avatar>
             </v-col>
             <v-col class="py-0" cols="4">
-              <span>{{item.author.userName}}</span>
+              <span>{{ item.author.userName }}</span>
             </v-col>
             <v-col class="py-0 ml-auto" cols="4">
-              <span class="float-right">{{item.createTime | dateFormat("YYYY-MM-DD h:mm")}}</span>
+              <span class="float-right">{{
+                item.createTime | dateFormat("YYYY-MM-DD h:mm")
+              }}</span>
             </v-col>
           </v-row>
           <v-row>
             <v-col class="py-0" cols="1"></v-col>
-            <v-col class="py-0" xs="12">{{item.content}}</v-col>
+            <v-col class="py-0" xs="12">{{ item.content }}</v-col>
           </v-row>
           <v-row>
             <v-col class="py-0" cols="1"></v-col>
             <v-col class="py-0" xs="6">
               <span>
-                <v-btn @click="commentDo(item.id, 1)" class="ma-2" x-small icon color="gray">
+                <v-btn
+                  @click="commentDo(item.id, 1)"
+                  class="ma-2"
+                  x-small
+                  icon
+                  color="gray"
+                >
                   <v-icon>fa-thumbs-o-up</v-icon>
-                  <span class="btn-icon-with-text">{{item.likeNum}}</span>
+                  <span class="btn-icon-with-text">{{ item.likeNum }}</span>
                 </v-btn>
-                <v-btn @click="commentDo(item.id, 2)" class="ma-4" x-small icon color="gray">
+                <v-btn
+                  @click="commentDo(item.id, 2)"
+                  class="ma-4"
+                  x-small
+                  icon
+                  color="gray"
+                >
                   <v-icon>fa-thumbs-o-down</v-icon>
                   <span class="btn-icon-with-text"></span>
                 </v-btn>
@@ -38,7 +52,13 @@
             <v-col xs="6">
               <v-menu offset-y>
                 <template v-slot:activator="{ on }">
-                  <v-btn class="float-right" x-small icon color="gray" v-on="on">
+                  <v-btn
+                    class="float-right"
+                    x-small
+                    icon
+                    color="gray"
+                    v-on="on"
+                  >
                     <v-icon>more_vert</v-icon>
                   </v-btn>
                 </template>
@@ -55,7 +75,7 @@
     </v-list>
     <div>
       <v-btn
-        @click="showCommentArea=!showCommentArea"
+        @click="showCommentArea = !showCommentArea"
         style="top:16px;"
         color="primary"
         dark
@@ -179,5 +199,4 @@ export default {
 };
 </script>
 
-<style scroped lang="less">
-</style>
+<style scroped lang="less"></style>

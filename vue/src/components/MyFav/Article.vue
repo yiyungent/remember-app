@@ -3,7 +3,10 @@
     <v-row v-show="loading">
       <v-col class="mx-auto pa-0" md="8">
         <div class="text-center">
-          <v-progress-circular indeterminate color="primary"></v-progress-circular>
+          <v-progress-circular
+            indeterminate
+            color="primary"
+          ></v-progress-circular>
         </div>
       </v-col>
     </v-row>
@@ -32,12 +35,24 @@
             >
               <v-row>
                 <v-col xs="4">
-                  <v-img :src="fav.picUrl" :lazy-src="fav.picUrl" width="190" height="120"></v-img>
+                  <v-img
+                    :src="fav.picUrl"
+                    :lazy-src="fav.picUrl"
+                    width="190"
+                    height="120"
+                  ></v-img>
                 </v-col>
                 <v-col xs="4">
                   <v-list-item-content>
-                    <v-list-item-title style="height:68px;" v-text="fav.name"></v-list-item-title>
-                    <v-list-item-subtitle v-html="fav.count+'个内容 · '+(fav.isOpen?'公开':'私密')"></v-list-item-subtitle>
+                    <v-list-item-title
+                      style="height:68px;"
+                      v-text="fav.name"
+                    ></v-list-item-title>
+                    <v-list-item-subtitle
+                      v-html="
+                        fav.count + '个内容 · ' + (fav.isOpen ? '公开' : '私密')
+                      "
+                    ></v-list-item-subtitle>
                   </v-list-item-content>
                 </v-col>
               </v-row>
@@ -78,7 +93,7 @@ export default {
   },
 
   created() {
-    if (!!localStorage.token) {
+    if (localStorage.token) {
       this.$store.commit("getUser", this);
     }
   },
