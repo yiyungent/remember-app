@@ -5,6 +5,7 @@
 
 > :cake: 一个百宝袋，希望能帮到你
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1411c341c4e04f229b397c01d4bc35c8)](https://app.codacy.com/manual/yiyungent/remember-app?utm_source=github.com&utm_medium=referral&utm_content=yiyungent/remember-app&utm_campaign=Badge_Grade_Dashboard)
 [![repo size](https://img.shields.io/github/repo-size/yiyungent/remember-app.svg?style=flat)]()
 [![LICENSE](https://img.shields.io/github/license/yiyungent/remember-app.svg?style=flat)](https://github.com/yiyungent/remember-app/blob/master/LICENSE)
 
