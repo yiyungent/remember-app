@@ -267,13 +267,8 @@
           <v-list-item v-for="(fav, index) in favList" :key="index">
             <template v-slot:default="{ active, toggle }">
               <v-list-item-action>
-                <v-checkbox
-                  v-model="active"
-                  color="primary"
-                  @click="toggle"
-                ></v-checkbox>
+                <v-checkbox color="primary" @click="toggle"></v-checkbox>
               </v-list-item-action>
-
               <v-list-item-content>
                 <v-list-item-title>{{ fav.name }}</v-list-item-title>
                 <v-list-item-subtitle
@@ -311,17 +306,13 @@
 </template>
 <script>
 import comments from "./Comments";
-import oneColItemList from "@/components/Common/OneColItemList";
-import moment from "moment";
 
 export default {
   components: {
-    comments,
-    oneColItemList
+    comments
   },
   data() {
     return {
-      player: null,
       // 是否显式隐藏详细描述
       showDesc: false,
       // 导航条[简介，评论]
@@ -645,7 +636,7 @@ export default {
         this.loadFavList();
       }
     },
-    $route(newVal) {
+    $route() {
       this.loadArticle();
       this.loadFavStat();
     }

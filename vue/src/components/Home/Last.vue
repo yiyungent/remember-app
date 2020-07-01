@@ -35,7 +35,6 @@ export default {
       }).then(res => {
         if (res.data.code > 0) {
           this.items = res.data.data;
-        } else {
         }
         this.showLoading = false;
       });

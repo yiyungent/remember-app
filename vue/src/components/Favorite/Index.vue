@@ -82,12 +82,8 @@
   </v-app>
 </template>
 <script>
-import oneColItemList from "@/components/Common/OneColItemList";
-
 export default {
-  components: {
-    oneColItemList
-  },
+  components: {},
 
   data() {
     return {
