@@ -3,6 +3,7 @@
 </template>
 <script>
 import ItemList from "./ItemList";
+import apiLast from "@/api/Article/last";
 
 export default {
   components: {
@@ -26,15 +27,9 @@ export default {
   methods: {
     loadList() {
       this.showLoading = true;
-      this.$http({
-        method: "get",
-        url: "/api/article/last",
-        params: {
-          number: 10
-        }
-      }).then(res => {
-        if (res.data.code > 0) {
-          this.items = res.data.data;
+      apiLast(10).then(res => {
+        if (res.code > 0) {
+          this.items = res.data;
         }
         this.showLoading = false;
       });

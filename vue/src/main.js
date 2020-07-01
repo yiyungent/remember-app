@@ -4,8 +4,6 @@ import router from "./router";
 import store from "./store";
 
 import vuetify from "./plugins/vuetify";
-import axios from "axios";
-import qs from "qs";
 import * as filters from "./filters";
 import { isLoginMethod } from "./utils/index";
 
@@ -28,34 +26,11 @@ FastClick.attach(document.body);
 // process.env.VUE_APP_MOCK && require('@/mock')
 require("@/mock");
 
-// build 环境
-// axios.defaults.baseURL = 'http://api.tikotiko.fun';
-// axios.defaults.baseURL = 'http://localhost:4530/';
-axios.defaults.baseURL = process.env.VUE_APP_API;
-
-// axios 请求拦截 - 在发送请求之前做某件事
-axios.interceptors.request.use(
-  function(request) {
-    // 解决跨域 post 变 OPTIONS，导致 404
-    if (request.method === "post") {
-      request.headers["Content-Type"] =
-        "application/x-www-form-urlencoded;charset=UTF-8";
-      request.data = qs.stringify({
-        ...request.data
-      });
-    }
-
-    if (localStorage.token) {
-      // 在 headers 中设置 Authorization 属性放token，token是存在缓存中的
-      request.headers.Authorization = `Bearer ${localStorage.token}`;
-    }
-
-    return request;
-  },
-  function(error) {
-    return Promise.reject(error);
-  }
-);
+// 引入http request，进行一些初始化配置操作，但不允许在vue component中直接操作http request，而是调用api
+require("@/utils/request.js");
+Vue.prototype.$http = function () {
+  console.error("你不应当在组件中直接发送http请求，请调用api获取数据");
+};
 
 // 为什么传这三个参数，官网有详细介绍
 router.beforeEach((to, from, next) => {
@@ -84,7 +59,6 @@ Object.keys(filters).forEach(key => {
 });
 
 Vue.config.productionTip = false;
-Vue.prototype.$http = axios;
 
 new Vue({
   router,
