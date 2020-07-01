@@ -1,122 +1,7 @@
 <template>
   <div>
     <!-- start 左侧导航抽屉 -->
-    <v-navigation-drawer
-      v-model="drawer"
-      :clipped="$vuetify.breakpoint.lgAndUp"
-      app
-    >
-      <!-- start 顶部头像区 -->
-      <template v-slot:prepend>
-        <v-img
-          :aspect-ratio="16 / 9"
-          src="/static/images/default-avatar-background.png"
-        >
-          <v-list>
-            <v-list-item class="d-flex justify-space-between">
-              <v-list-item-avatar>
-                <v-img
-                  :src="
-                    !!user ? user.avatar : '/static/images/guest-avatar.jpg'
-                  "
-                ></v-img>
-              </v-list-item-avatar>
-              <v-list-item-icon>
-                <v-btn x-small outlined fab color="white">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-              </v-list-item-icon>
-            </v-list-item>
-            <v-list-item link two-line>
-              <v-list-item-content>
-                <v-list-item-title>{{
-                  !!user ? user.userName : "未登录"
-                }}</v-list-item-title>
-                <v-list-item-subtitle
-                  >硬币：{{ !!user ? user.coin : "0" }}</v-list-item-subtitle
-                >
-              </v-list-item-content>
-              <!-- <v-list-item-action>
-                <v-icon>mdi-menu-down</v-icon>
-              </v-list-item-action>-->
-            </v-list-item>
-          </v-list>
-        </v-img>
-      </template>
-      <!-- start 顶部头像区 -->
-      <v-divider></v-divider>
-      <!-- start 按钮栏 -->
-      <v-list class="d-flex justify-space-between text-center">
-        <v-list-item :to="{ name: 'Home' }">
-          <v-list-item-content>
-            <v-list-item-title>{{
-              user != null ? user.articleNum : 0
-            }}</v-list-item-title>
-            <v-list-item-subtitle>动态</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item :to="{ name: 'MyFriends_MyFollow' }">
-          <v-list-item-content>
-            <v-list-item-title>{{
-              user != null ? user.followNum : 0
-            }}</v-list-item-title>
-            <v-list-item-subtitle>关注</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-        <v-list-item :to="{ name: 'MyFriends_MyFans' }">
-          <v-list-item-content>
-            <v-list-item-title>{{
-              user != null ? user.fansNum : 0
-            }}</v-list-item-title>
-            <v-list-item-subtitle>粉丝</v-list-item-subtitle>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-      <!-- end 按钮栏 -->
-      <v-divider></v-divider>
-      <!-- start 一般导航区 -->
-      <v-list nav dense>
-        <v-list-item-group v-model="drawerCurrentIndex" color="primary">
-          <v-list-item
-            :to="item.route"
-            v-for="(item, i) in drawerItems"
-            :key="i"
-          >
-            <v-list-item-icon>
-              <v-icon v-text="item.icon"></v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title v-text="item.text"></v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-      <!-- end 一般导航区 -->
-      <v-divider></v-divider>
-      <!-- start 一般导航区 -->
-      <!-- start 设置区 -->
-      <v-list nav dense>
-        <v-list-item-group color="primary">
-          <v-list-item v-show="isLogin" @click="logout">
-            <v-list-item-icon>
-              <v-icon>logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>注销</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-          <v-list-item v-show="!isLogin" :to="{ name: 'Login' }">
-            <v-list-item-icon>
-              <v-icon>logout</v-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>登录</v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-      <!-- end 设置区 -->
-    </v-navigation-drawer>
+    <left-nav-drawer v-model="drawer"></left-nav-drawer>
     <!-- end 左侧导航抽屉 -->
     <!-- start 应用栏 -->
     <v-app-bar
@@ -126,7 +11,9 @@
       color="white"
       light
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon
+        @click.stop="drawer.show = !drawer.show"
+      ></v-app-bar-nav-icon>
       <v-btn icon large>
         <v-avatar size="32px" item>
           <v-img
@@ -185,19 +72,24 @@
 
 <script>
 import { isLoginMethod } from "@/utils/index";
+import leftNavDrawer from "@/components/Common/LeftNavDrawer";
 
 export default {
-  components: {},
+  components: {
+    leftNavDrawer
+  },
   data() {
     return {
-      drawer: false,
-      drawerCurrentIndex: -1,
-      drawerItems: [
-        { text: "历史记录", icon: "mdi-history" },
-        { text: "我的收藏", icon: "mdi-star", route: { name: "MyFav" } },
-        { text: "我的课程", icon: "mdi-star" },
-        { text: "新建课程", icon: "mdi-upload" }
-      ],
+      drawer: {
+        show: false,
+        currentIndex: -1,
+        items: [
+          { text: "历史记录", icon: "mdi-history" },
+          { text: "我的收藏", icon: "mdi-star", route: { name: "MyFav" } },
+          { text: "我的文章", icon: "mdi-star" },
+          { text: "新建文章", icon: "mdi-upload" }
+        ]
+      },
       allCat: true,
       dataList: [
         {
@@ -258,16 +150,8 @@ export default {
       this.$store.commit("getUser", this);
     }
   },
-  methods: {
-    logout() {
-      this.$store.commit("logout");
-      this.$router.go(0);
-    }
-  },
+  methods: {},
   computed: {
-    isLogin() {
-      return isLoginMethod();
-    },
     user() {
       return this.$store.state.user;
     }
