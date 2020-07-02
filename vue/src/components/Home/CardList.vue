@@ -19,7 +19,7 @@
           style="padding: 6px;"
           :key="item.article.id"
         >
-          <card-item :item="item"></card-item>
+          <card-list-item :item="item"></card-list-item>
         </v-col>
       </template>
     </v-row>
@@ -27,11 +27,11 @@
 </template>
 
 <script>
-import CardItem from "./CardItem";
+import CardListItem from "./CardListItem";
 
 export default {
   components: {
-    CardItem
+    CardListItem
   },
   props: {
     items: {

@@ -1,13 +1,13 @@
 <template>
-  <item-list :items="items" :showLoading="showLoading"></item-list>
+  <card-list :items="items" :showLoading="showLoading"></card-list>
 </template>
 <script>
-import ItemList from "./ItemList";
+import CardList from "./CardList";
 import apiLast from "@/api/Article/last";
 
 export default {
   components: {
-    ItemList
+    CardList
   },
   data() {
     return {

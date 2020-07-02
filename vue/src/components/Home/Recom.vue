@@ -1,13 +1,13 @@
 <template>
-  <item-list :items="items" :showLoading="showLoading"></item-list>
+  <card-list :items="items" :showLoading="showLoading"></card-list>
 </template>
 <script>
-import ItemList from "./ItemList";
+import CardList from "./CardList";
 import apiRecom from "@/api/Article/recom";
 
 export default {
   components: {
-    ItemList
+    CardList
   },
   data() {
     return {
