@@ -18,6 +18,7 @@ axios.interceptors.request.use(
             });
         }
 
+        // 如果有登录状态token的话，则添加到请求头
         if (localStorage.token) {
             // 在 headers 中设置 Authorization 属性放token，token是存在缓存中的
             request.headers.Authorization = `Bearer ${localStorage.token}`;

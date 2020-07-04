@@ -1,6 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-content>
+    <v-main>
       <v-container class="fill-height" fluid>
         <v-row align="center" justify="center">
           <v-col cols="12" sm="8" md="4">
@@ -39,7 +39,7 @@
                     label="用户名 / 邮箱 / 手机"
                     name="login"
                     type="text"
-                    v-model="loginAccount"
+                    v-model="account"
                   ></v-text-field>
 
                   <v-text-field
@@ -59,7 +59,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
     <v-snackbar v-model="showTipMsg">
       {{ tipMsg }}
       <v-btn color="pink" text @click="showTipMsg = false">Close</v-btn>
@@ -68,42 +68,35 @@
 </template>
 
 <script>
-import { isLoginMethod } from "./../../utils/index";
+import { mapGetters } from "vuex";
+import apiLogin from "@/api/UserInfo/login.js";
 
 export default {
-  metaInfo: {
-    title: "登录 - remember"
-  },
   data() {
     return {
-      loginAccount: "",
+      account: "",
       password: "",
       showTipMsg: false,
       tipMsg: ""
     };
+  },
+  computed:{
+    ...mapGetters(["isLogin"]),
   },
   created() {
     this.isLoginRedirect();
   },
   methods: {
     login() {
-      this.$http({
-        method: "post",
-        url: "/api/User/Login",
-        data: {
-          loginAccount: this.loginAccount,
-          password: this.password
-        }
-      }).then(res => {
-        if (res.data.code > 0) {
+      apiLogin(this.account, this.password).then(res => {
+        if (res.code > 0) {
           // 登录成功
           // 存入 localStorage
-          localStorage.token = res.data.data.token;
-          localStorage.token_expire = res.data.data.expire;
+          localStorage.token = res.data.token;
+          localStorage.token_expire = res.data.expire;
 
           // 存入 vuex
-          // this.$store.commit('saveToken', res.data.data.token, res.data.data.expire);
-          this.$store.commit("getUser", this);
+          this.$store.commit("getUser");
 
           // 跳转页面
           if (this.$route.query.redirect) {
@@ -126,7 +119,7 @@ export default {
       });
     },
     isLoginRedirect() {
-      if (isLoginMethod()) {
+      if (this.isLogin) {
         // 跳转页面
         if (this.$route.query.redirect) {
           // TODO: 跳转到之前页

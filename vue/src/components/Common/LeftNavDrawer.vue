@@ -12,7 +12,7 @@
           <v-list-item class="d-flex justify-space-between">
             <v-list-item-avatar>
               <v-img
-                :src="!!user ? user.avatar : '/images/guest-avatar.jpg'"
+                :src="user ? user.avatar : '/images/guest-avatar.jpg'"
               ></v-img>
             </v-list-item-avatar>
             <v-list-item-icon>
@@ -27,7 +27,7 @@
                 >{{ !!user ? user.userName : "未登录" }}
               </v-list-item-title>
               <v-list-item-subtitle
-                >硬币：{{ !!user ? user.coin : "0" }}
+                >硬币：{{ !!user ? user.credit : "0" }}
               </v-list-item-subtitle>
             </v-list-item-content>
             <!-- <v-list-item-action>
@@ -44,7 +44,7 @@
       <v-list-item :to="{ name: 'Home_Dynamic' }">
         <v-list-item-content>
           <v-list-item-title
-            >{{ user != null ? user.articleNum : 0 }}
+            >{{ user != null ? user.dynamicNum : 0 }}
           </v-list-item-title>
           <v-list-item-subtitle>动态</v-list-item-subtitle>
         </v-list-item-content>
@@ -111,7 +111,9 @@
 </template>
 
 <script>
-import { isLoginMethod } from "@/utils/index";
+import { mapState, mapGetters, mapActions } from 'vuex';
+import { isTokenInvalid } from "@/utils";
+import types from "@/store/types";
 
 export default {
   props: {
@@ -161,12 +163,12 @@ export default {
         this.dataVal.items = val;
       }
     },
-    user() {
-      return this.$store.state.user;
-    },
-    isLogin() {
-      return isLoginMethod();
-    }
+    ...mapState({
+      user: "user"
+    }),
+    ...mapGetters({
+      isLogin: "isLogin"
+    }),
   },
   watch: {
     value(newVal) {
@@ -177,15 +179,16 @@ export default {
     }
   },
   created() {
-    if (isLoginMethod()) {
-      this.$store.commit("getUser", this);
+    if (!isTokenInvalid()) {
+      this[types.GET_USER]();
     }
   },
   methods: {
     logout() {
-      this.$store.commit("logout");
+      this.$store.dispatch(types.LOGOUT);
       this.$router.go(0);
-    }
+    },
+    ...mapActions([types.GET_USER])
   }
 };
 </script>
