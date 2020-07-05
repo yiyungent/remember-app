@@ -8,7 +8,7 @@
       hide-on-scroll
       :clipped-left="$vuetify.breakpoint.lgAndUp"
       app
-      color="white"
+      color="primary"
       light
     >
       <v-app-bar-nav-icon
@@ -27,7 +27,7 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
       <v-btn icon>
-        <v-badge overlap left>
+        <v-badge overlap left color="secondary">
           <template v-slot:badge>0</template>
           <v-icon>fa-envelope-o</v-icon>
         </v-badge>
@@ -36,6 +36,7 @@
       <template v-slot:extension>
         <v-tabs
           background-color="transparent"
+          color="secondary"
           center-active
           v-model="currentTab"
         >

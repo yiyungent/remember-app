@@ -70,7 +70,7 @@
     <v-divider></v-divider>
     <!-- start 一般导航区 -->
     <v-list nav dense>
-      <v-list-item-group v-model="currentIndex" color="primary">
+      <v-list-item-group v-model="currentIndex" color="secondary">
         <v-list-item :to="item.route" v-for="(item, i) in items" :key="i">
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>

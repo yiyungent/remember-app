@@ -2,7 +2,7 @@
     <v-bottom-navigation
             grow
             fixed
-            color="primary"
+            color="secondary"
             light
             v-model="activeBtnModel"
     >
