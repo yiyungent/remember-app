@@ -7,7 +7,7 @@
   >
     <!-- start 顶部头像区 -->
     <template v-slot:prepend>
-      <v-img :aspect-ratio="16 / 9" src="/images/default-avatar-background.png">
+      <v-img :aspect-ratio="16 / 9" src="images/default-avatar-background.png">
         <v-list>
           <v-list-item class="d-flex justify-space-between">
             <v-list-item-avatar>

@@ -17,7 +17,7 @@
       <v-btn icon large>
         <v-avatar size="32px" item>
           <v-img
-            :src="!!user ? user.avatar : '/images/guest-avatar.jpg'"
+            :src="!!user ? user.avatar : 'images/guest-avatar.jpg'"
           ></v-img>
         </v-avatar>
       </v-btn>
