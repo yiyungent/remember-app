@@ -6,9 +6,7 @@ import store from "./store";
 import vuetify from "./plugins/vuetify";
 import * as filters from "./filters";
 import { isTokenInvalid } from "./utils";
-
-import { Toast } from "vant";
-Vue.use(Toast);
+import "@/assets/css/base.less";
 
 import VueAwesomeSwiper from "vue-awesome-swiper";
 // require styles
