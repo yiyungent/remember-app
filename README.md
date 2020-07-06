@@ -3,69 +3,61 @@
 </p>
 <h1 align="center">remember-app</h1>
 
-> :cake: 一个百宝袋，希望能帮到你
+> :cake: 一个多人博客APP
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/1411c341c4e04f229b397c01d4bc35c8)](https://app.codacy.com/manual/yiyungent/remember-app?utm_source=github.com&utm_medium=referral&utm_content=yiyungent/remember-app&utm_campaign=Badge_Grade_Dashboard)
 [![repo size](https://img.shields.io/github/repo-size/yiyungent/remember-app.svg?style=flat)]()
 [![LICENSE](https://img.shields.io/github/license/yiyungent/remember-app.svg?style=flat)](https://github.com/yiyungent/remember-app/blob/master/LICENSE)
 
 
-[English](README_en.md)
 
 ## 介绍
 
 remember-app: remember for mobile app.   
 
-一个百宝袋，主要是学习工具
- + **优雅** - 简单易用
- + **丰富** - 各种各样的工具
+一个多人博客APP
+ + **优雅** - 简单易用，美观大方
  + **免费** - 免费下载
+ 
+ ## 技术栈
+ 
+主要: Vue.js, Vue-Router, Vuex, Vuetify, Vant, Mockjs, Cordova
+
+ ## 扫描二维码在手机浏览器体验
+ 
+<img src="_res/_images/qrcode1.png" style="display:inline-block" width="200" height="200">
+<img src="_res/_images/qrcode2.png" style="display:inline-block" width="200" height="200">
 
  ## 截图
 
-<img src="_res/_images/1.png" width="200" height="348">
-<img src="_res/_images/2.png" width="200" height="348">
-<img src="_res/_images/3.png" width="200" height="348">
-<img src="_res/_images/4.png" width="200" height="348">
-<img src="_res/_images/5.png" width="200" height="348">
-<img src="_res/_images/6.png" width="200" height="348">
-<img src="_res/_images/7.png" width="200" height="348">
-<img src="_res/_images/8.png" width="200" height="348">
-<img src="_res/_images/9.png" width="200" height="348">
+ ##### 截图为旧版本，最新稳定版请扫描上方二维码体验
+
+<img style="display:inline-block" src="_res/_images/1.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/2.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/3.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/4.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/5.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/6.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/7.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/8.png" width="200" height="348">
+<img style="display:inline-block" src="_res/_images/9.png" width="200" height="348">
 
  
 ## TODO
 
-- [ ] 等待补充
-- [ ] 等待补充
-- [ ] 等待补充
-- [ ] 等待补充
-- [ ] 等待补充
-
-## 持续集成
-
-待补充
-
-## 依赖
-
-只需要满足下方其中一条.
-
-- .NET Framework (>= 4.0) 且 Newtonsoft.Json (>= 4.5.11) 被安装.
-- .NET Standard (>= 2.0) 且 Microsoft.CSharp (>= 4.5.0), Newtonsoft.Json (>= 9.0.1) 被安装.
-
-## 环境
-
-- 运行环境: .NET Framework (>= 4.0) or .NET Standard (>= 2.0)    
-- 开发环境: Visual Studio Community 2017
+- 见Projects
 
 ## 相关项目
 
 - [remember](https://github.com/yiyungent/remember)
+
+## Donate
+
+remember-app is an Apache-2.0 licensed open source project and completely free to use. However, the amount of effort needed to maintain and develop new features for the project is not sustainable without proper financial backing.
+
+We accept donations through these channels:
+- <a href="https://afdian.net/@yiyun" target="_blank">爱发电</a>
  
-## 鸣谢
-
-- 本项目...
-
 ## Author
 
 **remember-app** © [yiyun](https://github.com/yiyungent), Released under the [Apache-2.0](./LICENSE) License.<br>
