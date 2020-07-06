@@ -25,8 +25,8 @@ remember-app: remember for mobile app.
 
  ## 扫描二维码在手机浏览器体验
  
-<img src="_res/_images/qrcode1.png" style="display:inline-block" width="200" height="200">
-<img src="_res/_images/qrcode2.png" style="display:inline-block" width="200" height="200">
+ | ![](_res/_images/qrcode1.png) | ![](_res/_images/qrcode2.png) |
+ |:-|:-|
 
  ## 截图
 
