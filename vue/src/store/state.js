@@ -8,7 +8,7 @@
  */
 
 export default {
-    user: null,
-    // appInfo: null,
-    // appSettings: null
+  user: null
+  // appInfo: null,
+  // appSettings: null
 };

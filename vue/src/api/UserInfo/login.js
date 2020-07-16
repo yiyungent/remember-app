@@ -9,6 +9,7 @@
 
 import request from "@/utils/request.js";
 
-const api = (account, password) => request("/api/userInfo/login", "post", {account, password});
+const api = (account, password, ticket, userId) =>
+  request("/api/userInfo/login", "post", { account, password, ticket, userId });
 
 export default api;

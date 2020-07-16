@@ -8,6 +8,6 @@
  */
 
 export default {
-    GET_USER: "getUser",
-    LOGOUT: "logout",
+  GET_USER: "getUser",
+  LOGOUT: "logout"
 };

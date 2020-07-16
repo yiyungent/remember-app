@@ -23,6 +23,7 @@
     "vue-awesome-swiper": "^4.1.1",
     "vue-ba": "^1.2.8",
     "vue-router": "^3.2.0",
+    "vue-sim-captcha": "0.0.3",
     "vuelidate": "^0.7.5",
     "vuetify": "^2.2.11",
     "vuex": "^3.4.0"

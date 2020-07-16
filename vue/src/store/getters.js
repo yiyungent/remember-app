@@ -8,5 +8,5 @@
  */
 
 export default {
-    isLogin: state => state.user != null,
+  isLogin: state => state.user != null
 };

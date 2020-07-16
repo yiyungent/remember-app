@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters, mapActions } from 'vuex';
+import { mapState, mapGetters, mapActions } from "vuex";
 import { isTokenInvalid } from "@/utils";
 import types from "@/store/types";
 
@@ -168,7 +168,7 @@ export default {
     }),
     ...mapGetters({
       isLogin: "isLogin"
-    }),
+    })
   },
   watch: {
     value(newVal) {

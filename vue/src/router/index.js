@@ -28,122 +28,122 @@ Vue.use(VueRouter);
 //   needLogin: true,
 // },
 const routes = [
-    // 登录页
-    {
-        name: "Login",
-        path: "/Login",
-        component: Login
-    },
-    // 注册页
-    {
-        name: "Register",
-        path: "/Register",
-        component: Register
-    },
+  // 登录页
+  {
+    name: "Login",
+    path: "/Login",
+    component: Login
+  },
+  // 注册页
+  {
+    name: "Register",
+    path: "/Register",
+    component: Register
+  },
 
-    // 首页及分类
-    {
-        name: "Home",
-        path: "/",
-        component: Home,
-        redirect: {name: "Home_Index"},
-        children: [
-            {
-                name: "Home_Index",
-                path: "/Index",
-                component: Home_Index
-            },
-            // 频道
-            {
-                name: "Home_Channel",
-                path: "/Channel",
-                component: Home_Channel
-            },
-            // 动态
-            {
-                name: "Home_Dynamic",
-                path: "/Dynamic",
-                component: Home_Dynamic
-            }
-        ]
-    },
+  // 首页及分类
+  {
+    name: "Home",
+    path: "/",
+    component: Home,
+    redirect: { name: "Home_Index" },
+    children: [
+      {
+        name: "Home_Index",
+        path: "/Index",
+        component: Home_Index
+      },
+      // 频道
+      {
+        name: "Home_Channel",
+        path: "/Channel",
+        component: Home_Channel
+      },
+      // 动态
+      {
+        name: "Home_Dynamic",
+        path: "/Dynamic",
+        component: Home_Dynamic
+      }
+    ]
+  },
 
-    // 我的好友 = 我的关注 + 我的粉丝
-    {
-        name: "MyFriends",
-        path: "/MyFriends",
-        component: MyFriends,
-        redirect: {name: "MyFriends_MyFollow"},
-        children: [
-            {
-                name: "MyFriends_MyFollow",
-                path: "MyFollow",
-                component: MyFriends_MyFollow,
-                meta: {
-                    needLogin: true
-                }
-            },
-            {
-                name: "MyFriends_MyFans",
-                path: "MyFans",
-                component: MyFriends_MyFans,
-                meta: {
-                    needLogin: true
-                }
-            }
-        ]
-    },
+  // 我的好友 = 我的关注 + 我的粉丝
+  {
+    name: "MyFriends",
+    path: "/MyFriends",
+    component: MyFriends,
+    redirect: { name: "MyFriends_MyFollow" },
+    children: [
+      {
+        name: "MyFriends_MyFollow",
+        path: "MyFollow",
+        component: MyFriends_MyFollow,
+        meta: {
+          needLogin: true
+        }
+      },
+      {
+        name: "MyFriends_MyFans",
+        path: "MyFans",
+        component: MyFriends_MyFans,
+        meta: {
+          needLogin: true
+        }
+      }
+    ]
+  },
 
-    // 我的收藏 = 我的文章收藏
-    {
-        name: "MyFav",
-        path: "/MyFav",
-        component: MyFav,
-        redirect: {name: "MyFav_Article"},
-        children: [
-            {
-                name: "MyFav_Article",
-                path: "Article",
-                component: MyFav_Article,
-                meta: {
-                    needLogin: true
-                }
-            }
-        ]
-    },
+  // 我的收藏 = 我的文章收藏
+  {
+    name: "MyFav",
+    path: "/MyFav",
+    component: MyFav,
+    redirect: { name: "MyFav_Article" },
+    children: [
+      {
+        name: "MyFav_Article",
+        path: "Article",
+        component: MyFav_Article,
+        meta: {
+          needLogin: true
+        }
+      }
+    ]
+  },
 
-    // 某收藏夹
-    {
-        name: "Favorite",
-        path: "/Favorite/:id",
-        component: Favorite
-    },
-    {
-        name: "CreateFavorite",
-        path: "/CreateFavorite",
-        component: CreateFavorite
-    },
+  // 某收藏夹
+  {
+    name: "Favorite",
+    path: "/Favorite/:id",
+    component: Favorite
+  },
+  {
+    name: "CreateFavorite",
+    path: "/CreateFavorite",
+    component: CreateFavorite
+  },
 
-    // 文章页
-    {
-        name: "Article",
-        path: "/Article/:id",
-        component: Article,
-        meta: {needLogin: true}
-    },
+  // 文章页
+  {
+    name: "Article",
+    path: "/Article/:id",
+    component: Article,
+    meta: { needLogin: true }
+  },
 
-    // 404 错误页面
-    {
-        name: "NotFound",
-        path: "*",
-        component: NotFound
-    }
+  // 404 错误页面
+  {
+    name: "NotFound",
+    path: "*",
+    component: NotFound
+  }
 ];
 
 const router = new VueRouter({
-    // mode: 'history',
-    mode: "hash",
-    routes
+  // mode: 'history',
+  mode: "hash",
+  routes
 });
 
 export default router;

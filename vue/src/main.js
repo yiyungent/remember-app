@@ -27,7 +27,7 @@ require("@/mock");
 
 // 引入http request，进行一些初始化配置操作，但不允许在vue component中直接操作http request，而是调用api
 require("@/utils/request.js");
-Vue.prototype.$http = function () {
+Vue.prototype.$http = function() {
   console.error("你不应当在组件中直接发送http请求，请调用api获取数据");
 };
 
@@ -37,13 +37,13 @@ router.beforeEach((to, from, next) => {
   if (to.meta.needLogin) {
     // 下面这个判断是自行实现到底是否有没有登录
     if (isTokenInvalid()) {
-        // token无效 -> （这种情况下，通常是登陆(token)过期） 清除 vuex中user
-        store.state.user = null;
-        // token无效 -> 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
-        next({
-          path: "/login",
-          query: { redirect: to.fullPath }
-        });
+      // token无效 -> （这种情况下，通常是登陆(token)过期） 清除 vuex中user
+      store.state.user = null;
+      // token无效 -> 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
+      next({
+        path: "/login",
+        query: { redirect: to.fullPath }
+      });
     } else {
       // 登录就继续
       next();
