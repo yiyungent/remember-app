@@ -29,7 +29,7 @@ Mock.mock(/\/api\/userInfo\/favorites\?*/i, "get", {
         "favList|1-5": [
           {
             id: "@increment(10)",
-            name: "@ctitle(1,8)",
+            name: "@ctitle(5,40)",
             "count|13-254": 0,
             isOpen: true,
             picUrl: "@image('200x100', '#f8e71c', '#0FF', '@name')"
