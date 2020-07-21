@@ -32,3 +32,10 @@ Mock.mock(/\/api\/userInfo\?*/i, "get", {
   },
   message: "success"
 });
+
+Mock.mock(/\/api\/userInfo\/emailVCode\?*/i, "post", {
+  code: 1,
+  data: {},
+  message: "success"
+});
+
