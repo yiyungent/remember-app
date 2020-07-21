@@ -9,7 +9,7 @@
       :src="item.article.picUrl"
       :lazy-src="item.article.picUrl"
     >
-      <v-card-title class="card-title">
+      <v-card-title class="rem-card-title">
         <v-icon x-small color="white">mdi-heart</v-icon>
         <span>{{ item.favNum }}</span>
       </v-card-title>
@@ -22,11 +22,11 @@
         </v-row>
       </template>
     </v-img>
-    <v-card-text class="card-text">
-      <div class="card-text-title">
-        {{ item.article.title | subStrPretty(22) }}
+    <v-card-text class="rem-card-text">
+      <div class="rem-card-text-title">
+        {{ item.article.title }}
       </div>
-      <div class="card-text-cat">野生技术协会·项目实战</div>
+      <div class="rem-card-text-cat">野生技术协会·项目实战</div>
     </v-card-text>
   </v-card>
 </template>
@@ -50,12 +50,12 @@ export default {
 
 <style lang="less" scoped>
 // start 文章卡片
-.card-title {
+.rem-card-title {
   font-size: 12px;
   padding-top: 76px;
   height: 10px;
 }
-.card-text {
+.rem-card-text {
   height: 78px;
   padding: 0.5em;
   letter-spacing: 0.1em;
@@ -63,13 +63,24 @@ export default {
   justify-content: space-between;
   display: flex;
 
-  .card-text-title {
+  .rem-card-text-title {
     color: #000;
     font-size: 13px;
     font-weight: 360;
+    // 文字超出两行，省略号处理
+    overflow: hidden;
+    text-overflow: ellipsis; // 可省, 加上兼容性
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
   }
-  .card-text-cat {
+  .rem-card-text-cat {
     font-size: 10px;
+    // 文字超出一行，省略号处理
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 // end 文章卡片
