@@ -58,7 +58,7 @@
 import { mapActions } from "vuex";
 import types from "@/store/types";
 import apiEmailVCode from "@/api/UserInfo/emailVCode.js";
-// import apiRegister from "@/api/UserInfo/register.js";
+import apiRegister from "@/api/UserInfo/registerByEmail.js";
 import { Toast, Field, Popup } from "vant";
 import Vue from "vue";
 import AccountIndex from "@/components/Account/Index";
@@ -117,6 +117,28 @@ export default {
   methods: {
     register() {
       // TODO: 注册: 邮箱，邮箱验证码，密码
+      // 效验密码与确认密码
+      if (this.password !== this.confirmPwd) {
+        Toast("两次密码输入不一致");
+        return;
+      }
+      // 发送 邮箱，邮箱验证码，密码
+      apiRegister(this.email, this.vCode, this.password).then(res => {
+        if (res.code > 0) {
+          Toast("注册成功, 即将前往登录");
+          setTimeout(() => {
+            this.$router.push({ name: "Login" });
+          }, 1000);
+        } else {
+          Toast(res.message);
+          if (res.code == -1) {
+            // 邮箱验证码不正确
+            this.vCode = "";
+            this.password = "";
+            this.confirmPwd = "";
+          }
+        }
+      });
     },
 
     getVCode() {
