@@ -18,6 +18,29 @@ Mock.mock(/\/api\/userInfo\/login\?*/i, "post", {
   message: "success"
 });
 
+Mock.mock(/\/api\/userInfo\/favorites\?*/i, "get", {
+  code: 1,
+  data: {
+    groups: [
+      {
+        id: 0,
+        isFolder: true,
+        groupName: "我的创建",
+        "favList|1-5": [
+          {
+            id: "@increment(10)",
+            name: "@ctitle(1,8)",
+            "count|13-254": 0,
+            isOpen: true,
+            picUrl: "@image('200x100', '#f8e71c', '#0FF', '@name')"
+          }
+        ]
+      },
+    ],
+  },
+  message: "success"
+});
+
 Mock.mock(/\/api\/userInfo\?*/i, "get", {
   code: 1,
   data: {
@@ -44,3 +67,4 @@ Mock.mock(/\/api\/userInfo\/registerByEmail\?*/i, "post", {
   data: {},
   message: "success"
 });
+
