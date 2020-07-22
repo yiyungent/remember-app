@@ -1,3 +1,8 @@
+/*
+ * @Author: yiyun
+ * @Description: remember-app
+ */
+
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -42,7 +47,7 @@ router.beforeEach((to, from, next) => {
       // token无效 -> 没有登录跳转到登录页面，登录成功之后再返回到之前请求的页面
       next({
         path: "/login",
-        query: { redirect: to.fullPath }
+        query: { redirect: to.fullPath },
       });
     } else {
       // 登录就继续
@@ -55,7 +60,7 @@ router.beforeEach((to, from, next) => {
 });
 
 // 注册常用全局过滤器
-Object.keys(filters).forEach(key => {
+Object.keys(filters).forEach((key) => {
   Vue.filter(key, filters[key]);
 });
 
@@ -65,5 +70,13 @@ new Vue({
   router,
   store,
   vuetify,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");
+
+const VERSION = "0.0.1";
+const GIT_HASH = "";
+console.log(
+  `${"\n"} %c remember-app v${VERSION} ${GIT_HASH} %c https://github.com/yiyungent/remember-app ${"\n"}${"\n"}`,
+  "color: #fff; background: #030307; padding:5px 0;",
+  "background: #ff80ab; padding:5px 0;"
+);
